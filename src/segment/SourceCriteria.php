@@ -40,4 +40,9 @@ class SourceCriteria implements CriteriaInterface
     {
         return "source {$params->stringArray('source')->escapedString()}";
     }
+
+    public function fields(): array
+    {
+        return [];
+    }
 }

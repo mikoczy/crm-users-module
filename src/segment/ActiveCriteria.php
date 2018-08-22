@@ -27,7 +27,7 @@ class ActiveCriteria implements CriteriaInterface
 
     public function join(ParamsBag $params): string
     {
-        return "SELECT id FROM users WHERE active = " . $params->boolean('active')->number();
+        return "SELECT id, users.created_at AS user_created_at  FROM users WHERE active = " . $params->boolean('active')->number();
     }
 
     public function title(ParamsBag $params): string
@@ -37,5 +37,10 @@ class ActiveCriteria implements CriteriaInterface
         } else {
             return ' inactive';
         }
+    }
+
+    public function fields(): array
+    {
+        return ['users.created_at' => 'user_created_at'];
     }
 }
