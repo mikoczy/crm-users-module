@@ -3,6 +3,7 @@
 namespace Crm\UsersModule\Presenters;
 
 use Crm\AdminModule\Presenters\AdminPresenter;
+use Crm\UsersModule\Components\Widgets\DetailWidgetFactoryInterface;
 use Crm\ApplicationModule\Components\VisualPaginator;
 use Crm\ApplicationModule\DataProvider\DataProviderManager;
 use Crm\ApplicationModule\User\DeleteUserData;
@@ -320,6 +321,12 @@ class UsersAdminPresenter extends AdminPresenter
         $this->getHttpResponse()->addHeader('Content-Disposition', 'attachment; filename=export.csv');
 
         $this->template->users = $this->getFilteredUsers()->limit(100000);
+    }
+
+    protected function createComponentDetailWidget(DetailWidgetFactoryInterface $factory)
+    {
+        $control = $factory->create();
+        return $control;
     }
 
     public function createComponentUserNoteForm()

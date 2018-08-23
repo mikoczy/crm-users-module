@@ -1,0 +1,30 @@
+<div n:if="$mainWidgets || $subWidgets" class="row">
+  <div class="col-md-12">
+
+    <ul class="nav nav-tabs" role="tablist">
+      <li n:foreach="$mainWidgets as $widget" role="presentation" {first}class="active"{/first}>
+        <a href="#{$widget->identifier()}" aria-controls="{$widget->identifier()}" role="tab" data-toggle="tab">{$mainWidgetsTitles[$widget->identifier()]|noescape}</a>
+      </li>
+      <li n:if="$subWidgets" role="presentation" class="dropdown">
+        <a href="#" aria-controls="other_records" role="tab" class="dropdown-toggle" data-toggle="dropdown" >Ostatné <span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+          <li n:foreach="$subWidgets as $widget" role="presentation">
+            <a href="#{$widget->identifier()}" aria-controls="{$widget->identifier()}" role="tab" data-toggle="tab">{$subWidgetsTitles[$widget->identifier()]|noescape}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+
+      <div n:foreach="$mainWidgets as $widget" role="tabpanel" class="tab-pane {first}active{/first}" id="{$widget->identifier()}">
+        {control $widget $params}
+      </div>
+
+      <div n:foreach="$subWidgets as $widget" role="tabpanel" class="tab-pane" id="{$widget->identifier()}">
+        {control $widget $params}
+      </div>
+
+    </div>
+  </div>
+</div>
