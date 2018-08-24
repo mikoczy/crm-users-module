@@ -4,7 +4,7 @@ namespace Crm\UsersModule;
 
 use Crm\ApiModule\Router\ApiIdentifier;
 use Crm\ApiModule\Router\ApiRoute;
-use Crm\ApplicationModule\Api\ApiRoutersContainerInterface;
+use Crm\ApiModule\Api\ApiRoutersContainerInterface;
 use Crm\ApplicationModule\CallbackManagerInterface;
 use Crm\ApplicationModule\Commands\CommandsContainerInterface;
 use Crm\ApplicationModule\CrmModule;
