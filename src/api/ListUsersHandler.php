@@ -6,7 +6,7 @@ use Crm\ApiModule\Api\JsonResponse;
 use Crm\ApiModule\Authorization\ApiAuthorizationInterface;
 use Crm\ApiModule\Params\InputParam;
 use Crm\ApiModule\Params\ParamsProcessor;
-use Crm\ApplicationModule\Api\ApiHandler;
+use Crm\ApiModule\Api\ApiHandler;
 use Crm\UsersModule\Repository\UsersRepository;
 use Nette\Database\Table\ActiveRow;
 use Nette\Http\Request;
