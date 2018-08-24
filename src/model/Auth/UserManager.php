@@ -12,6 +12,7 @@ use Crm\UsersModule\Repository\AccessTokensRepository;
 use Crm\UsersModule\Repository\AddressesRepository;
 use Crm\UsersModule\Repository\ChangePasswordsLogsRepository;
 use Crm\UsersModule\Repository\PasswordResetTokensRepository;
+use Crm\UsersModule\Repository\UserAlreadyExistsException;
 use Crm\UsersModule\Repository\UsersRepository;
 use League\Event\Emitter;
 use Nette\Database\IRow;
@@ -68,12 +69,13 @@ class UserManager
 
     /**
      * @param string $email
-     * @param bool   $sendEmail
+     * @param bool $sendEmail
      * @param string $source
-     * @param null   $referer
+     * @param null $referer
      *
      * @return bool
      * @throws InvalidEmailException
+     * @throws UserAlreadyExistsException
      * @throws \Nette\Utils\JsonException
      */
     public function addNewUser($email, $sendEmail = true, $source = 'unknown', $referer = null)
@@ -93,7 +95,7 @@ class UserManager
             ->save();
 
         if (!$user) {
-            throw new \Exception('Fatalna chyba - nepodarilo sa vyrobit user v manageri: ' . Json::encode($this->userBuilder->getErrors()));
+            throw new UserAlreadyExistsException('Fatalna chyba - nepodarilo sa vyrobit user v manageri: ' . Json::encode($this->userBuilder->getErrors()));
         }
 
         return $user;

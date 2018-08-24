@@ -11,6 +11,7 @@ use Crm\UsersModule\Repository\AccessTokensRepository;
 use Crm\UsersModule\Auth\InvalidEmailException;
 use Crm\UsersModule\Auth\UserManager;
 use Crm\UsersModule\Repository\GroupsRepository;
+use Crm\UsersModule\Repository\UserAlreadyExistsException;
 use Crm\UsersModule\Repository\UserGroupsRepository;
 use Nette\Http\Response;
 use Nette\Utils\Validators;
@@ -113,10 +114,8 @@ class UsersCreateHandler extends ApiHandler
             $response = new JsonResponse(['status' => 'error', 'message' => 'Invalid email', 'code' => 'invalid_email']);
             $response->setHttpCode(Response::S404_NOT_FOUND);
             return $response;
-        }
-
-        if (!$user) {
-            $response = new JsonResponse(['status' => 'error', 'message' => 'Email is already taken']);
+        } catch (UserAlreadyExistsException $e) {
+            $response = new JsonResponse(['status' => 'error', 'message' => 'Email is already taken', 'code' => 'email_taken']);
             $response->setHttpCode(Response::S404_NOT_FOUND);
             return $response;
         }
