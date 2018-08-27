@@ -53,6 +53,13 @@
       </div>
     </div>
 
+    <div class="panel panel-default">
+      <div class="panel-heading">User actions</div>
+      <div class="panel-body">
+        <a n:href="Suspicious! $user->id" class="btn btn-default" onclick="return confirm('Are you sure?')">Suspicious account</a>
+      </div>
+    </div>
+
     {control simpleWidget 'admin.user.detail.left', $user->id}
 
   </div>
