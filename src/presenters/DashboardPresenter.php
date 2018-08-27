@@ -25,6 +25,10 @@ class DashboardPresenter extends AdminPresenter
         $this->dateTo = $this->dateTo ?? DateTime::from('today')->format('Y-m-d');
     }
 
+    public function renderDefault()
+    {
+    }
+
     public function createComponentDateFilterForm(DateFilterFormFactory $dateFilterFormFactory)
     {
         $form = $dateFilterFormFactory->create($this->dateFrom, $this->dateTo);
