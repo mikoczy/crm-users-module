@@ -36,4 +36,9 @@ class CreatedCriteria implements CriteriaInterface
     {
         return "created{$paramBag->datetime('created')->title('users.created_at')}";
     }
+
+    public function fields(): array
+    {
+        return [];
+    }
 }

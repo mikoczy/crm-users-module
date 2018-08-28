@@ -35,4 +35,9 @@ class EmailCriteria implements CriteriaInterface
     {
         return "with email {$params->stringArray('email')->escapedString()}";
     }
+
+    public function fields(): array
+    {
+        return [];
+    }
 }
