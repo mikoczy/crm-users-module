@@ -251,10 +251,25 @@ class UsersModule extends CrmModule
 
     public function registerSegmentCriteria(CriteriaStorage $criteriaStorage)
     {
-        $criteriaStorage->register('users', 'source', $this->getInstance(\Crm\UsersModule\Segment\SourceCriteria::class));
         $criteriaStorage->register('users', 'active', $this->getInstance(\Crm\UsersModule\Segment\ActiveCriteria::class));
+        $criteriaStorage->register('users', 'deleted', $this->getInstance(\Crm\UsersModule\Segment\DeletedCriteria::class));
+        $criteriaStorage->register('users', 'source', $this->getInstance(\Crm\UsersModule\Segment\SourceCriteria::class));
         $criteriaStorage->register('users', 'email', $this->getInstance(\Crm\UsersModule\Segment\EmailCriteria::class));
         $criteriaStorage->register('users', 'created', $this->getInstance(\Crm\UsersModule\Segment\CreatedCriteria::class));
+
+        $criteriaStorage->setDefaultFields('users', ['id']);
+        $criteriaStorage->setFields('users', [
+            'email',
+            'first_name',
+            'last_name',
+            'public_name',
+            'role',
+            'active',
+            'source',
+            'confirmed_at',
+            'last_sign_in_at',
+            'created_at',
+        ]);
     }
 
     public function registerRoutes(RouteList $router)
