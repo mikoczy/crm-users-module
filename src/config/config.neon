@@ -82,8 +82,9 @@ services:
 	- Crm\UsersModule\User\AutoLoginTokensUserDataProvider
 	- Crm\UsersModule\User\UserMetaUserDataProvider
 	- Crm\UsersModule\User\ZipBuilder('%tempDir%')
-	- Crm\UsersModule\Segment\SourceCriteria
 	- Crm\UsersModule\Segment\ActiveCriteria
+	- Crm\UsersModule\Segment\DeletedCriteria
+	- Crm\UsersModule\Segment\SourceCriteria
 	- Crm\UsersModule\Segment\EmailCriteria
 	- Crm\UsersModule\Segment\CreatedCriteria
 	- Crm\UsersModule\Seeders\ConfigsSeeder

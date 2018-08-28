@@ -6,11 +6,11 @@ use Crm\ApplicationModule\Criteria\CriteriaInterface;
 use Crm\SegmentModule\Params\BooleanParam;
 use Crm\SegmentModule\Params\ParamsBag;
 
-class ActiveCriteria implements CriteriaInterface
+class DeletedCriteria implements CriteriaInterface
 {
     public function label(): string
     {
-        return "Active";
+        return "Deleted";
     }
 
     public function category(): string
@@ -21,21 +21,26 @@ class ActiveCriteria implements CriteriaInterface
     public function params(): array
     {
         return [
-            new BooleanParam('active', true, true),
+            new BooleanParam('deleted', true, false),
         ];
     }
 
     public function join(ParamsBag $params): string
     {
-        return "SELECT id FROM users WHERE active = " . $params->boolean('active')->number();
+        $null = 'IS NULL';
+        if ($params->boolean('deleted')->isTrue()) {
+            $null = 'IS NOT NULL';
+        }
+
+        return "SELECT id FROM users WHERE deleted_at {$null}";
     }
 
     public function title(ParamsBag $params): string
     {
         if ($params->boolean('active')->isTrue()) {
-            return ' active';
+            return ' deleted';
         } else {
-            return ' inactive';
+            return '';
         }
     }
 

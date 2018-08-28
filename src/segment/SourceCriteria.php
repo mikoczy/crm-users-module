@@ -5,12 +5,20 @@ namespace Crm\UsersModule\Segment;
 use Crm\SegmentModule\Params\ParamsBag;
 use Crm\ApplicationModule\Criteria\CriteriaInterface;
 use Crm\SegmentModule\Params\StringArrayParam;
+use Crm\UsersModule\Repository\UsersRepository;
 
 class SourceCriteria implements CriteriaInterface
 {
+    private $usersRepository;
+
+    public function __construct(UsersRepository $usersRepository)
+    {
+        $this->usersRepository = $usersRepository;
+    }
+
     private function availableSources(): array
     {
-        return ['web', 'api'];
+        return array_keys($this->usersRepository->getUserSources());
     }
 
     public function label(): string
@@ -39,5 +47,10 @@ class SourceCriteria implements CriteriaInterface
     public function title(ParamsBag $params): string
     {
         return "source {$params->stringArray('source')->escapedString()}";
+    }
+
+    public function fields(): array
+    {
+        return [];
     }
 }
