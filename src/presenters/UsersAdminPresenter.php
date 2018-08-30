@@ -3,6 +3,7 @@
 namespace Crm\UsersModule\Presenters;
 
 use Crm\AdminModule\Presenters\AdminPresenter;
+use Crm\UsersModule\Auth\UserManager;
 use Crm\UsersModule\Components\Widgets\DetailWidgetFactoryInterface;
 use Crm\ApplicationModule\Components\VisualPaginator;
 use Crm\ApplicationModule\DataProvider\DataProviderManager;
@@ -50,6 +51,8 @@ class UsersAdminPresenter extends AdminPresenter
 
     private $dataProviderManager;
 
+    private $userManager;
+
     public function __construct(
         UsersRepository $usersRepository,
         UserFormFactory $userFormFactory,
@@ -59,7 +62,8 @@ class UsersAdminPresenter extends AdminPresenter
         UserNoteFormFactory $userNoteFormFactory,
         AddressesRepository $addressesRepository,
         DeleteUserData $deleteUserData,
-        DataProviderManager $dataProviderManager
+        DataProviderManager $dataProviderManager,
+        UserManager $userManager
     ) {
         parent::__construct();
         $this->usersRepository = $usersRepository;
@@ -71,6 +75,7 @@ class UsersAdminPresenter extends AdminPresenter
         $this->addressesRepository = $addressesRepository;
         $this->deleteUserData = $deleteUserData;
         $this->dataProviderManager = $dataProviderManager;
+        $this->userManager = $userManager;
     }
 
     public function startup()
@@ -314,6 +319,17 @@ class UsersAdminPresenter extends AdminPresenter
         $this->redirect('UsersAdmin:Show', $user->id);
     }
 
+    public function handleSuspicious($id)
+    {
+        $user = $this->usersRepository->find($id);
+        if (!$user) {
+            throw new Nette\Application\BadRequestException();
+        }
+
+        $this->userManager->suspiciousUser($user->email);
+        $this->flashMessage("OK"); // todo preklady
+        $this->redirect('show', $user->id);
+    }
 
     public function renderExport()
     {

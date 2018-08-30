@@ -10,6 +10,7 @@ class ChangePasswordsLogsRepository extends Repository
     const TYPE_CHANGE = 'change';
     const TYPE_RESET = 'reset';
     const TYPE_FORCE = 'force';
+    const TYPE_SUSPICIOUS = 'suspicious';
 
     protected $tableName = 'change_passwords_logs';
 
