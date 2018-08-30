@@ -115,7 +115,7 @@
         <a n:href="AddressAdmin:edit $printAddress->id" class="pull-right btn-default btn-xs"><i class="fa fa-pencil"></i></a>
       </div>
       <div class="panel-body">
-        {include '../../../../templates/partials/address.latte', address => $printAddress}
+        {control simpleWidget 'admin.user.address.partial', $printAddress}
       </div>
     </div>
 

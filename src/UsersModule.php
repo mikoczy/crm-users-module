@@ -205,6 +205,12 @@ class UsersModule extends CrmModule
             $this->getInstance(\Crm\UsersModule\Components\MonthUsersSmallBarGraphWidget::class),
             500
         );
+
+        $widgetManager->registerWidget(
+            'admin.user.address.partial',
+            $this->getInstance(\Crm\UsersModule\Components\AddressWidget::class),
+            100
+        );
     }
 
     public function registerApiCalls(ApiRoutersContainerInterface $apiRoutersContainer)
