@@ -1,7 +1,7 @@
 services:
 	moduleManager:
 		setup:
-			- addModule(Crm\UsersModule\UsersModule())
+			- addModule(Crm\UsersModule\UsersModule(), 300)
 	accessTokenStorage: Crm\UsersModule\Auth\Access\DummyStorage
 	emailValidator:
 		class: Crm\UsersModule\Email\EmailValidator
