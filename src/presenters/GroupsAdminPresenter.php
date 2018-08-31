@@ -19,6 +19,10 @@ class GroupsAdminPresenter extends AdminPresenter
         $this->template->groups = $this->groupsRepository->all();
     }
 
+    public function renderNew()
+    {
+    }
+
     public function renderEdit($id)
     {
         $this->template->group = $this->groupsRepository->find($id);
