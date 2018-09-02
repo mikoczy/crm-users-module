@@ -177,7 +177,7 @@ class UsersModule extends CrmModule
 
         $widgetManager->registerWidget(
             'admin.user.detail.box',
-            $this->getInstance(\Crm\UsersModule\Components\UserSourcesAccess::class),
+            $this->getInstance(\Crm\UsersModule\Components\UserSourceAccesses::class),
             580
         );
         $widgetManager->registerWidget(

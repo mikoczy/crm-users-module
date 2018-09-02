@@ -394,3 +394,7 @@ authenticator:
 	identity_not_found: Invalid email.
 	invalid_credentials: Invalid password.
 	inactive_account: Account is disabled.
+
+user_source_accesses_component:
+	title: Last accesses
+	no_data: No data recorded

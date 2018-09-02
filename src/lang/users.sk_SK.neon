@@ -394,3 +394,7 @@ authenticator:
 	identity_not_found: Nesprávne meno.
 	invalid_credentials: Heslo je nesprávne.
 	inactive_account: Konto je neaktívne.
+
+user_source_accesses_component:
+	title: Posledné prístupy
+	no_data: Zatiaľ neevidujeme žiadny prístup

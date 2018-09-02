@@ -90,5 +90,5 @@ services:
 	- Crm\UsersModule\Segment\CreatedCriteria
 	- Crm\UsersModule\Seeders\ConfigsSeeder
 	- Crm\UsersModule\Seeders\UsersSeeder
-	- Crm\UsersModule\Components\UserSourcesAccess
+	- Crm\UsersModule\Components\UserSourceAccesses
 	- Crm\UsersModule\Components\UserTokens
