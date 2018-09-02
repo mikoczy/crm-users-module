@@ -12,7 +12,7 @@ SET time_zone = '+00:00';
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 
-CREATE TABLE `access_tokens` (
+CREATE TABLE IF NOT EXISTS `access_tokens` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
