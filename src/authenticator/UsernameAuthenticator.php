@@ -28,7 +28,7 @@ use Nette\Security\Passwords;
  * - 'username'
  * - 'password'
  */
-class UsernameAuthenticator extends BaseAuthenticator
+abstract class UsernameAuthenticator extends BaseAuthenticator
 {
     private $userManager;
 

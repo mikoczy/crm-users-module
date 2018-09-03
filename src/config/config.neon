@@ -15,6 +15,7 @@ services:
 
 	- Crm\UsersModule\Auth\Access\AccessToken
 	- Crm\UsersModule\Auth\LoggedUserTokenAuthorization
+	- Crm\UsersModule\Authenticator\UsersAuthenticator
 	- Crm\UsersModule\Repository\AccessTokensRepository
 	- Crm\UsersModule\Forms\ChangePasswordFormFactory
 	- Crm\UsersModule\Forms\RequestPasswordFormFactory

@@ -5,6 +5,7 @@ namespace Crm\UsersModule;
 use Crm\ApiModule\Router\ApiIdentifier;
 use Crm\ApiModule\Router\ApiRoute;
 use Crm\ApiModule\Api\ApiRoutersContainerInterface;
+use Crm\ApplicationModule\Authenticator\AuthenticatorManagerInterface;
 use Crm\ApplicationModule\CallbackManagerInterface;
 use Crm\ApplicationModule\Commands\CommandsContainerInterface;
 use Crm\ApplicationModule\CrmModule;
@@ -38,6 +39,14 @@ class UsersModule extends CrmModule
         parent::__construct($container, $translator);
         $this->user = $user;
         $this->permissions = $permissions;
+    }
+
+    public function registerAuthenticators(AuthenticatorManagerInterface $authenticatorManager)
+    {
+        $authenticatorManager->registerAuthenticator(
+            $this->getInstance(\Crm\UsersModule\Authenticator\UsersAuthenticator::class),
+            500
+        );
     }
 
     public function registerAdminMenuItems(MenuContainerInterface $menuContainer)
