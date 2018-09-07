@@ -15,6 +15,7 @@ use Crm\UsersModule\Forms\UserFormFactory;
 use Crm\UsersModule\Forms\UserGroupsFormFactory;
 use Crm\UsersModule\Forms\UserNoteFormFactory;
 use Crm\UsersModule\Repository\AddressesRepository;
+use Crm\UsersModule\Repository\ChangePasswordsLogsRepository;
 use Crm\UsersModule\Repository\GroupsRepository;
 use Crm\UsersModule\Repository\UsersRepository;
 use Nette;
@@ -53,6 +54,8 @@ class UsersAdminPresenter extends AdminPresenter
 
     private $userManager;
 
+    private $changePasswordsLogsRepository;
+
     public function __construct(
         UsersRepository $usersRepository,
         UserFormFactory $userFormFactory,
@@ -63,7 +66,8 @@ class UsersAdminPresenter extends AdminPresenter
         AddressesRepository $addressesRepository,
         DeleteUserData $deleteUserData,
         DataProviderManager $dataProviderManager,
-        UserManager $userManager
+        UserManager $userManager,
+        ChangePasswordsLogsRepository $changePasswordsLogsRepository
     ) {
         parent::__construct();
         $this->usersRepository = $usersRepository;
@@ -76,6 +80,7 @@ class UsersAdminPresenter extends AdminPresenter
         $this->deleteUserData = $deleteUserData;
         $this->dataProviderManager = $dataProviderManager;
         $this->userManager = $userManager;
+        $this->changePasswordsLogsRepository = $changePasswordsLogsRepository;
     }
 
     public function startup()
@@ -141,6 +146,9 @@ class UsersAdminPresenter extends AdminPresenter
         $this->template->printAddresses = array_filter($this->addressesRepository->addresses($user), function ($item) {
             return $item->type != 'invoice';
         });
+
+        $this->template->lastSuspicious = $this->changePasswordsLogsRepository->lastUserLog($user->id, ChangePasswordsLogsRepository::TYPE_SUSPICIOUS);
+
 
         $this->template->canEditRoles = $this->getUser()->isAllowed('Users:AdminGroupAdmin', 'edit');
     }

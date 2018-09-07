@@ -53,10 +53,13 @@
       </div>
     </div>
 
-    <div class="panel panel-default">
+    <div class="panel {if $lastSuspicious}panel-danger{else}panel-default{/if}">
       <div class="panel-heading">User actions</div>
       <div class="panel-body">
         <a n:href="Suspicious! $user->id" class="btn btn-default" onclick="return confirm('Are you sure?')">Suspicious account</a>
+        {if $lastSuspicious}
+          <p class="text-muted"><br>last market at: {$lastSuspicious->created_at}</p>
+        {/if}
       </div>
     </div>
 
