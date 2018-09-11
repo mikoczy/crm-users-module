@@ -1,0 +1,178 @@
+forms:
+	invoice:
+		label:
+			company_name: Název firmy
+			address: Adresa
+			number: Číslo
+			city: Město
+			zip: PSČ
+			ico: IČO
+			dic: DIČ
+			icdph: IČDPH
+			invoice_country_id: Země
+			send: Uložit
+			save: Uložit údaje
+		placeholder:
+			company_name: název firmy na faktuře
+			address: fakturační adresa
+			number: napište číslo domu
+			city: napište město
+			zip: napište PSČ
+			ico: "pokud nemáte, zadejte 0"
+			dic: "pokud nemáte, zadejte 0"
+			icdph: "pokud nemáte, zadejte 0"
+		required:
+			company_name: Název firmy musí být vyplněn
+			address: Adresa firmy musí být vyplněna
+			number: Číslo domu musí být vyplněno
+			city: Město musí být vyplněno
+			zip: PSČ musí být vyplněno
+			ico: IČO musí být vyplněno
+			dic: DIČ musí být vyplněno
+			icdph: IČDPH musí být vyplněno
+		options:
+			foreign_country: "Pro informace o doručení do zahraničí nás prosím kontaktujte na %contactEmail%"
+	printAddress:
+		label:
+			name: Jméno
+			last_name: Příjmení
+			phone_number: Tel. číslo
+			address: Ulice
+			number: Číšlo domu
+			zip: PSČ
+			city: Město
+			save: Uložit údaje
+		required:
+			name: Musíte vyplnit Vaše jméno
+			last_name: Musíte vyplnit Vaše příjmení
+			address: Musíte zadat ulici
+			number: Musíte zadat číslo domu
+			zip: Musíte zadať PSČ
+			city: Musíte zadat město
+
+frontend:
+	sign_in:
+		title: Přihlášení
+		username:
+			label: 'E-mail:'
+			required: Prosím zadejte Váš email
+			placeholder: Například moj@email.cz
+		password:
+			label: 'Heslo:'
+			required: Prosím zadejte heslo.
+			placeholder: Vaše heslo
+		remember: Zapamatuj si mě
+		submit: Přihlásit
+		signed_out: Byli jste odhlášeni.
+	change_password:
+		title: Změna hesla
+		submit: Změň heslo
+		actual_password:
+			label: 'Aktuální heslo:'
+			required: Zadejte prosím Vaše aktuální heslo
+			placeholder: aktuální heslo
+		new_password:
+			label: 'Nové heslo:'
+			required: Zadejte prosím Vaše nové heslo
+			placeholder: nové heslo
+			minlength: Heslo musí být dlouhé alespoň %d znaků
+		new_password_confirm:
+			label: 'Nové heslo znovu:'
+			required: Zadejte prosím Vaše nové heslo znovu
+			placeholder: nové heslo znovu
+			description: Pro kontrolu zadejte Vaše nové heslo ještě jednou
+			not_matching: Hesla se neshodují
+		errors:
+			could_not_authenticate: Nepodařilo se ověřit Vaše přihlášení.
+			invalid_credentials: Nesprávné heslo.
+	address:
+		type:
+			label: Typ adresy
+		first_name:
+			label: 'Křestní jméno:'
+			placeholder: křestní jméno
+		last_name:
+			label: 'Příjmení:'
+			placeholder: příjmení
+		phone_number:
+			label: 'Telefon:'
+			placeholder: například 605 123 456
+		address:
+			label: 'Ulice:'
+			placeholder: napište ulici
+		number:
+			label: 'Číslo domu:'
+			placeholder: například 14/A
+		zip:
+			label: 'PSČ:'
+			placeholder: například 10100
+		city:
+			label: 'Mesto:'
+			placeholder: například Praha
+		country:
+			label: 'Země:'
+		company_name:
+			label: 'Jméno společnosti:'
+			placeholder: 'například Firma s.r.o.'
+		company_id:
+			label: 'IČO:'
+			placeholder: například 9238598283
+		company_tax_id:
+			label: 'DIČ:'
+			placeholder: například 2359023591
+		company_vat_id:
+			label: 'IČDPH:'
+			placeholder: například CZ2359023591
+		submit: Ulož
+	request_password:
+		title: Problém s přihlášením
+		info: "Pokud si nepamatujete heslo, na e-mail kterým jste se registrovali Vám zašleme postup jak si ho můžete změnit."
+		email:
+			label: 'Váš email:'
+			required: Zadejte prosím Váš email
+			placeholder: email na který jste se registrovali
+		submit: Pošli nové heslo
+		invalid_email: Nesprávný email
+	reset_password:
+		title: Změna hesla
+		info: Na této stránce si můžete změnit heslo.
+		errors:
+			invalid_password_reset_token: Odkaz na vytvoření nového hesla vypršel. Požádejte prosím o nový odkaz.
+		new_password:
+			label: 'Nové heslo:'
+			required: Zadejte prosím Vaše nové heslo
+			placeholder: nové heslo
+			min_length: Heslo musí být dlouhé alespoň %count% znaků
+		new_password_confirm:
+			label: 'Nové heslo znovu:'
+			required: Zadejte prosím Vaše nové heslo znovu
+			not_matching: Hesla se neshodují
+			placeholder: nové heslo znovu
+			description: Pro kontrolu zadejte Vaše nové heslo ještě jednou
+		submit: Změň heslo
+		could_not_set: Nelze nastavit nové heslo
+	settings:
+		title: Systémové nastavení účtu
+		personal_data:
+			title: Osobní data
+			info: "Zde si můžete stáhnout a prohlédnout osobní data, která o Vás systém uchovává."
+			download: Stáhnout
+		account_delete:
+			title: Zrušení konta
+			info: 'Pokud chcete nenávratně smazat uživatelský účet, zadejte heslo a stiskněte "Odstranit účet". <Strong> Tato akce je nevratná. </ Strong> '
+			password:
+				label: 'Heslo:'
+				required: Heslo musí být zadáno
+			submit: Odstranit účet
+			invalid_password: Nesprávné heslo
+			cannot_delete: Uživatele nelze smazat. Kontaktuje prosím zákaznickou podporu.
+			confirm: Smazání uživatelského účtu je nevratná akce. Pokračovat?
+
+authenticator:
+	identity_not_found: Nesprávné jméno.
+	invalid_credentials: Heslo je nesprávné.
+	inactive_account: Účet je neaktivní.
+
+user_source_accesses_component:
+	title: Poslední přístupy
+	no_data: Zatím neevidujeme žádný přístup
