@@ -35,6 +35,11 @@ class ChangePasswordsLogsRepository extends Repository
         return $this->userLogs($userId)->order('created_at DESC')->limit(100);
     }
 
+    public function lastUserLog($userId, $type)
+    {
+        return $this->userLogs($userId)->where(['type' => $type])->order('created_at DESC')->limit(1)->fetch();
+    }
+
     private function userLogs($userId)
     {
         return $this->getTable()->where(['user_id' => $userId]);
