@@ -38,7 +38,7 @@ forms:
 			last_name: Příjmení
 			phone_number: Tel. číslo
 			address: Ulice
-			number: Číšlo domu
+			number: Číslo domu
 			zip: PSČ
 			city: Město
 			save: Uložit údaje

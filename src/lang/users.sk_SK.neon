@@ -51,7 +51,7 @@ forms:
 			last_name: Priezvisko
 			phone_number: Tel. číslo
 			address: Ulica
-			number: Číšlo domu
+			number: Číslo domu
 			zip: PSČ
 			city: Mesto
 			save: Uložiť údaje
