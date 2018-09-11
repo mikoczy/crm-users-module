@@ -71,7 +71,7 @@ class UserAuthenticator implements IAuthenticator
             throw $exception;
         }
         if ($user === false) {
-            throw new AuthenticationException('Nepodarilo sa overiť užívateľa.', UserAuthenticator::IDENTITY_NOT_FOUND);
+            throw new AuthenticationException('', UserAuthenticator::IDENTITY_NOT_FOUND);
         }
         $this->emitter->emit(new UserSignInEvent($user, $source));
 
