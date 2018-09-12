@@ -50,7 +50,7 @@ forms:
 			number: Musíte zadat číslo domu
 			zip: Musíte zadať PSČ
 			city: Musíte zadat město
-			country_id: Musíte vybrat země
+			country_id: Musíte vybrat zeme
 
 frontend:
 	sign_in:
