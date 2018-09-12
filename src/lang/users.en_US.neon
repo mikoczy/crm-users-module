@@ -54,6 +54,7 @@ forms:
 			number: House number
 			zip: ZIP
 			city: City
+			country_id: Country
 			save: Save
 		required:
 			name: First name is required
@@ -62,6 +63,7 @@ forms:
 			number: House number is required
 			zip: ZIP is required
 			city: City is required
+			country_id: You have to select country
 
 frontend:
 	sign_in:
