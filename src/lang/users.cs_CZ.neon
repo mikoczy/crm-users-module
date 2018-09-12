@@ -41,6 +41,7 @@ forms:
 			number: Číslo domu
 			zip: PSČ
 			city: Město
+			country_id: Země
 			save: Uložit údaje
 		required:
 			name: Musíte vyplnit Vaše jméno
@@ -49,6 +50,7 @@ forms:
 			number: Musíte zadat číslo domu
 			zip: Musíte zadať PSČ
 			city: Musíte zadat město
+			country_id: Musíte vybrat země
 
 frontend:
 	sign_in:

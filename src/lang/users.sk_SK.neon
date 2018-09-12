@@ -54,6 +54,7 @@ forms:
 			number: Číslo domu
 			zip: PSČ
 			city: Mesto
+			country_id: Krajina
 			save: Uložiť údaje
 		required:
 			name: Musíte vyplniť Vaše meno
@@ -62,6 +63,7 @@ forms:
 			number: Musíte zadať číslo domu
 			zip: Musíte zadať PSČ
 			city: Musíte zadať mesto
+			country_id: Musíte zvoliť krajinu
 
 frontend:
 	sign_in:
