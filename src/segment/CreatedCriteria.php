@@ -29,7 +29,7 @@ class CreatedCriteria implements CriteriaInterface
     {
         $where = [];
         $where += $params->datetime('created')->escapedConditions('users.created_at');
-        return "SELECT id FROM users WHERE " . implode(" ", $where);
+        return "SELECT id FROM users WHERE " . implode(" AND ", $where);
     }
 
     public function title(ParamsBag $paramBag): string
