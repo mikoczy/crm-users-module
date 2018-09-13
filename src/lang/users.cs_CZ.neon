@@ -1,3 +1,16 @@
+menu:
+	stats: Uživatelé
+	change_password: Změna hesla
+	settings: Nastavení
+	sign_out: Odhlásit
+	people: Lidé
+	users: Uživatelé
+	groups: Skupiny
+	login_attempts: Přihlášení
+	events: Události
+	cheaters: Podvodníci
+	admin_rights: Admin práva
+	actions_log: Záznamy akcí
 forms:
 	invoice:
 		label:
