@@ -34,7 +34,7 @@ class SourceCriteria implements CriteriaInterface
     public function params(): array
     {
         return [
-            new StringArrayParam('source', true, null, null, $this->availableSources()),
+            new StringArrayParam('source', "Sources", "Filters users registered with selected sources", true, null, null, $this->availableSources()),
         ];
     }
 

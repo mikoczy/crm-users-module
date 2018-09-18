@@ -21,7 +21,7 @@ class CreatedCriteria implements CriteriaInterface
     public function params(): array
     {
         return [
-            new DateTimeParam('created', true),
+            new DateTimeParam('created', "Created", "Filters users created within selected period", true),
         ];
     }
 
