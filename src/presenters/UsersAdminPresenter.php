@@ -3,11 +3,11 @@
 namespace Crm\UsersModule\Presenters;
 
 use Crm\AdminModule\Presenters\AdminPresenter;
-use Crm\UsersModule\Auth\UserManager;
-use Crm\UsersModule\Components\Widgets\DetailWidgetFactoryInterface;
 use Crm\ApplicationModule\Components\VisualPaginator;
 use Crm\ApplicationModule\DataProvider\DataProviderManager;
 use Crm\ApplicationModule\User\DeleteUserData;
+use Crm\UsersModule\Auth\UserManager;
+use Crm\UsersModule\Components\Widgets\DetailWidgetFactoryInterface;
 use Crm\UsersModule\DataProvider\FilterUsersFormDataProviderInterface;
 use Crm\UsersModule\DataProvider\FilterUsersSelectionDataProviderInterface;
 use Crm\UsersModule\Forms\AdminUserGroupFormFactory;

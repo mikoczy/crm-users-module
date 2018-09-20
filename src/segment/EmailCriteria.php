@@ -2,8 +2,8 @@
 
 namespace Crm\UsersModule\Segment;
 
-use Crm\SegmentModule\Params\ParamsBag;
 use Crm\ApplicationModule\Criteria\CriteriaInterface;
+use Crm\SegmentModule\Params\ParamsBag;
 use Crm\SegmentModule\Params\StringArrayParam;
 
 class EmailCriteria implements CriteriaInterface

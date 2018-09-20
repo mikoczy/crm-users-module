@@ -3,8 +3,8 @@
 namespace Crm\UsersModule\Auth;
 
 use Crm\UsersModule\Auth\Access\StorageInterface;
-use Crm\UsersModule\Email\EmailValidator;
 use Crm\UsersModule\Builder\UserBuilder;
+use Crm\UsersModule\Email\EmailValidator;
 use Crm\UsersModule\Events\UserChangePasswordEvent;
 use Crm\UsersModule\Events\UserChangePasswordRequestEvent;
 use Crm\UsersModule\Events\UserConfirmedEvent;

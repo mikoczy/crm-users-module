@@ -2,11 +2,11 @@
 
 namespace Crm\UsersModule\Api;
 
+use Crm\ApiModule\Api\ApiHandler;
 use Crm\ApiModule\Api\JsonResponse;
 use Crm\ApiModule\Authorization\ApiAuthorizationInterface;
 use Crm\ApiModule\Params\InputParam;
 use Crm\ApiModule\Params\ParamsProcessor;
-use Crm\ApiModule\Api\ApiHandler;
 use Crm\UsersModule\Auth\UserManager;
 use Crm\UsersModule\Events\NewAddressEvent;
 use Crm\UsersModule\Repository\AddressesRepository;
