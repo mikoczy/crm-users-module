@@ -197,3 +197,6 @@ authenticator:
 user_source_accesses_component:
 	title: Poslední přístupy
 	no_data: Zatím neevidujeme žádný přístup
+
+detail_widget_component:
+	other: Ostatní

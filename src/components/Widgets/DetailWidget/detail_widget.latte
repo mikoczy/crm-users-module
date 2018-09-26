@@ -6,7 +6,7 @@
         <a href="#{$widget->identifier()}" aria-controls="{$widget->identifier()}" role="tab" data-toggle="tab">{$mainWidgetsTitles[$widget->identifier()]|noescape}</a>
       </li>
       <li n:if="$subWidgets" role="presentation" class="dropdown">
-        <a href="#" aria-controls="other_records" role="tab" class="dropdown-toggle" data-toggle="dropdown" >Ostatné <span class="caret"></span></a>
+        <a href="#" aria-controls="other_records" role="tab" class="dropdown-toggle" data-toggle="dropdown" >{_users.detail_widget_component.other} <span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
           <li n:foreach="$subWidgets as $widget" role="presentation">
             <a href="#{$widget->identifier()}" aria-controls="{$widget->identifier()}" role="tab" data-toggle="tab">{$subWidgetsTitles[$widget->identifier()]|noescape}</a>

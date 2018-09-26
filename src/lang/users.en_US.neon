@@ -402,3 +402,6 @@ authenticator:
 user_source_accesses_component:
 	title: Last accesses
 	no_data: No data recorded
+
+detail_widget_component:
+	other: Other

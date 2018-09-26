@@ -402,3 +402,6 @@ authenticator:
 user_source_accesses_component:
 	title: Posledné prístupy
 	no_data: Zatiaľ neevidujeme žiadny prístup
+
+detail_widget_component:
+	other: Ostatné
