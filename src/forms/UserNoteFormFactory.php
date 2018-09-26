@@ -5,12 +5,14 @@ namespace Crm\UsersModule\Forms;
 use Crm\UsersModule\Repository\UsersRepository;
 use Nette\Application\UI\Form;
 use Nette\Database\Table\IRow;
+use Nette\Localization\ITranslator;
 use Tomaj\Form\Renderer\BootstrapInlineRenderer;
 
 class UserNoteFormFactory
 {
-    /** @var UsersRepository */
     protected $usersRepository;
+
+    private $translator;
 
     /* callback function */
     public $onUpdate;
@@ -18,9 +20,12 @@ class UserNoteFormFactory
     /** @var IRow */
     private $user;
 
-    public function __construct(UsersRepository $usersRepository)
-    {
+    public function __construct(
+        ITranslator $translator,
+        UsersRepository $usersRepository
+    ) {
         $this->usersRepository = $usersRepository;
+        $this->translator = $translator;
     }
 
     /**
@@ -34,16 +39,17 @@ class UserNoteFormFactory
 
         $form->setRenderer(new BootstrapInlineRenderer());
         $form->addProtection();
+        $form->setTranslator($this->translator);
 
         $form->addTextArea('note', '')
-            ->setAttribute('placeholder', 'Sem môžete napísať poznámku')
+            ->setAttribute('placeholder', $this->translator->translate('users.admin.user_note_form.note.placeholder'))
             ->getControlPrototype()->addAttributes(['class' => 'autosize']);
 
-        $form->addSubmit('send', 'Uložiť')
+        $form->addSubmit('send', 'system.save')
             ->setAttribute('class', 'btn btn-primary')
             ->getControlPrototype()
             ->setName('button')
-            ->setHtml('<i class="fa fa-save"></i> Uložiť');
+            ->setHtml('<i class="fa fa-save"></i> ' . $this->translator->translate('system.save'));
 
         $form->setDefaults([
             'note' => $this->user->note,

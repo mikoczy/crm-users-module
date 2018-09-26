@@ -274,6 +274,8 @@ admin:
 
 	user_note_form:
 		note_updated: Note was changed
+		note:
+			placeholder: Add user note
 
 	groups_admin:
 		title: Admin groups

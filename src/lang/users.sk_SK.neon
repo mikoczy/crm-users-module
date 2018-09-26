@@ -274,6 +274,8 @@ admin:
 
 	user_note_form:
 		note_updated: Poznámka bola zmenená
+		note:
+			placeholder: Sem môžete napísať poznámku
 
 	groups_admin:
 		title: Admin Skupiny

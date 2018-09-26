@@ -183,6 +183,12 @@ frontend:
 			cannot_delete: Uživatele nelze smazat. Kontaktuje prosím zákaznickou podporu.
 			confirm: Smazání uživatelského účtu je nevratná akce. Pokračovat?
 
+admin:
+	user_note_form:
+		note_updated: Poznámka byla změněna
+		note:
+			placeholder: Sem můžete napsat poznámku
+
 authenticator:
 	identity_not_found: Nesprávné jméno.
 	invalid_credentials: Heslo je nesprávné.
