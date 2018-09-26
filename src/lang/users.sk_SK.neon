@@ -405,3 +405,6 @@ user_source_accesses_component:
 
 detail_widget_component:
 	other: Ostatné
+
+month_users_small_bar_graph_widget:
+	title: Používatelia

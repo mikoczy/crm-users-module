@@ -200,3 +200,6 @@ user_source_accesses_component:
 
 detail_widget_component:
 	other: Ostatní
+
+month_users_small_bar_graph_widget:
+	title: Uživatelé

@@ -8,6 +8,7 @@ use Crm\ApplicationModule\Graphs\GraphData;
 use Crm\ApplicationModule\Graphs\GraphDataItem;
 use Crm\ApplicationModule\Widget\BaseWidget;
 use Crm\ApplicationModule\Widget\WidgetManager;
+use Nette\Localization\ITranslator;
 
 class MonthUsersSmallBarGraphWidget extends BaseWidget
 {
@@ -17,14 +18,18 @@ class MonthUsersSmallBarGraphWidget extends BaseWidget
 
     private $graphData;
 
+    private $translator;
+
     public function __construct(
         WidgetManager $widgetManager,
         SmallBarGraphControlFactoryInterface $factory,
-        GraphData $graphData
+        GraphData $graphData,
+        ITranslator $translator
     ) {
         parent::__construct($widgetManager);
         $this->factory = $factory;
         $this->graphData = $graphData;
+        $this->translator = $translator;
     }
 
     public function identifier()
@@ -52,7 +57,7 @@ class MonthUsersSmallBarGraphWidget extends BaseWidget
         $this->graphData->setScaleRange('day');
 
         $control = $this->factory->create();
-        $control->setGraphTitle('Používatelia')
+        $control->setGraphTitle($this->translator->translate('users.month_users_small_bar_graph_widget.title'))
             ->addSerie($this->graphData->getData());
         return $control;
     }
