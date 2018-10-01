@@ -247,8 +247,6 @@ admin:
 			placeholder: napríklad Knižnica Martina Bella
 			required: 'Ak je to inštitúcia, musíte zadať aj meno inštitúcie'
 		other: Ostatné
-		invoice: Faktúra na firmu
-		disable_autoinvoice: Vypni automatické vystavovanie faktúr
 		external_id:
 			label: 'Externé ID:'
 			placeholder: číselné externé ID

@@ -2,7 +2,9 @@
 
 namespace Crm\UsersModule\Forms;
 
+use Crm\ApplicationModule\DataProvider\DataProviderManager;
 use Crm\UsersModule\Builder\UserBuilder;
+use Crm\UsersModule\DataProvider\UserFormDataProviderInterface;
 use Crm\UsersModule\Repository\UserAlreadyExistsException;
 use Crm\UsersModule\Repository\UsersRepository;
 use Nette;
@@ -18,6 +20,8 @@ class UserFormFactory
 
     private $translator;
 
+    private $dataProviderManager;
+
     public $onSave;
 
     public $onUpdate;
@@ -25,11 +29,13 @@ class UserFormFactory
     public function __construct(
         UsersRepository $userRepository,
         UserBuilder $userBuilder,
-        ITranslator $translator
+        ITranslator $translator,
+        DataProviderManager $dataProviderManager
     ) {
         $this->userRepository = $userRepository;
         $this->userBuilder = $userBuilder;
         $this->translator = $translator;
+        $this->dataProviderManager = $dataProviderManager;
     }
 
     /**
@@ -47,7 +53,10 @@ class UserFormFactory
         $form = new Form;
 
         $form->setRenderer(new BootstrapRenderer());
+        $form->setTranslator($this->translator);
         $form->addProtection();
+
+        $form->onSuccess[] = [$this, 'formSucceeded'];
 
         $form->addGroup($this->translator->translate('users.admin.user_form.credentials'));
         $form->addText('email', $this->translator->translate('users.admin.user_form.email.label'))
@@ -78,11 +87,13 @@ class UserFormFactory
             ->addConditionOn($form['is_institution'], Form::EQUAL, true)
                 ->setRequired($this->translator->translate('users.admin.user_form.institution_name.required'));
 
+        /** @var UserFormDataProviderInterface[] $providers */
+        $providers = $this->dataProviderManager->getProviders('users.dataprovider.user_form', UserFormDataProviderInterface::class);
+        foreach ($providers as $sorting => $provider) {
+            $form = $provider->provide(['form' => $form]);
+        }
+
         $form->addGroup($this->translator->translate('users.admin.user_form.other'));
-
-        $form->addCheckbox('invoice', $this->translator->translate('users.admin.user_form.invoice'));
-
-        $form->addCheckbox('disable_auto_invoice', $this->translator->translate('users.admin.user_form.disable_autoinvoice'));
 
         $form->addText('ext_id', $this->translator->translate('users.admin.user_form.external_id.label'))
             ->setAttribute('placeholder', $this->translator->translate('users.admin.user_form.external_id.placeholder'))
@@ -104,8 +115,6 @@ class UserFormFactory
         }
 
         $form->setDefaults($defaults);
-
-        $form->onSuccess[] = [$this, 'formSucceeded'];
         return $form;
     }
 
@@ -125,10 +134,9 @@ class UserFormFactory
                     }
                 }
 
-                $values = array_filter((array)$values);
                 $user = $this->userRepository->find($userId);
                 $this->userRepository->update($user, $values);
-                $this->onUpdate->__invoke($form, $user);
+                $form->onSuccess[] = [$this->onUpdate, $form, $user];
             } catch (UserAlreadyExistsException $e) {
                 $form['email']->addError($e->getMessage());
             }
@@ -151,7 +159,7 @@ class UserFormFactory
             if (!$user) {
                 $form['email']->addError(implode("\n", $this->userBuilder->getErrors()));
             } else {
-                $this->onSave->__invoke($form, $user);
+                $form->onSuccess[] = [$this->onSave, $form, $user];
             }
         }
     }
