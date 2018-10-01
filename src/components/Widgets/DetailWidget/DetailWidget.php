@@ -16,7 +16,9 @@ class DetailWidget extends BaseWidget
         $subWidgets = [];
         $subWidgetsTitles = [];
         foreach ($widgets as $sorting => $widget) {
-            $this->addComponent($widget, $widget->identifier());
+            if (!isset($this->components[$widget->identifier()])) {
+                $this->addComponent($widget, $widget->identifier());
+            }
             if ($sorting < 1000) {
                 $mainWidgets[] = $widget;
                 $mainWidgetsTitles[$widget->identifier()] = $widget->header($params);
