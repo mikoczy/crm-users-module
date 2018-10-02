@@ -13,13 +13,13 @@ use Nette\Security\IAuthorizator;
 
 class LoggedUserTokenAuthorization implements ApiAuthorizationInterface
 {
-    private $accessTokensRepository;
+    protected $accessTokensRepository;
 
-    private $emitter;
+    protected $emitter;
 
-    private $errorMessage = false;
+    protected $errorMessage = false;
 
-    private $authorizedData = [];
+    protected $authorizedData = [];
 
     public function __construct(AccessTokensRepository $accessTokensRepository, Emitter $emitter)
     {
