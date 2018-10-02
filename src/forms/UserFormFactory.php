@@ -26,6 +26,8 @@ class UserFormFactory
 
     public $onUpdate;
 
+    private $onCallback;
+
     public function __construct(
         UsersRepository $userRepository,
         UserBuilder $userBuilder,
@@ -115,12 +117,21 @@ class UserFormFactory
         }
 
         $form->setDefaults($defaults);
+        $form->onSuccess[] = [$this, 'callback'];
+
         return $form;
     }
 
     public function formSucceeded($form, $values)
     {
         $user = null;
+
+        $values = clone($values);
+        foreach ($values as $i => $item) {
+            if ($item instanceof Nette\Utils\ArrayHash) {
+                unset($values[$i]);
+            }
+        }
 
         if (isset($values['user_id'])) {
             $userId = $values['user_id'];
@@ -136,7 +147,9 @@ class UserFormFactory
 
                 $user = $this->userRepository->find($userId);
                 $this->userRepository->update($user, $values);
-                $form->onSuccess[] = [$this->onUpdate, $form, $user];
+                $this->onCallback = function() use ($form, $user) {
+                    $this->onUpdate->__invoke($form, $user);
+                };
             } catch (UserAlreadyExistsException $e) {
                 $form['email']->addError($e->getMessage());
             }
@@ -151,16 +164,23 @@ class UserFormFactory
                 ->setExtId(!empty($values['ext_id']) ? intval($values['ext_id']) : null)
                 ->setInstitutionName($values['institution_name'])
                 ->setIsInstitution($values['is_institution'])
-                ->setInvoice($values['invoice'])
-                ->setDisableAutoInvoice($values['disable_auto_invoice'])
                 ->setSource('backend')
                 ->save();
 
             if (!$user) {
                 $form['email']->addError(implode("\n", $this->userBuilder->getErrors()));
             } else {
-                $form->onSuccess[] = [$this->onSave, $form, $user];
+                $this->onCallback = function() use ($form, $user) {
+                    $this->onSave->__invoke($form, $user);
+                };
             }
+        }
+    }
+
+    public function callback()
+    {
+        if ($this->onCallback) {
+            $this->onCallback->__invoke();
         }
     }
 }
