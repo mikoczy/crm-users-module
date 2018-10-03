@@ -149,7 +149,7 @@ class UserFormFactory
 
                 $user = $this->userRepository->find($userId);
                 $this->userRepository->update($user, $values);
-                $this->onCallback = function() use ($form, $user) {
+                $this->onCallback = function () use ($form, $user) {
                     $this->onUpdate->__invoke($form, $user);
                 };
             } catch (UserAlreadyExistsException $e) {
@@ -172,7 +172,7 @@ class UserFormFactory
             if (!$user) {
                 $form['email']->addError(implode("\n", $this->userBuilder->getErrors()));
             } else {
-                $this->onCallback = function() use ($form, $user) {
+                $this->onCallback = function () use ($form, $user) {
                     $this->onSave->__invoke($form, $user);
                 };
             }
