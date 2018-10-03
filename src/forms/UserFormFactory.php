@@ -46,6 +46,8 @@ class UserFormFactory
     public function create($userId)
     {
         $defaults = [];
+        $user = null;
+
         if (isset($userId)) {
             $user = $this->userRepository->find($userId);
             $defaults = $user->toArray();
@@ -92,7 +94,7 @@ class UserFormFactory
         /** @var UserFormDataProviderInterface[] $providers */
         $providers = $this->dataProviderManager->getProviders('users.dataprovider.user_form', UserFormDataProviderInterface::class);
         foreach ($providers as $sorting => $provider) {
-            $form = $provider->provide(['form' => $form]);
+            $form = $provider->provide(['form' => $form, 'user' => $user]);
         }
 
         $form->addGroup($this->translator->translate('users.admin.user_form.other'));
