@@ -2,13 +2,13 @@
 
 namespace Crm\UsersModule\Api;
 
+use Crm\ApiModule\Api\ApiHandler;
 use Crm\ApiModule\Api\JsonResponse;
 use Crm\ApiModule\Authorization\ApiAuthorizationInterface;
 use Crm\ApiModule\Params\InputParam;
 use Crm\ApiModule\Params\ParamsProcessor;
-use Crm\ApiModule\Api\ApiHandler;
-use Crm\UsersModule\Repository\AccessTokensRepository;
 use Crm\UsersModule\Auth\UserAuthenticator;
+use Crm\UsersModule\Repository\AccessTokensRepository;
 use League\Event\Emitter;
 use Nette\Http\Response;
 use Nette\Security\AuthenticationException;

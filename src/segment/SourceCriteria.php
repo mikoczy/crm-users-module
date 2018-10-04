@@ -2,8 +2,8 @@
 
 namespace Crm\UsersModule\Segment;
 
-use Crm\SegmentModule\Params\ParamsBag;
 use Crm\ApplicationModule\Criteria\CriteriaInterface;
+use Crm\SegmentModule\Params\ParamsBag;
 use Crm\SegmentModule\Params\StringArrayParam;
 use Crm\UsersModule\Repository\UsersRepository;
 
@@ -34,7 +34,7 @@ class SourceCriteria implements CriteriaInterface
     public function params(): array
     {
         return [
-            new StringArrayParam('source', true, null, null, $this->availableSources()),
+            new StringArrayParam('source', "Sources", "Filters users registered with selected sources", true, null, null, $this->availableSources()),
         ];
     }
 

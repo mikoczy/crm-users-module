@@ -3,11 +3,12 @@
 namespace Crm\UsersModule\Auth;
 
 use Crm\UsersModule\Auth\Access\StorageInterface;
-use Crm\UsersModule\Email\EmailValidator;
 use Crm\UsersModule\Builder\UserBuilder;
+use Crm\UsersModule\Email\EmailValidator;
 use Crm\UsersModule\Events\UserChangePasswordEvent;
 use Crm\UsersModule\Events\UserChangePasswordRequestEvent;
 use Crm\UsersModule\Events\UserConfirmedEvent;
+use Crm\UsersModule\Events\UserSuspiciousEvent;
 use Crm\UsersModule\Repository\AccessTokensRepository;
 use Crm\UsersModule\Repository\AddressesRepository;
 use Crm\UsersModule\Repository\ChangePasswordsLogsRepository;
@@ -173,6 +174,36 @@ class UserManager
         );
 
         $this->emitter->emit(new UserChangePasswordEvent($user));
+
+        return true;
+    }
+
+    public function suspiciousUser($email)
+    {
+        $user = $this->usersRepository->findBy('email', $email);
+        if (!$user) {
+            return false;
+        }
+
+        $oldPassword = $user->password;
+
+        $password = $this->passwordGenerator->generatePassword();
+        $hashedPassword = Passwords::hash($password);
+
+        $this->usersRepository->update($user, [
+            'password' => $hashedPassword,
+        ]);
+
+        $this->changePasswordsLogsRepository->add(
+            $user,
+            ChangePasswordsLogsRepository::TYPE_SUSPICIOUS,
+            $oldPassword,
+            $hashedPassword
+        );
+
+        $this->accessTokensRepository->removeAllUserTokens($user->id);
+
+        $this->emitter->emit(new UserSuspiciousEvent($user, $password));
 
         return true;
     }

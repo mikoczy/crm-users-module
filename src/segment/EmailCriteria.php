@@ -2,8 +2,8 @@
 
 namespace Crm\UsersModule\Segment;
 
-use Crm\SegmentModule\Params\ParamsBag;
 use Crm\ApplicationModule\Criteria\CriteriaInterface;
+use Crm\SegmentModule\Params\ParamsBag;
 use Crm\SegmentModule\Params\StringArrayParam;
 
 class EmailCriteria implements CriteriaInterface
@@ -21,7 +21,7 @@ class EmailCriteria implements CriteriaInterface
     public function params(): array
     {
         return [
-            new StringArrayParam('email', true, null),
+            new StringArrayParam('email', "Email addresses", "Filters users with entered emails (no wildcards; full emails are required)", true, null),
         ];
     }
 

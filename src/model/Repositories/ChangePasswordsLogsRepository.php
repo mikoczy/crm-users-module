@@ -10,6 +10,7 @@ class ChangePasswordsLogsRepository extends Repository
     const TYPE_CHANGE = 'change';
     const TYPE_RESET = 'reset';
     const TYPE_FORCE = 'force';
+    const TYPE_SUSPICIOUS = 'suspicious';
 
     protected $tableName = 'change_passwords_logs';
 
@@ -32,6 +33,11 @@ class ChangePasswordsLogsRepository extends Repository
     public function lastUserLogs($userId)
     {
         return $this->userLogs($userId)->order('created_at DESC')->limit(100);
+    }
+
+    public function lastUserLog($userId, $type)
+    {
+        return $this->userLogs($userId)->where(['type' => $type])->order('created_at DESC')->limit(1)->fetch();
     }
 
     private function userLogs($userId)

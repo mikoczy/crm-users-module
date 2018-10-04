@@ -1,8 +1,8 @@
 <div n:if="$accesses" class="panel panel-default">
-    <div class="panel-heading">{_content.frontend.last_accesses_widget.title}</div>
+    <div class="panel-heading">{_users.user_source_accesses_component.title}</div>
     <div class="panel-body">
         {if $accesses->count('*') === 0}
-            <p class="bg-warning">{_content.frontend.last_accesses_widget.no_data}</p>
+            <p class="bg-warning">{_users.user_source_accesses_component.no_data}</p>
         {/if}
         {foreach $accesses as $access}
             <div n:foreach="$accesses as $access">

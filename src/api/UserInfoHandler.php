@@ -2,9 +2,9 @@
 
 namespace Crm\UsersModule\Api;
 
+use Crm\ApiModule\Api\ApiHandler;
 use Crm\ApiModule\Api\JsonResponse;
 use Crm\ApiModule\Authorization\ApiAuthorizationInterface;
-use Crm\ApiModule\Api\ApiHandler;
 use Nette\Http\Response;
 
 class UserInfoHandler extends ApiHandler

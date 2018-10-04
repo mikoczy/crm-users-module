@@ -51,9 +51,10 @@ forms:
 			last_name: Priezvisko
 			phone_number: Tel. číslo
 			address: Ulica
-			number: Číšlo domu
+			number: Číslo domu
 			zip: PSČ
 			city: Mesto
+			country_id: Krajina
 			save: Uložiť údaje
 		required:
 			name: Musíte vyplniť Vaše meno
@@ -62,6 +63,7 @@ forms:
 			number: Musíte zadať číslo domu
 			zip: Musíte zadať PSČ
 			city: Musíte zadať mesto
+			country_id: Musíte zvoliť krajinu
 
 frontend:
 	sign_in:
@@ -272,6 +274,8 @@ admin:
 
 	user_note_form:
 		note_updated: Poznámka bola zmenená
+		note:
+			placeholder: Sem môžete napísať poznámku
 
 	groups_admin:
 		title: Admin Skupiny
@@ -394,3 +398,13 @@ authenticator:
 	identity_not_found: Nesprávne meno.
 	invalid_credentials: Heslo je nesprávne.
 	inactive_account: Konto je neaktívne.
+
+user_source_accesses_component:
+	title: Posledné prístupy
+	no_data: Zatiaľ neevidujeme žiadny prístup
+
+detail_widget_component:
+	other: Ostatné
+
+month_users_small_bar_graph_widget:
+	title: Používatelia

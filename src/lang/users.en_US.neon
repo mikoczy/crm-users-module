@@ -54,6 +54,7 @@ forms:
 			number: House number
 			zip: ZIP
 			city: City
+			country_id: Country
 			save: Save
 		required:
 			name: First name is required
@@ -62,6 +63,7 @@ forms:
 			number: House number is required
 			zip: ZIP is required
 			city: City is required
+			country_id: You have to select country
 
 frontend:
 	sign_in:
@@ -272,6 +274,8 @@ admin:
 
 	user_note_form:
 		note_updated: Note was changed
+		note:
+			placeholder: Add user note
 
 	groups_admin:
 		title: Admin groups
@@ -394,3 +398,13 @@ authenticator:
 	identity_not_found: Invalid email.
 	invalid_credentials: Invalid password.
 	inactive_account: Account is disabled.
+
+user_source_accesses_component:
+	title: Last accesses
+	no_data: No data recorded
+
+detail_widget_component:
+	other: Other
+
+month_users_small_bar_graph_widget:
+	title: Users

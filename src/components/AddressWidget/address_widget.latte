@@ -1,0 +1,19 @@
+{if $address}
+  <b>
+    {if $address->first_name}
+      {$address->first_name}
+    {/if}
+    {if $address->last_name}
+      {$address->last_name}
+    {/if}
+  </b>
+  <br>
+  {$address->phone_number}
+  <br>
+  {$address->address} {$address->number}
+  <br>
+  {$address->zip} {$address->city}<br>
+  {if $address->country_id}
+    {$address->country->name}
+  {/if}
+{/if}

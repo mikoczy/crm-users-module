@@ -21,7 +21,7 @@ class CreatedCriteria implements CriteriaInterface
     public function params(): array
     {
         return [
-            new DateTimeParam('created', true),
+            new DateTimeParam('created', "Created", "Filters users created within selected period", true),
         ];
     }
 
@@ -29,7 +29,7 @@ class CreatedCriteria implements CriteriaInterface
     {
         $where = [];
         $where += $params->datetime('created')->escapedConditions('users.created_at');
-        return "SELECT id FROM users WHERE " . implode(" ", $where);
+        return "SELECT id FROM users WHERE " . implode(" AND ", $where);
     }
 
     public function title(ParamsBag $paramBag): string

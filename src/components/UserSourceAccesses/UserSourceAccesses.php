@@ -6,9 +6,9 @@ use Crm\ApiModule\Repository\UserSourceAccessesRepository;
 use Crm\ApplicationModule\Widget\BaseWidget;
 use Crm\ApplicationModule\Widget\WidgetManager;
 
-class UserSourcesAccess extends BaseWidget
+class UserSourceAccesses extends BaseWidget
 {
-    private $templateName = 'user_source_access.latte';
+    private $templateName = 'user_source_accesses.latte';
 
     private $userSourceAccessesRepository;
 

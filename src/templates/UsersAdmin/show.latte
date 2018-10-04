@@ -53,6 +53,16 @@
       </div>
     </div>
 
+    <div class="panel {if $lastSuspicious}panel-danger{else}panel-default{/if}">
+      <div class="panel-heading">User actions</div>
+      <div class="panel-body">
+        <a n:href="Suspicious! $user->id" class="btn btn-default" onclick="return confirm('Are you sure?')">Suspicious account</a>
+        {if $lastSuspicious}
+          <p class="text-muted"><br>last market at: {$lastSuspicious->created_at}</p>
+        {/if}
+      </div>
+    </div>
+
     {control simpleWidget 'admin.user.detail.left', $user->id}
 
   </div>
@@ -108,7 +118,7 @@
         <a n:href="AddressAdmin:edit $printAddress->id" class="pull-right btn-default btn-xs"><i class="fa fa-pencil"></i></a>
       </div>
       <div class="panel-body">
-        {include '../../../../templates/partials/address.latte', address => $printAddress}
+        {control simpleWidget 'admin.user.address.partial', $printAddress}
       </div>
     </div>
 

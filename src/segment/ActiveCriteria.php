@@ -21,7 +21,7 @@ class ActiveCriteria implements CriteriaInterface
     public function params(): array
     {
         return [
-            new BooleanParam('active', true, true),
+            new BooleanParam('active', "Is active", "Filters users who are / aren't active", true, true),
         ];
     }
 
