@@ -247,8 +247,6 @@ admin:
 			placeholder: e.g. city library of Martin Bell
 			required: 'If the institution is checked, you have to enter also institution name'
 		other: Other
-		invoice: Enable invoicing
-		disable_autoinvoice: Disable automatic generation of invoices
 		external_id:
 			label: 'External ID:'
 			placeholder: numeric external ID

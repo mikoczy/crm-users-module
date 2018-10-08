@@ -8,6 +8,7 @@ use Crm\ApplicationModule\DataProvider\DataProviderManager;
 use Crm\ApplicationModule\Graphs\Criteria;
 use Crm\ApplicationModule\Graphs\GraphDataItem;
 use Crm\UsersModule\Components\UserActionLogAdminFactoryInterface;
+use Crm\UsersModule\DataProvider\FilterUserActionLogsDataProviderInterface;
 use Crm\UsersModule\DataProvider\FilterUserActionLogsFormDataProviderInterface;
 use Crm\UsersModule\Repository\UserActionsLogRepository;
 use Nette\Application\UI\Form;

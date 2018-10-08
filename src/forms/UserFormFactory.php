@@ -2,7 +2,9 @@
 
 namespace Crm\UsersModule\Forms;
 
+use Crm\ApplicationModule\DataProvider\DataProviderManager;
 use Crm\UsersModule\Builder\UserBuilder;
+use Crm\UsersModule\DataProvider\UserFormDataProviderInterface;
 use Crm\UsersModule\Repository\UserAlreadyExistsException;
 use Crm\UsersModule\Repository\UsersRepository;
 use Nette;
@@ -18,18 +20,24 @@ class UserFormFactory
 
     private $translator;
 
+    private $dataProviderManager;
+
     public $onSave;
 
     public $onUpdate;
 
+    private $onCallback;
+
     public function __construct(
         UsersRepository $userRepository,
         UserBuilder $userBuilder,
-        ITranslator $translator
+        ITranslator $translator,
+        DataProviderManager $dataProviderManager
     ) {
         $this->userRepository = $userRepository;
         $this->userBuilder = $userBuilder;
         $this->translator = $translator;
+        $this->dataProviderManager = $dataProviderManager;
     }
 
     /**
@@ -38,6 +46,8 @@ class UserFormFactory
     public function create($userId)
     {
         $defaults = [];
+        $user = null;
+
         if (isset($userId)) {
             $user = $this->userRepository->find($userId);
             $defaults = $user->toArray();
@@ -47,7 +57,10 @@ class UserFormFactory
         $form = new Form;
 
         $form->setRenderer(new BootstrapRenderer());
+        $form->setTranslator($this->translator);
         $form->addProtection();
+
+        $form->onSuccess[] = [$this, 'formSucceeded'];
 
         $form->addGroup($this->translator->translate('users.admin.user_form.credentials'));
         $form->addText('email', $this->translator->translate('users.admin.user_form.email.label'))
@@ -78,11 +91,13 @@ class UserFormFactory
             ->addConditionOn($form['is_institution'], Form::EQUAL, true)
                 ->setRequired($this->translator->translate('users.admin.user_form.institution_name.required'));
 
+        /** @var UserFormDataProviderInterface[] $providers */
+        $providers = $this->dataProviderManager->getProviders('users.dataprovider.user_form', UserFormDataProviderInterface::class);
+        foreach ($providers as $sorting => $provider) {
+            $form = $provider->provide(['form' => $form, 'user' => $user]);
+        }
+
         $form->addGroup($this->translator->translate('users.admin.user_form.other'));
-
-        $form->addCheckbox('invoice', $this->translator->translate('users.admin.user_form.invoice'));
-
-        $form->addCheckbox('disable_auto_invoice', $this->translator->translate('users.admin.user_form.disable_autoinvoice'));
 
         $form->addText('ext_id', $this->translator->translate('users.admin.user_form.external_id.label'))
             ->setAttribute('placeholder', $this->translator->translate('users.admin.user_form.external_id.placeholder'))
@@ -104,14 +119,21 @@ class UserFormFactory
         }
 
         $form->setDefaults($defaults);
+        $form->onSuccess[] = [$this, 'callback'];
 
-        $form->onSuccess[] = [$this, 'formSucceeded'];
         return $form;
     }
 
     public function formSucceeded($form, $values)
     {
         $user = null;
+
+        $values = clone($values);
+        foreach ($values as $i => $item) {
+            if ($item instanceof Nette\Utils\ArrayHash) {
+                unset($values[$i]);
+            }
+        }
 
         if (isset($values['user_id'])) {
             $userId = $values['user_id'];
@@ -125,10 +147,11 @@ class UserFormFactory
                     }
                 }
 
-                $values = array_filter((array)$values);
                 $user = $this->userRepository->find($userId);
                 $this->userRepository->update($user, $values);
-                $this->onUpdate->__invoke($form, $user);
+                $this->onCallback = function () use ($form, $user) {
+                    $this->onUpdate->__invoke($form, $user);
+                };
             } catch (UserAlreadyExistsException $e) {
                 $form['email']->addError($e->getMessage());
             }
@@ -143,16 +166,23 @@ class UserFormFactory
                 ->setExtId(!empty($values['ext_id']) ? intval($values['ext_id']) : null)
                 ->setInstitutionName($values['institution_name'])
                 ->setIsInstitution($values['is_institution'])
-                ->setInvoice($values['invoice'])
-                ->setDisableAutoInvoice($values['disable_auto_invoice'])
                 ->setSource('backend')
                 ->save();
 
             if (!$user) {
                 $form['email']->addError(implode("\n", $this->userBuilder->getErrors()));
             } else {
-                $this->onSave->__invoke($form, $user);
+                $this->onCallback = function () use ($form, $user) {
+                    $this->onSave->__invoke($form, $user);
+                };
             }
+        }
+    }
+
+    public function callback()
+    {
+        if ($this->onCallback) {
+            $this->onCallback->__invoke();
         }
     }
 }
