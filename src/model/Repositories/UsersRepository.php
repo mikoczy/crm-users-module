@@ -199,7 +199,7 @@ class UsersRepository extends Repository
             ->where([':access_tokens.last_used_at >= ?' => $start, ':access_tokens.last_used_at < ?' => $end])
             ->group('users.id')
             ->having('token_count >= ? AND device_count >= ?', $tokenCount, $deviceCount)
-            ->order('token_count DESC');
+            ->order('device_count DESC');
     }
 
     public function getNoConfirmed(DateTime $toTime)
