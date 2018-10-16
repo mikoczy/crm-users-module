@@ -11,7 +11,7 @@ use DateTime;
 use League\Event\Emitter;
 use Nette\Security\IAuthorizator;
 
-class LoggedUserTokenAuthorization implements ApiAuthorizationInterface
+class DefaultUserTokenAuthorization implements ApiAuthorizationInterface
 {
     protected $accessTokensRepository;
 
@@ -21,8 +21,10 @@ class LoggedUserTokenAuthorization implements ApiAuthorizationInterface
 
     protected $authorizedData = [];
 
-    public function __construct(AccessTokensRepository $accessTokensRepository, Emitter $emitter)
-    {
+    public function __construct(
+        AccessTokensRepository $accessTokensRepository,
+        Emitter $emitter
+    ) {
         $this->accessTokensRepository = $accessTokensRepository;
         $this->emitter = $emitter;
     }
@@ -38,7 +40,7 @@ class LoggedUserTokenAuthorization implements ApiAuthorizationInterface
         $token = $this->accessTokensRepository->loadToken($tokenParser->getToken());
 
         if (!$token) {
-            $this->errorMessage = 'Token doesn\'t exists';
+            $this->errorMessage = "Token doesn't exists";
             return false;
         }
 
