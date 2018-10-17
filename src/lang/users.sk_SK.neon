@@ -148,6 +148,7 @@ frontend:
 			placeholder: email na ktorý ste sa registrovali
 		submit: Pošli nové heslo
 		invalid_email: Nesprávny email
+		success: Email s postupom pre zmenu hesla sme Vám zaslali na zadaný email
 	reset_password:
 		title: Zmena hesla
 		info: Na tejto stránke si môžte zmeniť heslo.
