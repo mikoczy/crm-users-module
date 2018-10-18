@@ -225,7 +225,7 @@ class UsersModule extends CrmModule
     public function registerApiCalls(ApiRoutersContainerInterface $apiRoutersContainer)
     {
         $apiRoutersContainer->attachRouter(
-            new ApiRoute(new ApiIdentifier('1', 'user', 'info'), \Crm\UsersModule\Api\UserInfoHandler::class, \Crm\UsersModule\Auth\LoggedUserTokenAuthorization::class)
+            new ApiRoute(new ApiIdentifier('1', 'user', 'info'), \Crm\UsersModule\Api\UserInfoHandler::class, \Crm\UsersModule\Auth\UserTokenAuthorization::class)
         );
         $apiRoutersContainer->attachRouter(
             new ApiRoute(new ApiIdentifier('1', 'users', 'login'), \Crm\UsersModule\Api\UsersLoginHandler::class, \Crm\ApiModule\Authorization\NoAuthorization::class)

@@ -148,6 +148,7 @@ frontend:
 			placeholder: email you used to register
 		submit: Send new passord
 		invalid_email: Invalid email
+		success: We've sent you and email with next steps
 	reset_password:
 		title: Reset password
 		info: You can now change your password

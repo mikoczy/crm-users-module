@@ -17,7 +17,7 @@ class UserInfoHandler extends ApiHandler
     public function handle(ApiAuthorizationInterface $authorization)
     {
         $data = $authorization->getAuthorizedData();
-        if (!isset($data['token'])) {
+        if (!isset($data['token']) || !isset($data['token']->user) || empty($data['token']->user)) {
             $response = new JsonResponse(['status' => 'error', 'message' => 'Cannot authorize user']);
             $response->setHttpCode(Response::S403_FORBIDDEN);
             return $response;
@@ -25,6 +25,7 @@ class UserInfoHandler extends ApiHandler
 
         $user = $data['token']->user;
 
+        // required result
         $result = [
             'status' => 'ok',
             'user' => [
@@ -34,6 +35,15 @@ class UserInfoHandler extends ApiHandler
                 'last_name' => $user->last_name,
             ],
         ];
+
+        // additional custom data added by authorizators for other sources
+        if (isset($data['token']->source) && !empty($data['token']->source) && is_string($data['token']->source)) {
+            $result['source'] = $data['token']->source;
+
+            if (isset($data['token']->sourceData)) {
+                $result[$data['token']->source] = $data['token']->sourceData;
+            }
+        }
 
         $response = new JsonResponse($result);
         $response->setHttpCode(Response::S200_OK);
