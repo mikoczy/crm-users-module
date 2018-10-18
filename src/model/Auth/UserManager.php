@@ -243,13 +243,4 @@ class UserManager
             $this->emitter->emit(new UserConfirmedEvent($user));
         }
     }
-
-    /**
-     * error returns error code of user creation failure, null if no error occurred
-     * @return mixed
-     */
-    public function error()
-    {
-        return $this->error;
-    }
 }
