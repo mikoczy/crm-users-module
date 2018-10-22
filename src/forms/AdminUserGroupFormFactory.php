@@ -21,6 +21,8 @@ class AdminUserGroupFormFactory
 
     public $onRemovedUserFromGroup;
 
+    public $authorize;
+
     public function __construct(
         UsersRepository $usersRepository,
         AdminGroupsRepository $adminGroupsRepository

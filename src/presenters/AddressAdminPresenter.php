@@ -21,6 +21,7 @@ class AddressAdminPresenter extends AdminPresenter
         AddressFormFactory $addressFormFactory,
         UsersRepository $usersRepository
     ) {
+        parent::__construct();
         $this->addressesRepository = $addressesRepository;
         $this->addressFormFactory = $addressFormFactory;
         $this->usersRepository = $usersRepository;
