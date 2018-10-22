@@ -23,6 +23,7 @@ class UserMeta extends Control implements WidgetInterface
 
     public function __construct(UserMetaRepository $userMetaRepository, UsersRepository $usersRepository)
     {
+        parent::__construct();
         $this->userMetaRepository = $userMetaRepository;
         $this->usersRepository = $usersRepository;
     }
