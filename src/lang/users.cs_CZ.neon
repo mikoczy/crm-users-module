@@ -141,7 +141,7 @@ frontend:
 		submit: Ulož
 	request_password:
 		title: Problém s přihlášením
-		info: "Pokud si nepamatujete heslo, na e-mail kterým jste se registrovali Vám zašleme postup jak si ho můžete změnit."
+		info: "Zapomněli jste heslo? Na e-mail, kterým jste se registrovali, vám můžeme poslat postup, jak si ho můžete změnit."
 		email:
 			label: 'Váš email:'
 			required: Zadejte prosím Váš email
