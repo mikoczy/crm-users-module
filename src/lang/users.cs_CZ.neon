@@ -204,3 +204,8 @@ detail_widget_component:
 
 month_users_small_bar_graph_widget:
 	title: Uživatelé
+
+api:
+	users_login_handler:
+		identity_not_found: "Zadaný e-mail se neshoduje s našimi záznamy. Přihlaste se, prosím, stejně jako na webu Deníku N."
+		invalid_credentials: "Zadané heslo se neshoduje s našimi záznamy. Přihlaste se, prosím, stejně jako na webu Deníku N."
