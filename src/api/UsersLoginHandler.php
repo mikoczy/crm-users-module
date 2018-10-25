@@ -29,8 +29,7 @@ class UsersLoginHandler extends ApiHandler
         AccessTokensRepository $accessTokensRepository,
         Emitter $emitter,
         ITranslator $translator
-    )
-    {
+    ) {
         $this->userAuthenticator = $userAuthenticator;
         $this->accessTokensRepository = $accessTokensRepository;
         $this->emitter = $emitter;
