@@ -11,24 +11,29 @@ use Crm\UsersModule\Auth\UserAuthenticator;
 use Crm\UsersModule\Repository\AccessTokensRepository;
 use League\Event\Emitter;
 use Nette\Http\Response;
+use Nette\Localization\ITranslator;
 use Nette\Security\AuthenticationException;
 
 class UsersLoginHandler extends ApiHandler
 {
-    /** @var UserAuthenticator  */
     private $userAuthenticator;
 
-    /** @var AccessTokensRepository  */
     private $accessTokensRepository;
 
-    /** @var Emitter  */
     private $emitter;
 
-    public function __construct(UserAuthenticator $userAuthenticator, AccessTokensRepository $accessTokensRepository, Emitter $emitter)
-    {
+    private $translator;
+
+    public function __construct(
+        UserAuthenticator $userAuthenticator,
+        AccessTokensRepository $accessTokensRepository,
+        Emitter $emitter,
+        ITranslator $translator
+    ) {
         $this->userAuthenticator = $userAuthenticator;
         $this->accessTokensRepository = $accessTokensRepository;
         $this->emitter = $emitter;
+        $this->translator = $translator;
     }
 
     public function params()
@@ -75,9 +80,9 @@ class UsersLoginHandler extends ApiHandler
         } catch (AuthenticationException $authException) {
             $message = $authException->getMessage();
             if ($authException->getCode() == UserAuthenticator::IDENTITY_NOT_FOUND) {
-                $message = 'Zadaný e-mail sa nezhoduje s našimi záznamami. Prihláste sa, prosím, tak, ako na webe Denníka N.';
+                $message = $this->translator->translate('users.api.users_login_handler.identity_not_found');
             } elseif ($authException->getCode() == UserAuthenticator::INVALID_CREDENTIAL) {
-                $message = 'Zadané heslo sa nezhoduje s našimi záznamami. Prihláste sa, prosím, tak, ako na webe Denníka N.';
+                $message = $this->translator->translate('users.api.users_login_handler.invalid_credentials');
             }
             $response = new JsonResponse(['status' => 'error', 'error' => 'auth_failed', 'message' => $message]);
             $response->setHttpCode(Response::S400_BAD_REQUEST);
