@@ -27,6 +27,7 @@ class UserTokens extends Control implements WidgetInterface
         Emitter $emitter,
         UserData $userData
     ) {
+        parent::__construct();
         $this->accessTokensRepository = $accessTokensRepository;
         $this->accessToken = $accessToken;
         $this->emitter = $emitter;
