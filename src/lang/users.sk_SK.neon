@@ -167,6 +167,7 @@ frontend:
 			description: Pre kontrolu zadajte Vaše nové heslo ešte raz
 		submit: Zmeň heslo
 		could_not_set: Nepodarilo sa nastaviť nové heslo
+		success: Vaše heslo bolo úspešne zmenené.
 	settings:
 		title: Systémové nastavenia konta
 		personal_data:
