@@ -70,14 +70,14 @@ frontend:
 		title: Přihlášení
 		username:
 			label: 'E-mail:'
-			required: Prosím zadejte Váš email
-			placeholder: Například moj@email.cz
+			required: Prosím zadejte Váš e-mail
+			placeholder: Například jan@novak.cz
 		password:
 			label: 'Heslo:'
-			required: Prosím zadejte heslo.
+			required: Zadejte prosím heslo.
 			placeholder: Vaše heslo
 		remember: Zapamatuj si mě
-		submit: Přihlásit
+		submit: Přihlásit se
 		signed_out: Byli jste odhlášeni.
 	change_password:
 		title: Změna hesla
@@ -143,10 +143,10 @@ frontend:
 		title: Problém s přihlášením
 		info: "Zapomněli jste heslo? Na e-mail, kterým jste se registrovali, vám můžeme poslat postup, jak si ho můžete změnit."
 		email:
-			label: 'Váš email:'
-			required: Zadejte prosím Váš email
-			placeholder: email na který jste se registrovali
-		submit: Pošli nové heslo
+			label: 'Váš e-mail:'
+			required: Zadejte prosím Váš e-mail
+			placeholder: 'Zadejte e-mail, kterým jste se registrovali'
+		submit: Chci poslat nové heslo
 		invalid_email: Nesprávný email
 		success: Email s postupem pro změnu hesla jsme Vám zaslali na zadaný email
 	reset_password:
@@ -167,6 +167,7 @@ frontend:
 			description: Pro kontrolu zadejte Vaše nové heslo ještě jednou
 		submit: Změň heslo
 		could_not_set: Nelze nastavit nové heslo
+		success: Vaše heslo bylo úspěšně změněno.
 	settings:
 		title: Systémové nastavení účtu
 		personal_data:
