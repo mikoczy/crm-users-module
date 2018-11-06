@@ -129,7 +129,7 @@ class UsersPresenter extends FrontendPresenter
         }
         $form = $this->resetPasswordFormFactory->create($token);
         $this->resetPasswordFormFactory->onSuccess = function () {
-            $this->flashMessage("Vaše heslo bolo úspešne zmenené");
+            $this->flashMessage($this->translator->translate('users.frontend.reset_password.success'));
             $this->redirect(':Users:Sign:In');
         };
         return $form;

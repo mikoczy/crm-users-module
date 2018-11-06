@@ -167,6 +167,7 @@ frontend:
 			description: Pre kontrolu zadajte Vaše nové heslo ešte raz
 		submit: Zmeň heslo
 		could_not_set: Nepodarilo sa nastaviť nové heslo
+		success: Vaše heslo bolo úspešne zmenené.
 	settings:
 		title: Systémové nastavenia konta
 		personal_data:
@@ -407,3 +408,8 @@ detail_widget_component:
 
 month_users_small_bar_graph_widget:
 	title: Používatelia
+
+api:
+	users_login_handler:
+		identity_not_found: "Zadaný e-mail sa nezhoduje s našimi záznamami. Prihláste sa, prosím, tak, ako na webe Denníka N."
+		invalid_credentials: "Zadané heslo sa nezhoduje s našimi záznamami. Prihláste sa, prosím, tak, ako na webe Denníka N."

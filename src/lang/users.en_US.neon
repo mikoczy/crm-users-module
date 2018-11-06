@@ -167,6 +167,7 @@ frontend:
 			description: Please enter your new password again for confirmation
 		submit: Change password
 		could_not_set: Could not set the new password
+		success: Your password was successfully changed
 	settings:
 		title: System settings
 		personal_data:
@@ -407,3 +408,8 @@ detail_widget_component:
 
 month_users_small_bar_graph_widget:
 	title: Users
+
+api:
+	users_login_handler:
+		identity_not_found: "Email you entered doesn't match our records. Please log in as you would on Dennik N website."
+		invalid_credentials: "Password you entered doesn't match our records. Please log in as you would on Dennik N website."

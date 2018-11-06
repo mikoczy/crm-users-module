@@ -1,4 +1,4 @@
 {php echo chr(239) . chr(187) . chr(191)}"ID";"created_at";"email";"first_name";"last_name"
-{foreach $users as $user}
-"{$user->id}";"{$user->created_at}";"{$user->email}";"{$user->first_name}";"{$user->last_name}"
+{foreach $users as $u}
+"{$u->id}";"{$u->created_at}";"{$u->email}";"{$u->first_name}";"{$u->last_name}"
 {/foreach}
