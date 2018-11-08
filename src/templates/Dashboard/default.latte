@@ -24,6 +24,12 @@
 
 <div class="row">
     <div class="col-md-12">
+        {control simpleWidget 'dashboard.stats.actuals.subscribers.source', ['dateFrom' => $dateFrom, 'dateTo' => $dateTo]}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
         {control googleLogginAttemptsGraph}
     </div>
 </div>

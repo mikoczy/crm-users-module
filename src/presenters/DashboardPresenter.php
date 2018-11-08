@@ -8,6 +8,7 @@ use Crm\ApplicationModule\Components\Graphs\GoogleBarGraphGroupControlFactoryInt
 use Crm\ApplicationModule\Components\Graphs\GoogleLineGraphGroupControlFactoryInterface;
 use Crm\ApplicationModule\Graphs\Criteria;
 use Crm\ApplicationModule\Graphs\GraphDataItem;
+use Crm\SubscriptionsModule\Repository\SubscriptionsRepository;
 use Nette\Utils\DateTime;
 
 class DashboardPresenter extends AdminPresenter
@@ -27,6 +28,8 @@ class DashboardPresenter extends AdminPresenter
 
     public function renderDefault()
     {
+        $this->template->dateFrom = $this->dateFrom;
+        $this->template->dateTo = $this->dateTo;
     }
 
     public function createComponentDateFilterForm(DateFilterFormFactory $dateFilterFormFactory)
