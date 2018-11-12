@@ -66,6 +66,11 @@ class CountriesRepository extends Repository
         return $this->findBy('name', $countryName);
     }
 
+    public function findByIsoCode($isoCode)
+    {
+        return $this->findBy('iso_code', $isoCode);
+    }
+
     public function add(string $isoCode, string $name, ?int $sorting)
     {
         return $this->insert([
