@@ -10,6 +10,7 @@ use Crm\ApplicationModule\CallbackManagerInterface;
 use Crm\ApplicationModule\Commands\CommandsContainerInterface;
 use Crm\ApplicationModule\Criteria\CriteriaStorage;
 use Crm\ApplicationModule\CrmModule;
+use Crm\ApplicationModule\Event\EventsStorage;
 use Crm\ApplicationModule\Menu\MenuContainerInterface;
 use Crm\ApplicationModule\Menu\MenuItem;
 use Crm\ApplicationModule\SeederManager;
@@ -310,5 +311,27 @@ class UsersModule extends CrmModule
             $userActionsLogRepository = $container->getByType(UserActionsLogRepository::class);
             $userActionsLogRepository->removeOldData('-12 months');
         });
+    }
+
+    public function registerEvents(EventsStorage $eventsStorage)
+    {
+        $eventsStorage->register('address_changed', Events\AddressChangedEvent::class);
+        $eventsStorage->register('login_attempt', Events\LoginAttemptEvent::class);
+        $eventsStorage->register('new_access_token', Events\NewAccessTokenEvent::class);
+        $eventsStorage->register('new_address', Events\NewAddressEvent::class);
+        $eventsStorage->register('notification', Events\NotificationEvent::class);
+        $eventsStorage->register('removed_access_token', Events\RemovedAccessTokenEvent::class);
+        $eventsStorage->register('user_change_password', Events\UserChangePasswordEvent::class);
+        $eventsStorage->register('user_change_password_request', Events\UserChangePasswordRequestEvent::class);
+        $eventsStorage->register('user_confirmed', Events\UserConfirmedEvent::class);
+        $eventsStorage->register('user_created', Events\UserCreatedEvent::class);
+        $eventsStorage->register('user_disabled', Events\UserDisabledEvent::class);
+        $eventsStorage->register('user_last_access', Events\UserLastAccessEvent::class);
+        $eventsStorage->register('user_meta', Events\UserMetaEvent::class);
+        $eventsStorage->register('user_reset_password', Events\UserResetPasswordEvent::class);
+        $eventsStorage->register('user_suspicious', Events\UserSuspiciousEvent::class);
+        $eventsStorage->register('user_sign_in', Events\UserSignInEvent::class);
+        $eventsStorage->register('user_sign_out', Events\UserSignOutEvent::class);
+        $eventsStorage->register('user_updated', Events\UserUpdatedEvent::class);
     }
 }
