@@ -13,9 +13,13 @@ services:
 			- register('gravatar', [Crm\UsersModule\Helpers\GravatarHelper(), process])
 			- register('userLabel', [Crm\UsersModule\Helpers\UserLabelHelper(), process])
 
-	- Crm\UsersModule\Auth\Access\AccessToken
-	- Crm\UsersModule\Auth\LoggedUserTokenAuthorization
+	# Authentication
 	- Crm\UsersModule\Authenticator\UsersAuthenticator
+
+	# API Authorization
+	userTokenAuthorization: Crm\UsersModule\Auth\UserTokenAuthorization
+
+	- Crm\UsersModule\Auth\Access\AccessToken
 	- Crm\UsersModule\Repository\AccessTokensRepository
 	- Crm\UsersModule\Forms\ChangePasswordFormFactory
 	- Crm\UsersModule\Forms\RequestPasswordFormFactory

@@ -21,8 +21,6 @@ class SignPresenter extends FrontendPresenter
     /** @persistent */
     public $back;
 
-    private $referer;
-
     public function __construct(Emitter $emitter, Authorizator $authorizator)
     {
         parent::__construct();
@@ -30,17 +28,6 @@ class SignPresenter extends FrontendPresenter
         $this->authorizator = $authorizator;
     }
 
-    public function startup()
-    {
-        parent::startup();
-
-        $refererUrl = $this->request->getReferer();
-        $this->referer = '';
-
-        if ($refererUrl && $this->from != 'iframe') {
-            $this->referer = $refererUrl->__toString();
-        }
-    }
     /**
      * Sign-in form factory.
      * @return Form
@@ -61,9 +48,6 @@ class SignPresenter extends FrontendPresenter
             ->setAttribute('placeholder', $this->translator->translate('users.frontend.sign_in.password.required'));
 
         $form->addCheckbox('remember', $this->translator->translate('users.frontend.sign_in.remember'));
-
-        $form->addHidden('redirect')
-            ->setValue($this->referer);
 
         $form->addSubmit('send', $this->translator->translate('users.frontend.sign_in.submit'));
 
@@ -99,12 +83,7 @@ class SignPresenter extends FrontendPresenter
             $session->success = 'success';
 
             $this->restoreRequest($this->getParameter('back'));
-            if ($values['redirect'] == '') {
-                $this->redirect($this->homeRoute);
-            } else {
-                header('Location:' . $values['redirect']);
-                exit;
-            }
+            $this->redirect($this->homeRoute);
         } catch (AuthenticationException $e) {
             $form->addError($e->getMessage());
         }

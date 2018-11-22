@@ -3,8 +3,8 @@
 namespace Crm\UsersModule\Auth;
 
 use Crm\UsersModule\Auth\Access\StorageInterface;
-use Crm\UsersModule\Email\EmailValidator;
 use Crm\UsersModule\Builder\UserBuilder;
+use Crm\UsersModule\Email\EmailValidator;
 use Crm\UsersModule\Events\UserChangePasswordEvent;
 use Crm\UsersModule\Events\UserChangePasswordRequestEvent;
 use Crm\UsersModule\Events\UserConfirmedEvent;
@@ -242,14 +242,5 @@ class UserManager
 
             $this->emitter->emit(new UserConfirmedEvent($user));
         }
-    }
-
-    /**
-     * error returns error code of user creation failure, null if no error occurred
-     * @return mixed
-     */
-    public function error()
-    {
-        return $this->error;
     }
 }

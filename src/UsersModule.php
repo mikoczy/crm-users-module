@@ -2,19 +2,19 @@
 
 namespace Crm\UsersModule;
 
+use Crm\ApiModule\Api\ApiRoutersContainerInterface;
 use Crm\ApiModule\Router\ApiIdentifier;
 use Crm\ApiModule\Router\ApiRoute;
-use Crm\ApiModule\Api\ApiRoutersContainerInterface;
 use Crm\ApplicationModule\Authenticator\AuthenticatorManagerInterface;
 use Crm\ApplicationModule\CallbackManagerInterface;
 use Crm\ApplicationModule\Commands\CommandsContainerInterface;
+use Crm\ApplicationModule\Criteria\CriteriaStorage;
 use Crm\ApplicationModule\CrmModule;
 use Crm\ApplicationModule\Menu\MenuContainerInterface;
 use Crm\ApplicationModule\Menu\MenuItem;
 use Crm\ApplicationModule\SeederManager;
 use Crm\ApplicationModule\User\UserDataRegistrator;
 use Crm\ApplicationModule\Widget\WidgetManagerInterface;
-use Crm\ApplicationModule\Criteria\CriteriaStorage;
 use Crm\UsersModule\Auth\Permissions;
 use Crm\UsersModule\Repository\ChangePasswordsLogsRepository;
 use Crm\UsersModule\Repository\UserActionsLogRepository;
@@ -225,7 +225,7 @@ class UsersModule extends CrmModule
     public function registerApiCalls(ApiRoutersContainerInterface $apiRoutersContainer)
     {
         $apiRoutersContainer->attachRouter(
-            new ApiRoute(new ApiIdentifier('1', 'user', 'info'), \Crm\UsersModule\Api\UserInfoHandler::class, \Crm\UsersModule\Auth\LoggedUserTokenAuthorization::class)
+            new ApiRoute(new ApiIdentifier('1', 'user', 'info'), \Crm\UsersModule\Api\UserInfoHandler::class, \Crm\UsersModule\Auth\UserTokenAuthorization::class)
         );
         $apiRoutersContainer->attachRouter(
             new ApiRoute(new ApiIdentifier('1', 'users', 'login'), \Crm\UsersModule\Api\UsersLoginHandler::class, \Crm\ApiModule\Authorization\NoAuthorization::class)

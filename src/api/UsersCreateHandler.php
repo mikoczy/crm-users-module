@@ -2,14 +2,14 @@
 
 namespace Crm\UsersModule\Api;
 
+use Crm\ApiModule\Api\ApiHandler;
 use Crm\ApiModule\Api\JsonResponse;
 use Crm\ApiModule\Authorization\ApiAuthorizationInterface;
 use Crm\ApiModule\Params\InputParam;
 use Crm\ApiModule\Params\ParamsProcessor;
-use Crm\ApiModule\Api\ApiHandler;
-use Crm\UsersModule\Repository\AccessTokensRepository;
 use Crm\UsersModule\Auth\InvalidEmailException;
 use Crm\UsersModule\Auth\UserManager;
+use Crm\UsersModule\Repository\AccessTokensRepository;
 use Crm\UsersModule\Repository\GroupsRepository;
 use Crm\UsersModule\Repository\UserAlreadyExistsException;
 use Crm\UsersModule\Repository\UserGroupsRepository;

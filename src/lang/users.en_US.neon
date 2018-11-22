@@ -148,6 +148,7 @@ frontend:
 			placeholder: email you used to register
 		submit: Send new passord
 		invalid_email: Invalid email
+		success: We've sent you and email with next steps
 	reset_password:
 		title: Reset password
 		info: You can now change your password
@@ -166,6 +167,7 @@ frontend:
 			description: Please enter your new password again for confirmation
 		submit: Change password
 		could_not_set: Could not set the new password
+		success: Your password was successfully changed
 	settings:
 		title: System settings
 		personal_data:
@@ -247,8 +249,6 @@ admin:
 			placeholder: e.g. city library of Martin Bell
 			required: 'If the institution is checked, you have to enter also institution name'
 		other: Other
-		invoice: Enable invoicing
-		disable_autoinvoice: Disable automatic generation of invoices
 		external_id:
 			label: 'External ID:'
 			placeholder: numeric external ID
@@ -274,6 +274,8 @@ admin:
 
 	user_note_form:
 		note_updated: Note was changed
+		note:
+			placeholder: Add user note
 
 	groups_admin:
 		title: Admin groups
@@ -400,3 +402,14 @@ authenticator:
 user_source_accesses_component:
 	title: Last accesses
 	no_data: No data recorded
+
+detail_widget_component:
+	other: Other
+
+month_users_small_bar_graph_widget:
+	title: Users
+
+api:
+	users_login_handler:
+		identity_not_found: "Email you entered doesn't match our records. Please log in as you would on Dennik N website."
+		invalid_credentials: "Password you entered doesn't match our records. Please log in as you would on Dennik N website."

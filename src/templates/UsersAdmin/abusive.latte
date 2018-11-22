@@ -137,6 +137,7 @@
                   {$abuser->email|gravatar|noescape}
                   {$abuser->email}
               </a>
+              {control simpleWidget 'admin.user.abusive.emailcolumn', $abuser}
             </td>
             <td>{$abuser->first_name} {$abuser->last_name}</td>
             <td>

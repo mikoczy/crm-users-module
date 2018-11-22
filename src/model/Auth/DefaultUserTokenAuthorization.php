@@ -5,24 +5,26 @@ namespace Crm\UsersModule\Auth;
 use Crm\ApiModule\Authorization\ApiAuthorizationInterface;
 use Crm\ApiModule\Authorization\TokenParser;
 use Crm\ApplicationModule\Request;
-use Crm\UsersModule\Repository\AccessTokensRepository;
 use Crm\UsersModule\Events\UserLastAccessEvent;
+use Crm\UsersModule\Repository\AccessTokensRepository;
 use DateTime;
 use League\Event\Emitter;
 use Nette\Security\IAuthorizator;
 
-class LoggedUserTokenAuthorization implements ApiAuthorizationInterface
+class DefaultUserTokenAuthorization implements ApiAuthorizationInterface
 {
-    private $accessTokensRepository;
+    protected $accessTokensRepository;
 
-    private $emitter;
+    protected $emitter;
 
-    private $errorMessage = false;
+    protected $errorMessage = false;
 
-    private $authorizedData = [];
+    protected $authorizedData = [];
 
-    public function __construct(AccessTokensRepository $accessTokensRepository, Emitter $emitter)
-    {
+    public function __construct(
+        AccessTokensRepository $accessTokensRepository,
+        Emitter $emitter
+    ) {
         $this->accessTokensRepository = $accessTokensRepository;
         $this->emitter = $emitter;
     }
@@ -38,7 +40,7 @@ class LoggedUserTokenAuthorization implements ApiAuthorizationInterface
         $token = $this->accessTokensRepository->loadToken($tokenParser->getToken());
 
         if (!$token) {
-            $this->errorMessage = 'Token doesn\'t exists';
+            $this->errorMessage = "Token doesn't exists";
             return false;
         }
 

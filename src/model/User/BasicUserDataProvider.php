@@ -71,7 +71,7 @@ class BasicUserDataProvider implements UserDataProviderInterface
         $now = new DateTime();
         $GDPRTemplateUser = [
             // anonymize
-            'email' => 'GDPR_removal@' . $now->getTimestamp(),
+            'email' => 'GDPR_removal@' . $now->getTimestamp() . rand(),
             'first_name' => 'GDPR Removal',
             'last_name' => 'GDPR Removal',
             'public_name' => 'GDPR Removal',

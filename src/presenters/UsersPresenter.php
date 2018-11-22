@@ -115,7 +115,7 @@ class UsersPresenter extends FrontendPresenter
     {
         $form = $this->requestPasswordFormFactory->create();
         $this->requestPasswordFormFactory->onSuccess = function () {
-            $this->flashMessage('Email s postupom pre zmenu hesla sme Vám zaslali na zadaný email');
+            $this->flashMessage($this->translator->translate('users.frontend.request_password.success'));
             $this->redirect(':Users:Sign:In');
         };
         return $form;
@@ -129,7 +129,7 @@ class UsersPresenter extends FrontendPresenter
         }
         $form = $this->resetPasswordFormFactory->create($token);
         $this->resetPasswordFormFactory->onSuccess = function () {
-            $this->flashMessage("Vaše heslo bolo úspešne zmenené");
+            $this->flashMessage($this->translator->translate('users.frontend.reset_password.success'));
             $this->redirect(':Users:Sign:In');
         };
         return $form;

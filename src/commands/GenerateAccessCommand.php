@@ -40,7 +40,12 @@ class GenerateAccessCommand extends Command
             } catch (MissingServiceException $e) {
                 $output->writeln("<error>Service {$adminServiceName} missing</error>");
             } catch (\Exception $e) {
-                $output->writeln("<error>Unable to process presenter {$adminPresenterName}</error>");
+                if (isset($adminPresenterName)) {
+                    $output->writeln("<error>Unable to process presenter {$adminPresenterName}</error>");
+                } else {
+                    $output->writeln("<error>Unable to process service {$adminServiceName}</error>");
+                }
+                $output->writeln("<comment> - {$e->getMessage()}</comment>");
             }
         }
     }

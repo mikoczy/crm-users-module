@@ -2,7 +2,7 @@
 
 namespace Crm\UsersModule\Events;
 
-use Datetime;
+use DateTime;
 use League\Event\AbstractEvent;
 use Nette\Database\Table\ActiveRow;
 

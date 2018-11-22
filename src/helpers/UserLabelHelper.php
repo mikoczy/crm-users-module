@@ -2,19 +2,24 @@
 
 namespace Crm\UsersModule\Helpers;
 
+use Nette\Localization\ITranslator;
+
 class UserLabelHelper
 {
+    private $translator;
+
+    public function __construct(ITranslator $translator)
+    {
+        $this->translator = $translator;
+    }
+
     public function process($user)
     {
         $append = '';
         if ($user->is_institution) {
-            $append .= ' <small>Inštitúcia: ' . $user->institution_name . '</small>';
+            $append .= " <small>{$this->translator->translate('users.admin.default.institution')}: {$user->institution_name}</small>";
         }
 
-        if ($user->first_name || $user->last_name) {
-            return "{$user->first_name} {$user->last_name}{$append}";
-        } else {
-            return $user->email . $append;
-        }
+        return $user->email . $append;
     }
 }

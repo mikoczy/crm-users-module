@@ -17,6 +17,8 @@ class AdminGroupFormFactory
 
     public $onCreate;
 
+    public $onUpdate;
+
     public function __construct(AdminGroupsRepository $adminGroupsRepository, ITranslator $translator)
     {
         $this->adminGroupsRepository = $adminGroupsRepository;
