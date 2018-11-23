@@ -81,7 +81,7 @@ frontend:
 		signed_out: Byli jste odhlášeni.
 	change_password:
 		title: Změna hesla
-		submit: Změň heslo
+		submit: Změnit heslo
 		actual_password:
 			label: 'Aktuální heslo:'
 			required: Zadejte prosím Vaše aktuální heslo
@@ -165,7 +165,7 @@ frontend:
 			not_matching: Hesla se neshodují
 			placeholder: nové heslo znovu
 			description: Pro kontrolu zadejte Vaše nové heslo ještě jednou
-		submit: Změň heslo
+		submit: Změnit heslo
 		could_not_set: Nelze nastavit nové heslo
 		success: Vaše heslo bylo úspěšně změněno.
 	settings:
