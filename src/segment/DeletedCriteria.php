@@ -21,7 +21,7 @@ class DeletedCriteria implements CriteriaInterface
     public function params(): array
     {
         return [
-            new BooleanParam('deleted', "Is deleted", true, true),
+            new BooleanParam('deleted', "Is deleted", "Filters users who are / aren't deleted", true, true),
         ];
     }
 
