@@ -4,9 +4,12 @@ namespace Crm\UsersModule\Auth;
 
 use Crm\ApplicationModule\Authenticator\AuthenticatorInterface;
 use Crm\ApplicationModule\Authenticator\AuthenticatorManager;
+use Crm\UsersModule\Auth\Rate\RateLimitException;
+use Crm\UsersModule\Auth\Rate\RateLimitInterface;
 use Crm\UsersModule\Events\UserSignInEvent;
 use Crm\UsersModule\Repository\UsersRepository;
 use League\Event\Emitter;
+use Nette\Localization\ITranslator;
 use Nette\Security\AuthenticationException;
 use Nette\Security\IAuthenticator;
 use Nette\Security\Identity;
@@ -22,12 +25,23 @@ class UserAuthenticator implements IAuthenticator
 
     private $authenticatorManager;
 
+    private $translator;
+
+    private $rateLimiters = [];
+
     public function __construct(
         Emitter $emitter,
-        AuthenticatorManager $authenticatorManager
+        AuthenticatorManager $authenticatorManager,
+        ITranslator $translator
     ) {
         $this->emitter = $emitter;
         $this->authenticatorManager = $authenticatorManager;
+        $this->translator = $translator;
+    }
+
+    public function registerRateLimiter(RateLimitInterface $rate)
+    {
+        $this->rateLimiters[] = $rate;
     }
 
     /**
@@ -44,6 +58,12 @@ class UserAuthenticator implements IAuthenticator
         // $userAuthenticator->authenticate([$username, null, null, null, true]);
         if (count($credentials) == 1 && isset($credentials[0]) && is_array($credentials[0])) {
             $credentials = $credentials[0];
+        }
+
+        foreach ($this->rateLimiters as $rateLimiter) {
+            if (!$rateLimiter->check($credentials)) {
+                throw new AuthenticationException($this->translator->translate('users.frontend.sign_in.rate_limit'));
+            }
         }
 
         $user = false;

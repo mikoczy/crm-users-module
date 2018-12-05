@@ -27,6 +27,22 @@ class LoginAttemptsRepository extends Repository
     /** @var Context */
     protected $tableName = 'login_attempts';
 
+    public function okStatuses(): array
+    {
+        return [
+            LoginAttemptsRepository::STATUS_OK,
+            LoginAttemptsRepository::STATUS_API_OK,
+            LoginAttemptsRepository::STATUS_TOKEN_OK,
+            LoginAttemptsRepository::STATUS_ACCESS_TOKEN_OK,
+            LoginAttemptsRepository::STATUS_LOGIN_AFTER_SIGN_UP,
+        ];
+    }
+
+    public function okStatus($status): bool
+    {
+        return in_array($status, $this->okStatuses());
+    }
+
     public function insertAttempt($email, $userId, $source, $status, $ip, $userAgent, $dateTime, $message = null)
     {
         $browser = null;
@@ -74,9 +90,9 @@ class LoginAttemptsRepository extends Repository
         return $this->getTable()->where(['user_id' => $userId])->count('*');
     }
 
-    public function lastUserAttempt($userId)
+    public function lastUserAttempt($userId, $count = 100)
     {
-        return $this->getTable()->where(['user_id' => $userId])->order('created_at DESC')->limit(100);
+        return $this->getTable()->where(['user_id' => $userId])->order('created_at DESC')->limit($count);
     }
 
     public function userIps($userId)
@@ -87,5 +103,15 @@ class LoginAttemptsRepository extends Repository
     public function userAgents($userId)
     {
         return $this->getTable()->where(['user_id' => $userId])->group('user_agent');
+    }
+
+    public function lastIpAttempts($ip, $count)
+    {
+        return $this->getTable()->where(['ip' => $ip])->order('created_at DESC')->limit($count);
+    }
+
+    public function lastEmailAttempts($email, $count)
+    {
+        return $this->getTable()->where(['email' => $email])->order('created_at DESC')->limit($count);
     }
 }

@@ -79,6 +79,7 @@ frontend:
 		remember: Zapamätaj si ma
 		submit: Prihlásiť
 		signed_out: Boli ste odhlásený.
+		rate_limit: Příliš mnoho pokusů o přihlášení. Zkuste to později.
 	change_password:
 		title: Zmena hesla
 		submit: Zmeň heslo

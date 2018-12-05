@@ -79,6 +79,7 @@ frontend:
 		remember: Remember me
 		submit: Sign in
 		signed_out: You've been signed out.
+		rate_limit: Too many unsuccessful login attempts. Try it later.
 	change_password:
 		title: Change password
 		submit: Change password

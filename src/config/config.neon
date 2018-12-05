@@ -15,6 +15,12 @@ services:
 
 	# Authentication
 	- Crm\UsersModule\Authenticator\UsersAuthenticator
+	userAuthenticator:
+		class: Crm\UsersModule\Auth\UserAuthenticator
+		setup:
+			- registerRateLimiter(Crm\UsersModule\Auth\Rate\IpRateLimit())
+			- registerRateLimiter(Crm\UsersModule\Auth\Rate\WrongPasswordRateLimit())
+
 
 	# API Authorization
 	userTokenAuthorization: Crm\UsersModule\Auth\UserTokenAuthorization
@@ -43,7 +49,6 @@ services:
 	- Crm\UsersModule\Auth\AutoLogin\Repository\AutoLoginTokensRepository
 	- Crm\UsersModule\Auth\AutoLogin\AutoLogin
 	- Crm\UsersModule\Auth\UserManager
-	- Crm\UsersModule\Auth\UserAuthenticator
 	- Crm\UsersModule\Auth\PasswordGenerator
 	- Crm\UsersModule\Auth\Authorizator
 	- Crm\UsersModule\Auth\Permissions
