@@ -54,6 +54,7 @@ class UsersCreateHandler extends ApiHandler
             new InputParam(InputParam::TYPE_POST, 'source', InputParam::OPTIONAL),
             new InputParam(InputParam::TYPE_POST, 'referer', InputParam::OPTIONAL),
             new InputParam(InputParam::TYPE_POST, 'send_email', InputParam::OPTIONAL),
+            new InputParam(InputParam::TYPE_POST, 'disable_email_validation', InputParam::OPTIONAL),
         ];
     }
 
@@ -108,8 +109,13 @@ class UsersCreateHandler extends ApiHandler
             $sendEmail = filter_var($params['send_email'], FILTER_VALIDATE_BOOLEAN);
         }
 
+        $checkEmail = true;
+        if (isset($params['disable_email_validation']) && ($params['disable_email_validation'] == '1' || $params['disable_email_validation'] == 'true')) {
+            $checkEmail = false;
+        }
+
         try {
-            $user = $this->userManager->addNewUser($email, $sendEmail, $source, $referer);
+            $user = $this->userManager->addNewUser($email, $sendEmail, $source, $referer, $checkEmail);
         } catch (InvalidEmailException $e) {
             $response = new JsonResponse(['status' => 'error', 'message' => 'Invalid email', 'code' => 'invalid_email']);
             $response->setHttpCode(Response::S404_NOT_FOUND);
