@@ -2,11 +2,10 @@
 
 namespace Crm\UsersModule\Auth\Rate;
 
-use Crm\ApplicationModule\Request;
 use Crm\UsersModule\Repository\LoginAttemptsRepository;
 use Nette\Utils\DateTime;
 
-class IpRateLimit implements RateLimitInterface
+class IpRateLimit
 {
     private $loginAttemptsRepository;
 
@@ -14,20 +13,18 @@ class IpRateLimit implements RateLimitInterface
 
     private $timeout;
 
-    public function __construct(LoginAttemptsRepository $loginAttemptsRepository, int $attempts = 2, string $timeout = '-100 seconds')
+    public function __construct(LoginAttemptsRepository $loginAttemptsRepository, int $attempts = 10, string $timeout = '-10 seconds')
     {
         $this->loginAttemptsRepository = $loginAttemptsRepository;
         $this->attempts = $attempts;
         $this->timeout = $timeout;
     }
 
-    public function check(array $credentials): bool
+    public function reachLimit($ip): bool
     {
-        $ip = Request::getIp();
-
         $lastAccess = $this->loginAttemptsRepository->lastIpAttempts($ip, $this->attempts);
         if (count($lastAccess) == 0) {
-            return true;
+            return false;
         }
 
         $hasOk = false;
@@ -42,9 +39,9 @@ class IpRateLimit implements RateLimitInterface
         }
 
         if (!$hasOk && $last->created_at > DateTime::from($this->timeout)) {
-            return false;
+            return true;
         }
 
-        return true;
+        return false;
     }
 }

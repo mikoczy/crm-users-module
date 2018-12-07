@@ -23,6 +23,7 @@ class LoginAttemptsRepository extends Repository
     const STATUS_TOKEN_OK = 'token_ok';
     const STATUS_ACCESS_TOKEN_OK = 'access_token_ok';
     const STATUS_LOGIN_AFTER_SIGN_UP = 'login_after_sign_up';
+    const RATE_LIMIT_EXCEEDED = 'rate_limit_exceeded';
 
     /** @var Context */
     protected $tableName = 'login_attempts';
@@ -108,10 +109,5 @@ class LoginAttemptsRepository extends Repository
     public function lastIpAttempts($ip, $count)
     {
         return $this->getTable()->where(['ip' => $ip])->order('created_at DESC')->limit($count);
-    }
-
-    public function lastEmailAttempts($email, $count)
-    {
-        return $this->getTable()->where(['email' => $email])->order('created_at DESC')->limit($count);
     }
 }

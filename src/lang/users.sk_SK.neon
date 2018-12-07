@@ -79,7 +79,6 @@ frontend:
 		remember: Zapamätaj si ma
 		submit: Prihlásiť
 		signed_out: Boli ste odhlásený.
-		rate_limit: Příliš mnoho pokusů o přihlášení. Zkuste to později.
 	change_password:
 		title: Zmena hesla
 		submit: Zmeň heslo
@@ -399,6 +398,7 @@ authenticator:
 	identity_not_found: Nesprávne meno.
 	invalid_credentials: Heslo je nesprávne.
 	inactive_account: Konto je neaktívne.
+	rate_limit_exceeded: Príliš veľa pokusovo o prihlásenie. Zkúste to neskôr.
 
 user_source_accesses_component:
 	title: Posledné prístupy

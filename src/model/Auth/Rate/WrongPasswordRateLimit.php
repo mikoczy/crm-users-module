@@ -3,9 +3,10 @@
 namespace Crm\UsersModule\Auth\Rate;
 
 use Crm\UsersModule\Repository\LoginAttemptsRepository;
+use Nette\Database\Table\IRow;
 use Nette\Utils\DateTime;
 
-class WrongPasswordRateLimit implements RateLimitInterface
+class WrongPasswordRateLimit
 {
     private $loginAttemptsRepository;
 
@@ -20,17 +21,11 @@ class WrongPasswordRateLimit implements RateLimitInterface
         $this->timeout = $timeout;
     }
 
-    public function check(array $credentials): bool
+    public function reachLimit(IRow $user): bool
     {
-        if (!isset($credentials['username'])) {
-            return true;
-        }
-
-        $email = $credentials['username'];
-
-        $lastAccess = $this->loginAttemptsRepository->lastEmailAttempts($email, $this->attempts);
+        $lastAccess = $this->loginAttemptsRepository->lastUserAttempt($user->id, $this->attempts);
         if (count($lastAccess) == 0) {
-            return true;
+            return false;
         }
 
         $hasOk = false;
@@ -45,9 +40,9 @@ class WrongPasswordRateLimit implements RateLimitInterface
         }
 
         if (!$hasOk && $last->created_at > DateTime::from($this->timeout)) {
-            return false;
+            return true;
         }
 
-        return true;
+        return false;
     }
 }

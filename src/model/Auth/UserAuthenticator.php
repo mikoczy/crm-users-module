@@ -5,7 +5,6 @@ namespace Crm\UsersModule\Auth;
 use Crm\ApplicationModule\Authenticator\AuthenticatorInterface;
 use Crm\ApplicationModule\Authenticator\AuthenticatorManager;
 use Crm\UsersModule\Auth\Rate\RateLimitException;
-use Crm\UsersModule\Auth\Rate\RateLimitInterface;
 use Crm\UsersModule\Events\UserSignInEvent;
 use Crm\UsersModule\Repository\UsersRepository;
 use League\Event\Emitter;
@@ -27,8 +26,6 @@ class UserAuthenticator implements IAuthenticator
 
     private $translator;
 
-    private $rateLimiters = [];
-
     public function __construct(
         Emitter $emitter,
         AuthenticatorManager $authenticatorManager,
@@ -37,11 +34,6 @@ class UserAuthenticator implements IAuthenticator
         $this->emitter = $emitter;
         $this->authenticatorManager = $authenticatorManager;
         $this->translator = $translator;
-    }
-
-    public function registerRateLimiter(RateLimitInterface $rate)
-    {
-        $this->rateLimiters[] = $rate;
     }
 
     /**
@@ -60,12 +52,6 @@ class UserAuthenticator implements IAuthenticator
             $credentials = $credentials[0];
         }
 
-        foreach ($this->rateLimiters as $rateLimiter) {
-            if (!$rateLimiter->check($credentials)) {
-                throw new AuthenticationException($this->translator->translate('users.frontend.sign_in.rate_limit'));
-            }
-        }
-
         $user = false;
         $source = null;
         $exception = null;
@@ -79,6 +65,9 @@ class UserAuthenticator implements IAuthenticator
                     $source = $authenticator->getSource();
                     break;
                 }
+            } catch (RateLimitException $e) {
+                $exception = $e;
+                break;
             } catch (AuthenticationException $e) {
                 if ($exception === null) {
                     $exception = $e;
