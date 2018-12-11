@@ -39,6 +39,7 @@ services:
 	- Crm\UsersModule\Repository\ChangePasswordsLogsRepository
 	- Crm\UsersModule\Repository\UserMetaRepository
 	- Crm\UsersModule\Repository\AddressesRepository
+	- Crm\UsersModule\Repository\AddressesMetaRepository
 	- Crm\UsersModule\Repository\UserActionsLogRepository
 	- Crm\UsersModule\Auth\AutoLogin\Repository\AutoLoginTokensRepository
 	- Crm\UsersModule\Auth\AutoLogin\AutoLogin
