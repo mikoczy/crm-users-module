@@ -46,7 +46,7 @@ class LoginAttemptHandler extends AbstractListener
             $event->getMessage()
         );
 
-        if (in_array($event->getStatus(), ['ok', 'token_ok', 'access_token_ok', 'api_ok'])) {
+        if ($this->loginAttemptsRepository->okStatus($event->getStatus())) {
             $user = $this->usersRepository->getByEmail($event->getEmail());
             $this->emitter->emit(new UserLastAccessEvent(
                 $user,

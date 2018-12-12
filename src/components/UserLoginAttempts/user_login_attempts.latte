@@ -59,13 +59,7 @@
         <tbody>
           <tr n:foreach="$lastSignInAttempts as $attempt">
             <td>
-              {if in_array($attempt->status, [
-                 \Crm\UsersModule\Repository\LoginAttemptsRepository::STATUS_OK,
-                 \Crm\UsersModule\Repository\LoginAttemptsRepository::STATUS_API_OK,
-                 \Crm\UsersModule\Repository\LoginAttemptsRepository::STATUS_TOKEN_OK,
-                 \Crm\UsersModule\Repository\LoginAttemptsRepository::STATUS_ACCESS_TOKEN_OK,
-                 \Crm\UsersModule\Repository\LoginAttemptsRepository::STATUS_LOGIN_AFTER_SIGN_UP
-              ])}
+              {if $isOkStatus($attempt->status)}
                 <span class="label label-success">{$attempt->status}</span>
               {elseif $attempt->status == \Crm\UsersModule\Repository\LoginAttemptsRepository::STATUS_NOT_FOUND_EMAIL}
                 <span class="label label-warning">{$attempt->status}</span>

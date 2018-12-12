@@ -398,6 +398,7 @@ authenticator:
 	identity_not_found: Invalid email.
 	invalid_credentials: Invalid password.
 	inactive_account: Account is disabled.
+	rate_limit_exceeded: Too many unsuccessful login attempts. Try it later.
 
 user_source_accesses_component:
 	title: Last accesses
