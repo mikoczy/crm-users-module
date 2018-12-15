@@ -34,7 +34,7 @@ class UserLoginAttempts extends Control implements WidgetInterface
 
         $today = $this->loginAttemptsRepository->lastUserAttempt($id)->where([
             'created_at > ?' => DateTime::from(strtotime('today 00:00')),
-            'status' => [LoginAttemptsRepository::STATUS_OK, LoginAttemptsRepository::STATUS_API_OK, LoginAttemptsRepository::STATUS_ACCESS_TOKEN_OK]
+            'status' => $this->loginAttemptsRepository->okStatuses(),
         ])->count('*');
         if ($today) {
             $header .= ' <span class="label label-warning">Dnes</span>';
@@ -51,6 +51,9 @@ class UserLoginAttempts extends Control implements WidgetInterface
     public function render($id)
     {
         $this->template->lastSignInAttempts = $this->loginAttemptsRepository->lastUserAttempt($id);
+        $this->template->isOkStatus = function ($status) {
+            return $this->loginAttemptsRepository->okStatus($status);
+        };
         $this->template->totalSignInAttempts = $this->totalCount($id);
 
         $this->template->totalUserIps = $this->loginAttemptsRepository->userIps($id)->count();
