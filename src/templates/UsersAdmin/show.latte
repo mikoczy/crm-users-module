@@ -129,9 +129,9 @@
       </div>
       <div class="panel-body">
         {$invoiceAddress->company_name}<br>
-        <b>IČO:</b> {$invoiceAddress->ico}<br>
-        <b>DIČ:</b> {$invoiceAddress->dic}<br>
-        <b>IČDPH:</b> {$invoiceAddress->icdph}<br>
+        <b>IČO:</b> {$invoiceAddress->company_id}<br>
+        <b>DIČ:</b> {$invoiceAddress->company_tax_id}<br>
+        <b>IČDPH:</b> {$invoiceAddress->company_vat_id}<br>
         <b>Adresa:</b>
         {$invoiceAddress->address|breaklines|noescape} {$invoiceAddress->number}
         <br>

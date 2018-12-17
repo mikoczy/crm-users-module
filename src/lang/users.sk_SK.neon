@@ -132,12 +132,15 @@ frontend:
 		company_id:
 			label: 'IČO:'
 			placeholder: napríklad 9238598283
+			required: "IČO je povinné (ak neexistuje, zadajte 0)"
 		company_tax_id:
 			label: 'DIČ:'
 			placeholder: napríklad 2359023591
+			required: "DIČ je povinné (ak neexistuje, zadajte 0)"
 		company_vat_id:
 			label: 'IČDPH:'
 			placeholder: napríklad SK2359023591
+			required: "IČDPH je povinné (ak neexistuje, zadajte 0)"
 		submit: Ulož
 	request_password:
 		title: Problém s prihlásením
