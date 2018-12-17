@@ -29,6 +29,31 @@ class AddressChangeRequestUnify extends AbstractMigration
             ->addColumn('company_vat_id', 'string', ['null' => true, 'after' => 'company_tax_id'])
             ->addColumn('old_company_vat_id', 'string', ['null' => true, 'after' => 'old_company_tax_id'])
             ->save();
+
+        // link existing change requests to their address
+        $sql = <<<SQL
+update address_change_requests
+join addresses 
+  on address_change_requests.user_id = addresses.user_id
+  and addresses.type = 'print' 
+  and addresses.user_id in (SELECT user_id FROM addresses where `type` = 'print' group by user_id having count(*) = 1)
+set address_id = addresses.id
+where address_change_requests.type = 'print'
+SQL;
+        $this->execute($sql);
+
+
+        // create accepted change request for every print address that doesn't have it yet
+        $sql = <<<SQL
+insert into address_change_requests (`type`, `user_id`, `address_id`, `first_name`, `last_name`, `company_name`, `address`, `number`, `city`, `zip`, `country_id`, `company_id`, `company_tax_id`, `company_vat_id`, `phone_number`, `status`, `created_at`, `updated_at`)
+select addresses.type, addresses.user_id, addresses.id, addresses.first_name, addresses.last_name, addresses.company_name, addresses.address, addresses.number, addresses.city, addresses.zip, addresses.country_id, addresses.company_id, addresses.company_tax_id, addresses.company_vat_id, addresses.phone_number, 'accepted', addresses.created_at, addresses.updated_at
+from addresses
+left join address_change_requests on address_id = addresses.id
+where addresses.type = 'print'
+and address_change_requests.id is null
+SQL;
+
+        $this->execute($sql);
     }
 
     public function down()
