@@ -132,12 +132,15 @@ frontend:
 		company_id:
 			label: 'Company ID:'
 			placeholder: e.g. 9238598283
+			required: "Company ID is requred (if it doesn't exist, enter 0)"
 		company_tax_id:
 			label: 'Tax ID:'
 			placeholder: e.g. 2359023591
+			required: "Tax ID is requred (if it doesn't exist, enter 0)"
 		company_vat_id:
 			label: 'VAT ID:'
 			placeholder: e.g. SK2359023591
+			required: "VAT ID is requred (if it doesn't exist, enter 0)"
 		submit: Save
 	request_password:
 		title: Trouble logging in

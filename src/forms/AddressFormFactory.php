@@ -154,7 +154,9 @@ class AddressFormFactory
             $values->type
         );
 
-        $address = $this->addressChangeRequestsRepository->acceptRequest($changeRequest, true);
+        if ($changeRequest) {
+            $address = $this->addressChangeRequestsRepository->acceptRequest($changeRequest, true);
+        }
 
         if (isset($values->id)) {
             $this->onUpdate->__invoke($form, $address);
