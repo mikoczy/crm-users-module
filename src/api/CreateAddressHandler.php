@@ -7,6 +7,7 @@ use Crm\ApiModule\Api\JsonResponse;
 use Crm\ApiModule\Authorization\ApiAuthorizationInterface;
 use Crm\ApiModule\Params\InputParam;
 use Crm\ApiModule\Params\ParamsProcessor;
+use Crm\PrintModule\Repository\AddressChangeRequestsRepository;
 use Crm\UsersModule\Auth\UserManager;
 use Crm\UsersModule\Events\NewAddressEvent;
 use Crm\UsersModule\Repository\AddressesRepository;
@@ -20,6 +21,8 @@ class CreateAddressHandler extends ApiHandler
 
     private $addressesRepository;
 
+    private $addressChangeRequestsRepository;
+
     private $countriesRepository;
 
     private $emitter;
@@ -27,11 +30,13 @@ class CreateAddressHandler extends ApiHandler
     public function __construct(
         UserManager $userManager,
         AddressesRepository $addressesRepository,
+        AddressChangeRequestsRepository $addressChangeRequestsRepository,
         CountriesRepository $countriesRepository,
         Emitter $emitter
     ) {
         $this->userManager = $userManager;
         $this->addressesRepository = $addressesRepository;
+        $this->addressChangeRequestsRepository = $addressChangeRequestsRepository;
         $this->countriesRepository = $countriesRepository;
         $this->emitter = $emitter;
     }
@@ -62,22 +67,24 @@ class CreateAddressHandler extends ApiHandler
         $params = $paramsProcessor->getValues();
 
         $user = $this->userManager->loadUserByEmail($params['email']);
-        $address = $this->addressesRepository->add(
+        $changeRequest = $this->addressChangeRequestsRepository->add(
             $user,
-            $params['type'],
+            null,
             $params['first_name'],
             $params['last_name'],
+            $params['company_name'],
             $params['address'],
             $params['number'],
             $params['city'],
             $params['zip'],
             $this->countriesRepository->defaultCountry()->id,
-            $params['phone_number'],
             $params['company_id'],
             $params['tax_id'],
             $params['vat_id'],
-            $params['company_name']
+            $params['phone_number'],
+            $params['type']
         );
+        $address = $this->addressChangeRequestsRepository->acceptRequest($changeRequest);
 
         if ($address) {
             $this->emitter->emit(new NewAddressEvent($address));

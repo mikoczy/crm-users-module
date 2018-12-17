@@ -50,14 +50,14 @@ class AddressesUserDataProvider implements UserDataProviderInterface
             if ($address->country) {
                 $returnAddress['country'] = $address->country->name;
             }
-            if (!empty($address->ico)) {
-                $returnAddress['ico'] = $address->ico;
+            if (!empty($address->company_id)) {
+                $returnAddress['company_id'] = $address->company_id;
             }
-            if (!empty($address->dic)) {
-                $returnAddress['dic'] = $address->dic;
+            if (!empty($address->company_tax_id)) {
+                $returnAddress['company_tax_id'] = $address->company_tax_id;
             }
-            if (!empty($address->icdph)) {
-                $returnAddress['icdph'] = $address->icdph;
+            if (!empty($address->company_vat_id)) {
+                $returnAddress['company_vat_id'] = $address->company_vat_id;
             }
             if (!empty($address->company_name)) {
                 $returnAddress['company_name'] = $address->company_name;
@@ -100,9 +100,9 @@ class AddressesUserDataProvider implements UserDataProviderInterface
             'city' => 'GDPR removal',
             'zip' => 'GDPR removal',
             'country_id' => null,
-            'ico' => 'GDPR removal',
-            'dic' => 'GDPR removal',
-            'icdph' => 'GDPR removal',
+            'company_id' => 'GDPR removal',
+            'company_tax_id' => 'GDPR removal',
+            'company_vat_id' => 'GDPR removal',
             'company_name' => 'GDPR removal',
             'phone_number' => 'GDPR removal',
         ];

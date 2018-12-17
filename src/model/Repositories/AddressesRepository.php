@@ -5,6 +5,7 @@ namespace Crm\UsersModule\Repository;
 use Crm\ApplicationModule\Repository;
 use Crm\ApplicationModule\Repository\AuditLogRepository;
 use Nette\Database\Context;
+use Nette\Database\Table\ActiveRow;
 use Nette\Database\Table\IRow;
 use Nette\Utils\DateTime;
 
@@ -18,12 +19,25 @@ class AddressesRepository extends Repository
         $this->auditLogRepository = $auditLogRepository;
     }
 
-    public function add(IRow $user, $type, $firstName, $lastName, $address, $number, $city, $zip, $countryId, $phoneNumber, $ico = null, $dic = null, $icDph = null, $companyName = null, $title = null)
-    {
+    public function add(
+        ActiveRow $user,
+        string $type,
+        ?string $firstName,
+        ?string $lastName,
+        ?string $address,
+        ?string $number,
+        ?string $city,
+        ?string $zip,
+        ?int $countryId,
+        ?string $phoneNumber,
+        ?string $companyName = null,
+        ?string $companyId = null,
+        ?string $companyTaxId = null,
+        ?string $companyVatId = null
+    ) {
         return $this->insert([
             'user_id' => $user->id,
             'type' => $type,
-            'title' => $title,
             'first_name' => $firstName,
             'last_name' => $lastName,
             'address' => $address,
@@ -32,10 +46,10 @@ class AddressesRepository extends Repository
             'zip' => $zip,
             'phone_number' => $phoneNumber,
             'country_id' => $countryId,
-            'ico' => $ico,
-            'dic' => $dic,
-            'icdph' => $icDph,
             'company_name' => $companyName,
+            'company_id' => $companyId,
+            'company_tax_id' => $companyTaxId,
+            'company_vat_id' => $companyVatId,
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
@@ -60,7 +74,7 @@ class AddressesRepository extends Repository
         $rows = $this->addresses($user, $type);
         $result = [];
         foreach ($rows as $row) {
-            $result[$row->id] = "[{$row->type}] {$row->first_name} {$row->last_name}, {$row->address} {$row->zip} {$row->city}";
+            $result[$row->id] = "[{$row->type}] {$row->first_name} {$row->last_name}, {$row->address} {$row->number}, {$row->zip} {$row->city}";
         }
         return $result;
     }
@@ -81,9 +95,9 @@ class AddressesRepository extends Repository
             'city' => null,
             'zip' => null,
             'country_id' => null,
-            'ico' => null,
-            'dic' => null,
-            'icdph' => null,
+            'company_id' => null,
+            'company_tax_id' => null,
+            'company_vat_id' => null,
             'company_name' => null,
             'phone_number' => null,
             'type' => $type,

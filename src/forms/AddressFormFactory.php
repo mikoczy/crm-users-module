@@ -2,15 +2,13 @@
 
 namespace Crm\UsersModule\Forms;
 
-use Crm\UsersModule\Events\AddressChangedEvent;
-use Crm\UsersModule\Events\NewAddressEvent;
+use Crm\PrintModule\Repository\AddressChangeRequestsRepository;
 use Crm\UsersModule\Repository\AddressesRepository;
 use Crm\UsersModule\Repository\AddressTypesRepository;
 use Crm\UsersModule\Repository\CountriesRepository;
 use Crm\UsersModule\Repository\UsersRepository;
 use League\Event\Emitter;
 use Nette\Application\UI\Form;
-use Nette\Database\Table\ActiveRow;
 use Nette\Localization\ITranslator;
 use Tomaj\Form\Renderer\BootstrapRenderer;
 
@@ -23,6 +21,8 @@ class AddressFormFactory
     private $addressesRepository;
 
     private $addressTypesRepository;
+
+    private $addressChangeRequestsRepository;
 
     private $emitter;
 
@@ -37,12 +37,14 @@ class AddressFormFactory
         AddressesRepository $addressesRepository,
         CountriesRepository $countriesRepository,
         AddressTypesRepository $addressTypesRepository,
+        AddressChangeRequestsRepository $addressChangeRequestsRepository,
         Emitter $emitter,
         ITranslator $translator
     ) {
         $this->userRepository = $userRepository;
         $this->addressesRepository = $addressesRepository;
         $this->addressTypesRepository = $addressTypesRepository;
+        $this->addressChangeRequestsRepository = $addressChangeRequestsRepository;
         $this->countriesRepository = $countriesRepository;
         $this->emitter = $emitter;
         $this->translator = $translator;
@@ -57,6 +59,7 @@ class AddressFormFactory
 
         $form->setRenderer(new BootstrapRenderer());
         $form->addProtection();
+        $form->setTranslator($this->translator);
 
         $defaults = [];
         $address = $this->addressesRepository->find($addressId);
@@ -74,35 +77,39 @@ class AddressFormFactory
             $defaults['last_name'] = $userRow->last_name;
         }
 
-        $form->addSelect('type', $this->translator->translate('users.frontend.address.type.label'), $this->addressTypesRepository->getPairs());
+        $type = $form->addSelect('type', 'users.frontend.address.type.label', $this->addressTypesRepository->getPairs());
 
-        $form->addText('first_name', $this->translator->translate('users.frontend.address.first_name.label'))
-            ->setAttribute('placeholder', $this->translator->translate('users.frontend.address.first_name.placeholder'));
-        $form->addText('last_name', $this->translator->translate('users.frontend.address.last_name.label'))
-            ->setAttribute('placeholder', $this->translator->translate('users.frontend.address.first_name.placeholder'));
+        $form->addText('first_name', 'users.frontend.address.first_name.label')
+            ->setAttribute('placeholder', 'users.frontend.address.first_name.placeholder');
+        $form->addText('last_name', 'users.frontend.address.last_name.label')
+            ->setAttribute('placeholder', 'users.frontend.address.first_name.placeholder');
 
-        $form->addText('phone_number', $this->translator->translate('users.frontend.address.phone_number.label'))
-            ->setAttribute('placeholder', $this->translator->translate('users.frontend.address.phone_number.placeholder'));
-        $form->addText('address', $this->translator->translate('users.frontend.address.address.label'))
-            ->setAttribute('placeholder', $this->translator->translate('users.frontend.address.address.placeholder'));
-        $form->addText('number', $this->translator->translate('users.frontend.address.number.label'))
-            ->setAttribute('placeholder', $this->translator->translate('users.frontend.address.number.placeholder'));
-        $form->addText('zip', $this->translator->translate('users.frontend.address.zip.label'))
-            ->setAttribute('placeholder', $this->translator->translate('users.frontend.address.zip.placeholder'));
-        $form->addText('city', $this->translator->translate('users.frontend.address.city.label'))
-            ->setAttribute('placeholder', $this->translator->translate('users.frontend.address.city.placeholder'));
-        $form->addSelect('country_id', $this->translator->translate('users.frontend.address.country.label'), $this->countriesRepository->getAllPairs());
+        $form->addText('phone_number', 'users.frontend.address.phone_number.label')
+            ->setAttribute('placeholder', 'users.frontend.address.phone_number.placeholder');
+        $form->addText('address', 'users.frontend.address.address.label')
+            ->setAttribute('placeholder', 'users.frontend.address.address.placeholder');
+        $form->addText('number', 'users.frontend.address.number.label')
+            ->setAttribute('placeholder', 'users.frontend.address.number.placeholder');
+        $form->addText('zip', 'users.frontend.address.zip.label')
+            ->setAttribute('placeholder', 'users.frontend.address.zip.placeholder');
+        $form->addText('city', 'users.frontend.address.city.label')
+            ->setAttribute('placeholder', 'users.frontend.address.city.placeholder');
+        $form->addSelect('country_id', 'users.frontend.address.country.label', $this->countriesRepository->getAllPairs());
 
-        $form->addText('company_name', $this->translator->translate('users.frontend.address.company_name.label'))
-            ->setAttribute('placeholder', $this->translator->translate('users.frontend.address.company_name.placeholder'));
-        $form->addText('ico', $this->translator->translate('users.frontend.address.company_id.label'))
-            ->setAttribute('placeholder', $this->translator->translate('users.frontend.address.company_id.placeholder'));
-        $form->addText('dic', $this->translator->translate('users.frontend.address.company_tax_id.label'))
-            ->setAttribute('placeholder', $this->translator->translate('users.frontend.address.company_tax_id.placeholder'));
-        $form->addText('icdph', $this->translator->translate('users.frontend.address.company_vat_id.label'))
-            ->setAttribute('placeholder', $this->translator->translate('users.frontend.address.company_vat_id.placeholder'));
+        $form->addText('company_name', 'users.frontend.address.company_name.label')
+            ->setAttribute('placeholder', 'users.frontend.address.company_name.placeholder');
+        $companyId = $form->addText('company_id', 'users.frontend.address.company_id.label')
+            ->setAttribute('placeholder', 'users.frontend.address.company_id.placeholder');
+        $companyTaxId = $form->addText('company_tax_id', 'users.frontend.address.company_tax_id.label')
+            ->setAttribute('placeholder', 'users.frontend.address.company_tax_id.placeholder');
+        $companyVatId = $form->addText('company_vat_id', 'users.frontend.address.company_vat_id.label')
+            ->setAttribute('placeholder', 'users.frontend.address.company_vat_id.placeholder');
 
-        $form->addSubmit('send', $this->translator->translate('users.frontend.address.submit'))
+        $companyId->addConditionOn($type, Form::EQUAL, 'invoice')->setRequired('users.frontend.address.company_id.required');
+        $companyTaxId->addConditionOn($type, Form::EQUAL, 'invoice')->setRequired('users.frontend.address.company_tax_id.required');
+        $companyVatId->addConditionOn($type, Form::EQUAL, 'invoice')->setRequired('users.frontend.address.company_vat_id.required');
+
+        $form->addSubmit('send', 'users.frontend.address.submit')
             ->getControlPrototype()
             ->setName('button')
             ->setHtml('<i class="fa fa-save"></i> ' . $this->translator->translate('users.frontend.address.submit'));
@@ -123,31 +130,35 @@ class AddressFormFactory
     public function formSucceeded($form, $values)
     {
         $user = $this->userRepository->find($values->user_id);
+        $address = null;
 
         if (isset($values->id)) {
             $address = $this->addressesRepository->find($values->id);
-            $this->addressesRepository->update($address, $values);
-            $this->emitter->emit(new AddressChangedEvent($address, true));
+        };
+
+        $changeRequest = $this->addressChangeRequestsRepository->add(
+            $user,
+            $address,
+            $values->first_name,
+            $values->last_name,
+            $values->company_name,
+            $values->address,
+            $values->number,
+            $values->city,
+            $values->zip,
+            $values->country_id,
+            $values->company_id,
+            $values->company_tax_id,
+            $values->company_vat_id,
+            $values->phone_number,
+            $values->type
+        );
+
+        $address = $this->addressChangeRequestsRepository->acceptRequest($changeRequest, true);
+
+        if (isset($values->id)) {
             $this->onUpdate->__invoke($form, $address);
         } else {
-            /** @var ActiveRow $address */
-            $address = $this->addressesRepository->add(
-                $user,
-                $values->type,
-                $values->first_name,
-                $values->last_name,
-                $values->address,
-                $values->number,
-                $values->city,
-                $values->zip,
-                $values->country_id,
-                $values->phone_number,
-                $values->ico,
-                $values->dic,
-                $values->icdph,
-                $values->company_name
-            );
-            $this->emitter->emit(new NewAddressEvent($address, true));
             $this->onSave->__invoke($form, $address);
         }
     }
