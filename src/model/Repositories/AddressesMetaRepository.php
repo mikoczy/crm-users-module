@@ -55,11 +55,14 @@ class AddressesMetaRepository extends Repository
      */
     public function values(ActiveRow $address, ?Activerow $addressChangeRequest, ...$keys)
     {
-        return $this->getTable()->where([
+        $values = $this->getTable()->where([
             'address_id' => $address->id,
             'address_change_request_id' => $addressChangeRequest->id ?? null,
-            'key' => $keys,
         ]);
+        if (!empty($keys)) {
+            $values->where(['key' => $keys]);
+        }
+        return $values;
     }
 
     /**
