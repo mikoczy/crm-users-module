@@ -6,6 +6,7 @@ class AddressChangeRequestUnify extends AbstractMigration
 {
     public function up()
     {
+        return;
         $this->table('addresses')
             ->changeColumn('first_name', 'string', ['null' => true])
             ->changeColumn('last_name', 'string', ['null' => true])
