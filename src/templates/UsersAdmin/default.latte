@@ -59,7 +59,7 @@
             <td>
               <div class="list-group" style="font-size: 0.8em;">
                 <div n:foreach="$u->related('addresses') as $address" class="list-group-item" style="padding: 2px 15px;" href="{plink :Users:AddressAdmin:Edit $address}">
-                  {$address->address} {$address->number}, {$address->city} <a n:href=":Users:AddressAdmin:Edit $address->id" class="btn btn-xs btn-default" title="Uprav"><i class="fa fa-pencil"></i> </a>
+                  {$address->address} {$address->number}, {$address->city} <a n:href=":Users:AddressAdmin:Edit $address->id" class="btn btn-xs btn-default" title="Uprav"><i class="fa fa-edit"></i> </a>
                 </div>
               </div>
             </td>
@@ -80,7 +80,7 @@
             <td>
               <p class="text-nowrap">
                 <a n:href="show $u->id" class="btn btn-sm btn-info" title="{_users.admin.actions.show}"><i class="fa fa-eye"></i> </a>
-                <a n:href="edit $u->id" class="btn btn-sm btn-primary" title="{_users.admin.actions.edit}"><i class="fa fa-pencil"></i> </a>
+                <a n:href="edit $u->id" class="btn btn-sm btn-primary" title="{_users.admin.actions.edit}"><i class="fa fa-edit"></i> </a>
             	  {if $u->active}
             	    <a n:href="ChangeActivation! $u->id" class="btn btn-sm btn-warning" title="{_users.admin.actions.deactivate}"><i class="fa fa-close"></i> </a>
             	  {else}

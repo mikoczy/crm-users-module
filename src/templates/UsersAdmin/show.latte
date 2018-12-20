@@ -14,7 +14,7 @@
         <span>{$user|userLabel|noescape}{if $user->supporter} - <span class="btn btn-success btn">podporovatel</span> {/if} {if $user->public_name} - {$user->public_name} {/if}</span>
 		<span n:if="$user->role === \Crm\UsersModule\Repository\UsersRepository::ROLE_ADMIN" class="label label-warning">admin</span>
 
-      	<a n:href="edit $user->id" class="btn btn-primary btn-lg pull-right"><i class="fa fa-pencil"></i>  Upraviť používateľa</a>
+      	<a n:href="edit $user->id" class="btn btn-primary btn-lg pull-right"><i class="fa fa-edit"></i>  Upraviť používateľa</a>
       </h1>
     </div>
   </div>
@@ -115,7 +115,7 @@
     <div n:foreach="$printAddresses as $printAddress" class="panel panel-default">
       <div class="panel-heading">
         {$printAddress->typ->title} <small class="text-muted">#{$printAddress->id}</small>
-        <a n:href="AddressAdmin:edit $printAddress->id" class="pull-right btn-default btn-xs"><i class="fa fa-pencil"></i></a>
+        <a n:href="AddressAdmin:edit $printAddress->id" class="pull-right btn-default btn-xs"><i class="fa fa-edit"></i></a>
       </div>
       <div class="panel-body">
         {control simpleWidget 'admin.user.address.partial', $printAddress}
@@ -125,7 +125,7 @@
     <div n:if="$invoiceAddress" class="panel panel-warning">
       <div class="panel-heading">
         Fakturačná adresa <small class="text-muted">#{$invoiceAddress->id}</small>
-        <a n:href="AddressAdmin:edit $invoiceAddress->id" class="pull-right btn-default btn-xs"><i class="fa fa-pencil"></i></a>
+        <a n:href="AddressAdmin:edit $invoiceAddress->id" class="pull-right btn-default btn-xs"><i class="fa fa-edit"></i></a>
       </div>
       <div class="panel-body">
         {$invoiceAddress->company_name|newlineFix|breaklines}<br>
