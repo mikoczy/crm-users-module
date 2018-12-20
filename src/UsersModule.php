@@ -155,6 +155,7 @@ class UsersModule extends CrmModule
         $commandsContainer->registerCommand($this->getInstance(\Crm\UsersModule\Commands\GenerateAccessCommand::class));
         $commandsContainer->registerCommand($this->getInstance(\Crm\UsersModule\Commands\UpdateLoginAttemptsCommand::class));
         $commandsContainer->registerCommand($this->getInstance(\Crm\UsersModule\Commands\CheckEmailsCommand::class));
+        $commandsContainer->registerCommand($this->getInstance(\Crm\UsersModule\Commands\DisableUserCommand::class));
     }
 
     public function registerWidgets(WidgetManagerInterface $widgetManager)
