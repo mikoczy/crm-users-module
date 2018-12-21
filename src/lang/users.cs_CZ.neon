@@ -189,6 +189,48 @@ frontend:
 			confirm: Smazání uživatelského účtu je nevratná akce. Pokračovat?
 
 admin:
+	user_form:
+		title: Nový uživatel
+		back_to_list: zpět na záznamy
+		credentials: Přihlašování
+		email:
+			label: 'E-mail*:'
+			required: E-mail musí být zadán
+			placeholder: napište email
+		password:
+			label: 'Heslo:'
+			placeholder: heslo musí mít alespoň 6 znaků
+			required: Heslo musí být zadáno
+			description:  Nechat prázdné pokud nechceme měnit heslo
+		source:
+			label: 'Zdroj'
+			required: Zdroj je povinen
+		personal_information: Osobní informace
+		first_name:
+			label: 'Jméno:'
+			placeholder: křestní jméno
+		last_name:
+			label: 'Příjmení:'
+			placeholder: příjmení
+		institution: Instituce
+		is_institution: Je instituce
+		institution_name:
+			label: 'Název instituce:'
+			placeholder: například Knihovna Martina Bella
+			required: 'Pokud je to instituce, musíte zadat i jméno instituce'
+		other: Ostatní
+		external_id:
+			label: 'Externé ID:'
+			placeholder: číselné externí ID
+			integer: Musí být číslo
+		role:
+			label: 'Role:'
+			user: Běžný uživatel
+			admin: Admin
+		active: Aktivovaný
+		submit: Ulož
+		user_created:  Uživatel byl vytvořen.
+		user_updated: Uživatel byl aktualizován.
 	user_note_form:
 		note_updated: Poznámka byla změněna
 		note:

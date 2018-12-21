@@ -238,6 +238,9 @@ admin:
 			placeholder: heslo musí mať aspoň 6 znakov
 			required: Heslo musí byť zadané
 			description: Nechať prázdne ak nechceme meniť heslo
+		source:
+			label: 'Zdroj'
+			required: Zdroj je povinný
 		personal_information: Osobné informácie
 		first_name:
 			label: 'Krstné meno:'
