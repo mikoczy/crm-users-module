@@ -238,6 +238,9 @@ admin:
 			placeholder: password needs to be at least 6 characters long
 			required: Password is required
 			description: Leave empty if you don't want to change password
+		source:
+			label: 'Source'
+			required: Source is required
 		personal_information: Personal information
 		first_name:
 			label: 'First name:'

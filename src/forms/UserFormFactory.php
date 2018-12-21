@@ -40,10 +40,7 @@ class UserFormFactory
         $this->dataProviderManager = $dataProviderManager;
     }
 
-    /**
-     * @return Form
-     */
-    public function create($userId)
+    public function create($userId): Form
     {
         $defaults = [];
         $user = null;
@@ -75,13 +72,16 @@ class UserFormFactory
             $password->setOption('description', $this->translator->translate('users.admin.user_form.password.description'));
         }
 
+        $form->addText('source', $this->translator->translate('users.admin.user_form.source.label'))
+            ->setRequired($this->translator->translate('users.admin.user_form.source.required'))
+            ->setDefaultValue('backend');
+
         $form->addGroup($this->translator->translate('users.admin.user_form.personal_information'));
 
         $form->addText('first_name', $this->translator->translate('users.admin.user_form.first_name.label'))
             ->setAttribute('placeholder', $this->translator->translate('users.admin.user_form.first_name.placeholder'));
         $form->addText('last_name', $this->translator->translate('users.admin.user_form.last_name.label'))
             ->setAttribute('placeholder', $this->translator->translate('users.admin.user_form.last_name.placeholder'));
-
 
         $form->addGroup($this->translator->translate('users.admin.user_form.institution'));
 
@@ -166,7 +166,7 @@ class UserFormFactory
                 ->setExtId(!empty($values['ext_id']) ? intval($values['ext_id']) : null)
                 ->setInstitutionName($values['institution_name'])
                 ->setIsInstitution($values['is_institution'])
-                ->setSource('backend')
+                ->setSource($values['source'])
                 ->save();
 
             if (!$user) {
