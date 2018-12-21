@@ -91,7 +91,7 @@
         <li class="list-group-item">
           <b>Aktívny:</b> {$user->active|activelabel|noescape}
           {if $user->active}
-            <a n:href="ChangeActivation! $user->id" class="btn btn-warning btn-xs"><i class="fa fa-close"></i> Deaktivuj</a>
+            <a n:href="ChangeActivation! $user->id" class="btn btn-warning btn-xs"><i class="fa fa-ban"></i> Deaktivuj</a>
           {else}
             <a n:href="ChangeActivation! $user->id" class="btn btn-success btn-xs"><i class="fa fa-check-circle"></i> Aktivuj</a>
           {/if}

@@ -82,7 +82,7 @@
                 <a n:href="show $u->id" class="btn btn-sm btn-info" title="{_users.admin.actions.show}"><i class="fa fa-eye"></i> </a>
                 <a n:href="edit $u->id" class="btn btn-sm btn-primary" title="{_users.admin.actions.edit}"><i class="fa fa-edit"></i> </a>
             	  {if $u->active}
-            	    <a n:href="ChangeActivation! $u->id" class="btn btn-sm btn-warning" title="{_users.admin.actions.deactivate}"><i class="fa fa-close"></i> </a>
+            	    <a n:href="ChangeActivation! $u->id" class="btn btn-sm btn-warning" title="{_users.admin.actions.deactivate}"><i class="fa fa-ban"></i> </a>
             	  {else}
             	    <a n:href="ChangeActivation! $u->id" class="btn btn-sm btn-success" title="{_users.admin.actions.activate}"><i class="fa fa-check-circle"></i> </a>
             	  {/if}
