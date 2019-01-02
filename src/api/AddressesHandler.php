@@ -39,6 +39,11 @@ class AddressesHandler extends ApiHandler
         $params = $paramsProcessor->getValues();
 
         $user = $this->userManager->loadUserByEmail($params['email']);
+        if (!$user) {
+            $response = new JsonResponse(['status' => 'error', 'message' => "user doesn't exist: {$params['email']}"]);
+            $response->setHttpCode(Response::S400_BAD_REQUEST);
+            return $response;
+        }
 
         $type = null;
         if ($params['type']) {
@@ -55,9 +60,9 @@ class AddressesHandler extends ApiHandler
                 'email' => $user->email,
                 'company_name' => $address->company_name,
                 'phone_number' => $address->phone_number,
-                'company_id' => $address->ico,
-                'tax_id' => $address->dic,
-                'vat_id' => $address->icdph,
+                'company_id' => $address->company_id,
+                'tax_id' => $address->company_tax_id,
+                'vat_id' => $address->company_vat_id,
                 'first_name' => $address->first_name,
                 'last_name' => $address->last_name,
                 'address' => $address->address,

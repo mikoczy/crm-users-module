@@ -40,6 +40,7 @@ services:
 	- Crm\UsersModule\Repository\ChangePasswordsLogsRepository
 	- Crm\UsersModule\Repository\UserMetaRepository
 	- Crm\UsersModule\Repository\AddressesRepository
+	- Crm\UsersModule\Repository\AddressesMetaRepository
 	- Crm\UsersModule\Repository\UserActionsLogRepository
 	- Crm\UsersModule\Auth\AutoLogin\Repository\AutoLoginTokensRepository
 	- Crm\UsersModule\Auth\AutoLogin\AutoLogin
@@ -54,6 +55,7 @@ services:
 	- Crm\UsersModule\Commands\AddUserCommand
 	- Crm\UsersModule\Commands\GenerateAccessCommand
 	- Crm\UsersModule\Commands\CheckEmailsCommand
+	- Crm\UsersModule\Commands\DisableUserCommand
 	- Crm\UsersModule\Components\AddressWidget
 	- Crm\UsersModule\Components\UserLoginAttempts
 	- Crm\UsersModule\Components\UserPasswordChanges

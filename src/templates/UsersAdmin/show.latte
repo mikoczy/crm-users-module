@@ -14,7 +14,7 @@
         <span>{$user|userLabel|noescape}{if $user->supporter} - <span class="btn btn-success btn">podporovatel</span> {/if} {if $user->public_name} - {$user->public_name} {/if}</span>
 		<span n:if="$user->role === \Crm\UsersModule\Repository\UsersRepository::ROLE_ADMIN" class="label label-warning">admin</span>
 
-      	<a n:href="edit $user->id" class="btn btn-primary btn-lg pull-right"><i class="fa fa-pencil"></i>  Upraviť používateľa</a>
+      	<a n:href="edit $user->id" class="btn btn-primary btn-lg pull-right"><i class="fa fa-edit"></i>  Upraviť používateľa</a>
       </h1>
     </div>
   </div>
@@ -91,7 +91,7 @@
         <li class="list-group-item">
           <b>Aktívny:</b> {$user->active|activelabel|noescape}
           {if $user->active}
-            <a n:href="ChangeActivation! $user->id" class="btn btn-warning btn-xs"><i class="fa fa-close"></i> Deaktivuj</a>
+            <a n:href="ChangeActivation! $user->id" class="btn btn-warning btn-xs"><i class="fa fa-ban"></i> Deaktivuj</a>
           {else}
             <a n:href="ChangeActivation! $user->id" class="btn btn-success btn-xs"><i class="fa fa-check-circle"></i> Aktivuj</a>
           {/if}
@@ -115,7 +115,7 @@
     <div n:foreach="$printAddresses as $printAddress" class="panel panel-default">
       <div class="panel-heading">
         {$printAddress->typ->title} <small class="text-muted">#{$printAddress->id}</small>
-        <a n:href="AddressAdmin:edit $printAddress->id" class="pull-right btn-default btn-xs"><i class="fa fa-pencil"></i></a>
+        <a n:href="AddressAdmin:edit $printAddress->id" class="pull-right btn-default btn-xs"><i class="fa fa-edit"></i></a>
       </div>
       <div class="panel-body">
         {control simpleWidget 'admin.user.address.partial', $printAddress}
@@ -125,13 +125,13 @@
     <div n:if="$invoiceAddress" class="panel panel-warning">
       <div class="panel-heading">
         Fakturačná adresa <small class="text-muted">#{$invoiceAddress->id}</small>
-        <a n:href="AddressAdmin:edit $invoiceAddress->id" class="pull-right btn-default btn-xs"><i class="fa fa-pencil"></i></a>
+        <a n:href="AddressAdmin:edit $invoiceAddress->id" class="pull-right btn-default btn-xs"><i class="fa fa-edit"></i></a>
       </div>
       <div class="panel-body">
-        {$invoiceAddress->company_name}<br>
-        <b>IČO:</b> {$invoiceAddress->ico}<br>
-        <b>DIČ:</b> {$invoiceAddress->dic}<br>
-        <b>IČDPH:</b> {$invoiceAddress->icdph}<br>
+        {$invoiceAddress->company_name|newlineFix|breaklines}<br>
+        <b>IČO:</b> {$invoiceAddress->company_id}<br>
+        <b>DIČ:</b> {$invoiceAddress->company_tax_id}<br>
+        <b>IČDPH:</b> {$invoiceAddress->company_vat_id}<br>
         <b>Adresa:</b>
         {$invoiceAddress->address|breaklines|noescape} {$invoiceAddress->number}
         <br>
