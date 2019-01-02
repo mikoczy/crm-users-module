@@ -15,6 +15,7 @@ services:
 
 	# Authentication
 	- Crm\UsersModule\Authenticator\UsersAuthenticator
+	- Crm\UsersModule\Auth\UserAuthenticator
 
 	# API Authorization
 	userTokenAuthorization: Crm\UsersModule\Auth\UserTokenAuthorization
@@ -39,11 +40,11 @@ services:
 	- Crm\UsersModule\Repository\ChangePasswordsLogsRepository
 	- Crm\UsersModule\Repository\UserMetaRepository
 	- Crm\UsersModule\Repository\AddressesRepository
+	- Crm\UsersModule\Repository\AddressesMetaRepository
 	- Crm\UsersModule\Repository\UserActionsLogRepository
 	- Crm\UsersModule\Auth\AutoLogin\Repository\AutoLoginTokensRepository
 	- Crm\UsersModule\Auth\AutoLogin\AutoLogin
 	- Crm\UsersModule\Auth\UserManager
-	- Crm\UsersModule\Auth\UserAuthenticator
 	- Crm\UsersModule\Auth\PasswordGenerator
 	- Crm\UsersModule\Auth\Authorizator
 	- Crm\UsersModule\Auth\Permissions
@@ -54,6 +55,7 @@ services:
 	- Crm\UsersModule\Commands\AddUserCommand
 	- Crm\UsersModule\Commands\GenerateAccessCommand
 	- Crm\UsersModule\Commands\CheckEmailsCommand
+	- Crm\UsersModule\Commands\DisableUserCommand
 	- Crm\UsersModule\Components\AddressWidget
 	- Crm\UsersModule\Components\UserLoginAttempts
 	- Crm\UsersModule\Components\UserPasswordChanges
@@ -97,3 +99,5 @@ services:
 	- Crm\UsersModule\Seeders\UsersSeeder
 	- Crm\UsersModule\Components\UserSourceAccesses
 	- Crm\UsersModule\Components\UserTokens
+	- Crm\UsersModule\Auth\Rate\WrongPasswordRateLimit
+	- Crm\UsersModule\Auth\Rate\IpRateLimit

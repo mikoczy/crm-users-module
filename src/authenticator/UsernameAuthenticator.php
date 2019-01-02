@@ -4,6 +4,9 @@ namespace Crm\UsersModule\Authenticator;
 
 use Crm\ApplicationModule\Authenticator\AuthenticatorInterface;
 use Crm\ApplicationModule\Authenticator\BaseAuthenticator;
+use Crm\UsersModule\Auth\Rate\IpRateLimit;
+use Crm\UsersModule\Auth\Rate\RateLimitException;
+use Crm\UsersModule\Auth\Rate\WrongPasswordRateLimit;
 use Crm\UsersModule\Auth\UserAuthenticator;
 use Crm\UsersModule\Auth\UserManager;
 use Crm\UsersModule\Repository\LoginAttemptsRepository;
@@ -36,6 +39,10 @@ abstract class UsernameAuthenticator extends BaseAuthenticator
 
     private $translator;
 
+    private $wrongPasswordRateLimit;
+
+    private $ipRateLimit;
+
     /** @var string */
     private $username = null;
 
@@ -51,13 +58,17 @@ abstract class UsernameAuthenticator extends BaseAuthenticator
         Request $request,
         UserManager $userManager,
         UsersRepository $usersRepository,
-        ITranslator $translator
+        ITranslator $translator,
+        WrongPasswordRateLimit $wrongPasswordRateLimit,
+        IpRateLimit $ipRateLimit
     ) {
         parent::__construct($emitter, $hermesEmitter, $request);
 
         $this->userManager = $userManager;
         $this->usersRepository = $usersRepository;
         $this->translator = $translator;
+        $this->wrongPasswordRateLimit = $wrongPasswordRateLimit;
+        $this->ipRateLimit = $ipRateLimit;
     }
 
     public function authenticate()
@@ -103,11 +114,19 @@ abstract class UsernameAuthenticator extends BaseAuthenticator
      */
     private function process() : IRow
     {
+        if ($this->ipRateLimit->reachLimit(\Crm\ApplicationModule\Request::getIp())) {
+            $this->addAttempt($this->username, null, $this->source, LoginAttemptsRepository::RATE_LIMIT_EXCEEDED, 'Rate limit exceeded.');
+            throw new RateLimitException($this->translator->translate('users.authenticator.rate_limit_exceeded'), UserAuthenticator::FAILURE);
+        }
+
         $user = $this->usersRepository->getByEmail($this->username);
 
         if (!$user) {
             $this->addAttempt($this->username, null, $this->source, LoginAttemptsRepository::STATUS_NOT_FOUND_EMAIL, 'Nesprávne meno.');
             throw new AuthenticationException($this->translator->translate('users.authenticator.identity_not_found'), UserAuthenticator::IDENTITY_NOT_FOUND);
+        } elseif ($this->wrongPasswordRateLimit->reachLimit($user)) {
+            $this->addAttempt($this->username, $user, $this->source, LoginAttemptsRepository::RATE_LIMIT_EXCEEDED, 'Rate limit exceeded.');
+            throw new RateLimitException($this->translator->translate('users.authenticator.rate_limit_exceeded'), UserAuthenticator::FAILURE);
         } elseif (!$this->checkPassword($this->password, $user[UserAuthenticator::COLUMN_PASSWORD_HASH])) {
             $this->addAttempt($this->username, $user, $this->source, LoginAttemptsRepository::STATUS_WRONG_PASS, 'Heslo je nesprávne.');
             throw new AuthenticationException($this->translator->translate('users.authenticator.invalid_credentials'), UserAuthenticator::INVALID_CREDENTIAL);

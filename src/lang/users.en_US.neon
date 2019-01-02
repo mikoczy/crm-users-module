@@ -132,12 +132,15 @@ frontend:
 		company_id:
 			label: 'Company ID:'
 			placeholder: e.g. 9238598283
+			required: "Company ID is requred (if it doesn't exist, enter 0)"
 		company_tax_id:
 			label: 'Tax ID:'
 			placeholder: e.g. 2359023591
+			required: "Tax ID is requred (if it doesn't exist, enter 0)"
 		company_vat_id:
 			label: 'VAT ID:'
 			placeholder: e.g. SK2359023591
+			required: "VAT ID is requred (if it doesn't exist, enter 0)"
 		submit: Save
 	request_password:
 		title: Trouble logging in
@@ -235,6 +238,9 @@ admin:
 			placeholder: password needs to be at least 6 characters long
 			required: Password is required
 			description: Leave empty if you don't want to change password
+		source:
+			label: 'Source'
+			required: Source is required
 		personal_information: Personal information
 		first_name:
 			label: 'First name:'
@@ -398,6 +404,7 @@ authenticator:
 	identity_not_found: Invalid email.
 	invalid_credentials: Invalid password.
 	inactive_account: Account is disabled.
+	rate_limit_exceeded: Too many unsuccessful login attempts. Try it later.
 
 user_source_accesses_component:
 	title: Last accesses

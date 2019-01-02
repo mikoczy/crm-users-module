@@ -4,9 +4,11 @@ namespace Crm\UsersModule\Auth;
 
 use Crm\ApplicationModule\Authenticator\AuthenticatorInterface;
 use Crm\ApplicationModule\Authenticator\AuthenticatorManager;
+use Crm\UsersModule\Auth\Rate\RateLimitException;
 use Crm\UsersModule\Events\UserSignInEvent;
 use Crm\UsersModule\Repository\UsersRepository;
 use League\Event\Emitter;
+use Nette\Localization\ITranslator;
 use Nette\Security\AuthenticationException;
 use Nette\Security\IAuthenticator;
 use Nette\Security\Identity;
@@ -22,12 +24,16 @@ class UserAuthenticator implements IAuthenticator
 
     private $authenticatorManager;
 
+    private $translator;
+
     public function __construct(
         Emitter $emitter,
-        AuthenticatorManager $authenticatorManager
+        AuthenticatorManager $authenticatorManager,
+        ITranslator $translator
     ) {
         $this->emitter = $emitter;
         $this->authenticatorManager = $authenticatorManager;
+        $this->translator = $translator;
     }
 
     /**
@@ -59,6 +65,9 @@ class UserAuthenticator implements IAuthenticator
                     $source = $authenticator->getSource();
                     break;
                 }
+            } catch (RateLimitException $e) {
+                $exception = $e;
+                break;
             } catch (AuthenticationException $e) {
                 if ($exception === null) {
                     $exception = $e;

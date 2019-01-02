@@ -55,10 +55,10 @@ class UsersModule extends CrmModule
         $mainMenu = new MenuItem($this->translator->translate('users.menu.people'), ':Users:UsersAdmin:', 'fa fa-users', 10, true);
 
         $menuItem1 = new MenuItem($this->translator->translate('users.menu.users'), ':Users:UsersAdmin:', 'fa fa-user', 50, true);
-        $menuItem2 = new MenuItem($this->translator->translate('users.menu.groups'), ':Users:GroupsAdmin:', 'fa fa-group', 80, true);
-        $menuItem3 = new MenuItem($this->translator->translate('users.menu.login_attempts'), ':Users:LoginAttemptsAdmin:', 'fa fa-hand-paper-o', 85, true);
-        $menuItem4 = new MenuItem($this->translator->translate('users.menu.events'), ':Users:UserActionsLogAdmin:', 'fa fa-clock-o', 87, true);
-        $menuItem5 = new MenuItem($this->translator->translate('users.menu.cheaters'), ':Users:UsersAdmin:Abusive', 'fa fa-frown-o', 90, true);
+        $menuItem2 = new MenuItem($this->translator->translate('users.menu.groups'), ':Users:GroupsAdmin:', 'fa fa-users', 80, true);
+        $menuItem3 = new MenuItem($this->translator->translate('users.menu.login_attempts'), ':Users:LoginAttemptsAdmin:', 'fa fa-hand-paper', 85, true);
+        $menuItem4 = new MenuItem($this->translator->translate('users.menu.events'), ':Users:UserActionsLogAdmin:', 'fa fa-user-clock', 87, true);
+        $menuItem5 = new MenuItem($this->translator->translate('users.menu.cheaters'), ':Users:UsersAdmin:Abusive', 'fa fa-frown', 90, true);
         $menuItem6 = new MenuItem($this->translator->translate('users.menu.admin_rights'), ':Users:AdminGroupAdmin:', 'fa fa-lock', 100, true);
 
         $mainMenu->addChild($menuItem1);
@@ -155,6 +155,7 @@ class UsersModule extends CrmModule
         $commandsContainer->registerCommand($this->getInstance(\Crm\UsersModule\Commands\GenerateAccessCommand::class));
         $commandsContainer->registerCommand($this->getInstance(\Crm\UsersModule\Commands\UpdateLoginAttemptsCommand::class));
         $commandsContainer->registerCommand($this->getInstance(\Crm\UsersModule\Commands\CheckEmailsCommand::class));
+        $commandsContainer->registerCommand($this->getInstance(\Crm\UsersModule\Commands\DisableUserCommand::class));
     }
 
     public function registerWidgets(WidgetManagerInterface $widgetManager)

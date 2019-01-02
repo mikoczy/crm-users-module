@@ -130,14 +130,17 @@ frontend:
 			label: 'Jméno společnosti:'
 			placeholder: 'například Firma s.r.o.'
 		company_id:
-			label: 'IČO:'
+			label: 'IČ:'
 			placeholder: například 9238598283
+			required: "IČ je povinné (pokud neexistuje, zadejte 0)"
 		company_tax_id:
 			label: 'DIČ:'
-			placeholder: například 2359023591
+			placeholder: například CZ2359023591
+			required: "DIČ je povinné (pokud neexistuje, zadejte 0)"
 		company_vat_id:
 			label: 'IČDPH:'
 			placeholder: například CZ2359023591
+			required: "IČDPH je povinné (pokud neexistuje, zadejte 0)"
 		submit: Ulož
 	request_password:
 		title: Problém s přihlášením
@@ -186,6 +189,48 @@ frontend:
 			confirm: Smazání uživatelského účtu je nevratná akce. Pokračovat?
 
 admin:
+	user_form:
+		title: Nový uživatel
+		back_to_list: zpět na záznamy
+		credentials: Přihlašování
+		email:
+			label: 'E-mail*:'
+			required: E-mail musí být zadán
+			placeholder: napište email
+		password:
+			label: 'Heslo:'
+			placeholder: heslo musí mít alespoň 6 znaků
+			required: Heslo musí být zadáno
+			description:  Nechat prázdné pokud nechceme měnit heslo
+		source:
+			label: 'Zdroj'
+			required: Zdroj je povinen
+		personal_information: Osobní informace
+		first_name:
+			label: 'Jméno:'
+			placeholder: křestní jméno
+		last_name:
+			label: 'Příjmení:'
+			placeholder: příjmení
+		institution: Instituce
+		is_institution: Je instituce
+		institution_name:
+			label: 'Název instituce:'
+			placeholder: například Knihovna Martina Bella
+			required: 'Pokud je to instituce, musíte zadat i jméno instituce'
+		other: Ostatní
+		external_id:
+			label: 'Externé ID:'
+			placeholder: číselné externí ID
+			integer: Musí být číslo
+		role:
+			label: 'Role:'
+			user: Běžný uživatel
+			admin: Admin
+		active: Aktivovaný
+		submit: Ulož
+		user_created:  Uživatel byl vytvořen.
+		user_updated: Uživatel byl aktualizován.
 	user_note_form:
 		note_updated: Poznámka byla změněna
 		note:
@@ -195,6 +240,7 @@ authenticator:
 	identity_not_found: Nesprávné jméno.
 	invalid_credentials: Heslo je nesprávné.
 	inactive_account: Účet je neaktivní.
+	rate_limit_exceeded: Příliš mnoho pokusů o přihlášení. Zkuste to později.
 
 user_source_accesses_component:
 	title: Poslední přístupy
