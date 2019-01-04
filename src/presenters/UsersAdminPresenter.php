@@ -364,4 +364,10 @@ class UsersAdminPresenter extends AdminPresenter
         };
         return $form;
     }
+
+    public function handleRemoveAddress($addressId)
+    {
+        $address = $this->addressesRepository->find($addressId);
+        $this->addressesRepository->softDelete($address);
+    }
 }

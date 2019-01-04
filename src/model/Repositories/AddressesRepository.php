@@ -57,7 +57,15 @@ class AddressesRepository extends Repository
 
     public function address(IRow $user, $type)
     {
-        return $this->getTable()->where(['user_id' => $user->id, 'type' => $type])->order('updated_at DESC')->limit(1)->fetch();
+        return $this->getTable()
+            ->where(['user_id' => $user->id, 'type' => $type])
+            ->where('deleted_at IS NULL')
+            ->order('updated_at DESC')->limit(1)->fetch();
+    }
+
+    public function all()
+    {
+        return $this->getTable()->where('deleted_at IS NULL');
     }
 
     public function addresses(IRow $user, $type = false)
@@ -66,7 +74,10 @@ class AddressesRepository extends Repository
         if ($type) {
             $where['type'] = $type;
         }
-        return $this->getTable()->where($where)->fetchAll();
+        return $this->getTable()
+            ->where($where)
+            ->where('deleted_at IS NULL')
+            ->fetchAll();
     }
 
     public function addressesSelect(IRow $user, $type)
@@ -110,6 +121,14 @@ class AddressesRepository extends Repository
             }
         }
 
-        return $this->getTable()->where($addressMap)->fetch();
+        return $this->getTable()->where($addressMap)->where('deleted_at IS NULL')->fetch();
+    }
+
+    public function softDelete(ActiveRow $address)
+    {
+        $this->update($address, [
+            'deleted_at' => new \DateTime(),
+            'updated_at' => new \DateTime(),
+        ]);
     }
 }

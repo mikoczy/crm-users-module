@@ -47,6 +47,10 @@ class AddressesMetaRepository extends Repository
         ]);
     }
 
+    public function all()
+    {
+        return $this->getTable()->where('address.deleted_at IS NULL');
+    }
 
     /**
      * @param ActiveRow $address
