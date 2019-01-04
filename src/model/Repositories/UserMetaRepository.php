@@ -79,4 +79,13 @@ class UserMetaRepository extends Repository
         }
         return $this->getTable()->where(['user_id' => $user])->order('key ASC');
     }
+
+    public function usersWithKey($key, $value = null)
+    {
+        $users = $this->getTable()->where('key = ?', $key);
+        if ($value) {
+            $users->where('value = ?', $value);
+        }
+        return $users;
+    }
 }
