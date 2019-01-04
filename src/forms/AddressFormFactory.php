@@ -78,6 +78,9 @@ class AddressFormFactory
         }
 
         $type = $form->addSelect('type', 'users.frontend.address.type.label', $this->addressTypesRepository->getPairs());
+        if ($addressId) {
+            $type->setDisabled(true);
+        }
 
         $form->addText('first_name', 'users.frontend.address.first_name.label')
             ->setAttribute('placeholder', 'users.frontend.address.first_name.placeholder');
@@ -151,7 +154,7 @@ class AddressFormFactory
             $values->company_tax_id,
             $values->company_vat_id,
             $values->phone_number,
-            $values->type
+            $values->type ?? null
         );
 
         if ($changeRequest) {
