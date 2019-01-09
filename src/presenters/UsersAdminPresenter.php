@@ -10,6 +10,7 @@ use Crm\UsersModule\Auth\UserManager;
 use Crm\UsersModule\Components\Widgets\DetailWidgetFactoryInterface;
 use Crm\UsersModule\DataProvider\FilterUsersFormDataProviderInterface;
 use Crm\UsersModule\DataProvider\FilterUsersSelectionDataProviderInterface;
+use Crm\UsersModule\Events\AddressRemovedEvent;
 use Crm\UsersModule\Forms\AdminUserGroupFormFactory;
 use Crm\UsersModule\Forms\UserFormFactory;
 use Crm\UsersModule\Forms\UserGroupsFormFactory;
@@ -18,6 +19,7 @@ use Crm\UsersModule\Repository\AddressesRepository;
 use Crm\UsersModule\Repository\ChangePasswordsLogsRepository;
 use Crm\UsersModule\Repository\GroupsRepository;
 use Crm\UsersModule\Repository\UsersRepository;
+use League\Event\Emitter;
 use Nette;
 use Nette\Application\UI\Form;
 use Nette\Utils\DateTime;
@@ -56,6 +58,8 @@ class UsersAdminPresenter extends AdminPresenter
 
     private $changePasswordsLogsRepository;
 
+    private $emitter;
+
     public function __construct(
         UsersRepository $usersRepository,
         UserFormFactory $userFormFactory,
@@ -67,7 +71,8 @@ class UsersAdminPresenter extends AdminPresenter
         DeleteUserData $deleteUserData,
         DataProviderManager $dataProviderManager,
         UserManager $userManager,
-        ChangePasswordsLogsRepository $changePasswordsLogsRepository
+        ChangePasswordsLogsRepository $changePasswordsLogsRepository,
+        Emitter $emitter
     ) {
         parent::__construct();
         $this->usersRepository = $usersRepository;
@@ -81,6 +86,7 @@ class UsersAdminPresenter extends AdminPresenter
         $this->dataProviderManager = $dataProviderManager;
         $this->userManager = $userManager;
         $this->changePasswordsLogsRepository = $changePasswordsLogsRepository;
+        $this->emitter = $emitter;
     }
 
     public function startup()
@@ -369,5 +375,6 @@ class UsersAdminPresenter extends AdminPresenter
     {
         $address = $this->addressesRepository->find($addressId);
         $this->addressesRepository->softDelete($address);
+        $this->emitter->emit(new AddressRemovedEvent($address));
     }
 }
