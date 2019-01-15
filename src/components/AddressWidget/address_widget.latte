@@ -1,4 +1,5 @@
 {if $address}
+<div style="margin-bottom: 5px">
   <b>
     {if $address->first_name}
       {$address->first_name}
@@ -16,4 +17,5 @@
   {if $address->country_id}
     {$address->country->name}
   {/if}
+</div>
 {/if}
