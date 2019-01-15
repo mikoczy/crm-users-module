@@ -1,5 +1,5 @@
 menu:
-	stats: Users
+	stats: Stats
 	change_password: Change password
 	settings: Settings
 	sign_out: Sign out
