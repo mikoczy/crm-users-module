@@ -17,6 +17,7 @@ use Crm\UsersModule\Repository\UserAlreadyExistsException;
 use Crm\UsersModule\Repository\UsersRepository;
 use League\Event\Emitter;
 use Nette\Database\IRow;
+use Nette\Database\Table\ActiveRow;
 use Nette\Security\Passwords;
 use Nette\Security\User;
 use Nette\Utils\DateTime;
@@ -75,7 +76,7 @@ class UserManager
      * @param null $referer
      * @param bool $checkEmail
      *
-     * @return bool
+     * @return @var ActiveRow|bool $user
      * @throws InvalidEmailException
      * @throws UserAlreadyExistsException
      * @throws \Nette\Utils\JsonException
@@ -88,6 +89,7 @@ class UserManager
 
         $password = $this->passwordGenerator->generatePassword();
 
+        /** @var ActiveRow|bool $user */
         $user = $this->userBuilder->createNew()
             ->sendEmail($sendEmail)
             ->setEmail($email)
