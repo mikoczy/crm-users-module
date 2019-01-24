@@ -4,7 +4,6 @@ namespace Crm\UsersModule\Auth;
 
 use Crm\ApplicationModule\Authenticator\AuthenticatorInterface;
 use Crm\ApplicationModule\Authenticator\AuthenticatorManager;
-use Crm\ContentModule\Authenticator\ContentAuthenticator;
 use Crm\UsersModule\Auth\Rate\RateLimitException;
 use Crm\UsersModule\Events\UserSignInEvent;
 use Crm\UsersModule\Repository\UsersRepository;
@@ -64,10 +63,7 @@ class UserAuthenticator implements IAuthenticator
             try {
                 $u = $authenticator->setCredentials($credentials)->authenticate();
 
-                $options = $authenticator->getOptions();
-                if (!$regenerateToken && isset($options[AuthenticatorInterface::REGENERATE_TOKEN])) {
-                    $regenerateToken = $options[AuthenticatorInterface::REGENERATE_TOKEN];
-                }
+                $regenerateToken = $authenticator->shouldRegenerateToken();
 
                 if ($u !== null && $u !== false) {
                     $user = $u;
