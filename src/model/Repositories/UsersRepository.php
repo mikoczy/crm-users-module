@@ -4,6 +4,7 @@ namespace Crm\UsersModule\Repository;
 
 use Crm\ApplicationModule\Repository;
 use Crm\ApplicationModule\Repository\AuditLogRepository;
+use Crm\ApplicationModule\Stats\StatsRepository;
 use Crm\UsersModule\Events\UserDisabledEvent;
 use Crm\UsersModule\Events\UserUpdatedEvent;
 use League\Event\Emitter;
@@ -29,10 +30,13 @@ class UsersRepository extends Repository
 
     private $accessTokensRepository;
 
+    private $statsRepository;
+
     public function __construct(
         Context $database,
         Emitter $emitter,
         AuditLogRepository $auditLogRepository,
+        StatsRepository $statsRepository,
         \Tomaj\Hermes\Emitter $hermesEmmiter,
         AddressesRepository $addressesRepository,
         AccessTokensRepository $accessTokensRepository
@@ -44,6 +48,7 @@ class UsersRepository extends Repository
         $this->hermesEmitter = $hermesEmmiter;
         $this->addressesRepository = $addressesRepository;
         $this->accessTokensRepository = $accessTokensRepository;
+        $this->statsRepository = $statsRepository;
     }
 
     /**
@@ -83,6 +88,15 @@ class UsersRepository extends Repository
             'address' => $address,
             'ext_id' => $extId,
         ]);
+    }
+
+    public function totalCount()
+    {
+        $stat = $this->statsRepository->loadByKey('users_count');
+        if ($stat) {
+            return $stat->value;
+        }
+        return parent::totalCount();
     }
 
     public function addSignIn($user)
