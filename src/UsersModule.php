@@ -21,6 +21,7 @@ use Crm\UsersModule\Repository\ChangePasswordsLogsRepository;
 use Crm\UsersModule\Repository\UserActionsLogRepository;
 use Crm\UsersModule\Repository\UsersRepository;
 use Crm\UsersModule\Seeders\ConfigsSeeder;
+use Crm\UsersModule\Seeders\StatsSeeder;
 use Crm\UsersModule\Seeders\UsersSeeder;
 use Kdyby\Translation\Translator;
 use League\Event\Emitter;
@@ -298,6 +299,7 @@ class UsersModule extends CrmModule
     {
         $seederManager->addSeeder($this->getInstance(ConfigsSeeder::class));
         $seederManager->addSeeder($this->getInstance(UsersSeeder::class));
+        $seederManager->addSeeder($this->getInstance(StatsSeeder::class));
     }
 
     public function registerCleanupFunction(CallbackManagerInterface $cleanUpManager)

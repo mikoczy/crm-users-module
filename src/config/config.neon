@@ -97,6 +97,7 @@ services:
 	- Crm\UsersModule\Segment\CreatedCriteria
 	- Crm\UsersModule\Seeders\ConfigsSeeder
 	- Crm\UsersModule\Seeders\UsersSeeder
+	- Crm\UsersModule\Seeders\StatsSeeder
 	- Crm\UsersModule\Components\UserSourceAccesses
 	- Crm\UsersModule\Components\UserTokens
 	- Crm\UsersModule\Auth\Rate\WrongPasswordRateLimit
