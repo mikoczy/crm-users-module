@@ -97,22 +97,22 @@ class UsersAdminPresenter extends AdminPresenter
 
     public function renderDefault()
     {
-        $users = $this->getFilteredUsers();
+        $filteredCount = $this->getFilteredUsers(true)->count('distinct(users.id)');
 
-        $filteredCount = $users->count('distinct(users.id)');
-        $this->template->filteredCount = $filteredCount;
+        $users = $this->getFilteredUsers();
 
         $vp = new VisualPaginator();
         $this->addComponent($vp, 'vp');
         $paginator = $vp->getPaginator();
         $paginator->setItemCount($filteredCount);
         $paginator->setItemsPerPage($this->onPage);
+        $this->template->filteredCount = $filteredCount;
         $this->template->vp = $vp;
         $this->template->users = $users->limit($paginator->getLength(), $paginator->getOffset());
         $this->template->totalUsers = $this->usersRepository->totalCount();
     }
 
-    private function getFilteredUsers()
+    private function getFilteredUsers($onlyCount = false)
     {
         $users = $this->usersRepository
             ->all($this->text)
@@ -128,11 +128,13 @@ class UsersAdminPresenter extends AdminPresenter
             $where['users.source'] = $this->params['source'];
         }
 
+        $params = array_merge($this->params, $onlyCount ? ['only_count' => true] : []);
+
         /** @var FilterUsersSelectionDataProviderInterface[] $providers */
         $providers = $this->dataProviderManager->getProviders('users.dataprovider.filter_users_selection', FilterUsersSelectionDataProviderInterface::class);
         foreach ($providers as $sorting => $provider) {
             $users = $provider
-                ->provide(['selection' => $users, 'params' => $this->params]);
+                ->provide(['selection' => $users, 'params' => $params]);
         }
 
         if (count($where) > 0) {
