@@ -128,13 +128,11 @@ class UsersAdminPresenter extends AdminPresenter
             $where['users.source'] = $this->params['source'];
         }
 
-        $params = array_merge($this->params, $onlyCount ? ['only_count' => true] : []);
-
         /** @var FilterUsersSelectionDataProviderInterface[] $providers */
         $providers = $this->dataProviderManager->getProviders('users.dataprovider.filter_users_selection', FilterUsersSelectionDataProviderInterface::class);
         foreach ($providers as $sorting => $provider) {
             $users = $provider
-                ->provide(['selection' => $users, 'params' => $params]);
+                ->provide(['selection' => $users, 'params' => $this->params, 'only_count' => $onlyCount]);
         }
 
         if (count($where) > 0) {
