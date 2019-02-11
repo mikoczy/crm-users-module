@@ -101,7 +101,7 @@ class UsersRepository extends Repository
      */
     public function all($text = '')
     {
-        $table = $this->getTable()->where(['deleted_at' => null])->order('users.created_at DESC');
+        $table = $this->getTable()->where(['deleted_at' => null])->order('users.id DESC');
 
         if (!empty($text)) {
             foreach (explode(" ", $text) as $word) {
