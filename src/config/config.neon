@@ -56,6 +56,7 @@ services:
 	- Crm\UsersModule\Commands\GenerateAccessCommand
 	- Crm\UsersModule\Commands\CheckEmailsCommand
 	- Crm\UsersModule\Commands\DisableUserCommand
+	- Crm\UsersModule\Commands\RefreshStatsCommand
 	- Crm\UsersModule\Components\AddressWidget
 	- Crm\UsersModule\Components\UserLoginAttempts
 	- Crm\UsersModule\Components\UserPasswordChanges
@@ -97,7 +98,6 @@ services:
 	- Crm\UsersModule\Segment\CreatedCriteria
 	- Crm\UsersModule\Seeders\ConfigsSeeder
 	- Crm\UsersModule\Seeders\UsersSeeder
-	- Crm\UsersModule\Seeders\StatsSeeder
 	- Crm\UsersModule\Components\UserSourceAccesses
 	- Crm\UsersModule\Components\UserTokens
 	- Crm\UsersModule\Auth\Rate\WrongPasswordRateLimit

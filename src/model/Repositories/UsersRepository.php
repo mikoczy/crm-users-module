@@ -90,11 +90,20 @@ class UsersRepository extends Repository
         ]);
     }
 
-    public function totalCount()
+    public function totalCount($allowCached = false, $forceCacheUpdate = false)
     {
-        return $this->statsRepository->loadByKeyAndUpdateCache('users_count', function () {
+        $callable = function () {
             return parent::totalCount();
-        }, DateTime::from('-1 hour'));
+        };
+        if ($allowCached) {
+            return $this->statsRepository->loadByKeyAndUpdateCache(
+                'users_count',
+                $callable,
+                \Nette\Utils\DateTime::from('-10 minutes'),
+                $forceCacheUpdate
+            );
+        }
+        return $callable();
     }
 
     public function addSignIn($user)

@@ -21,7 +21,6 @@ use Crm\UsersModule\Repository\ChangePasswordsLogsRepository;
 use Crm\UsersModule\Repository\UserActionsLogRepository;
 use Crm\UsersModule\Repository\UsersRepository;
 use Crm\UsersModule\Seeders\ConfigsSeeder;
-use Crm\UsersModule\Seeders\StatsSeeder;
 use Crm\UsersModule\Seeders\UsersSeeder;
 use Kdyby\Translation\Translator;
 use League\Event\Emitter;
@@ -157,6 +156,7 @@ class UsersModule extends CrmModule
         $commandsContainer->registerCommand($this->getInstance(\Crm\UsersModule\Commands\UpdateLoginAttemptsCommand::class));
         $commandsContainer->registerCommand($this->getInstance(\Crm\UsersModule\Commands\CheckEmailsCommand::class));
         $commandsContainer->registerCommand($this->getInstance(\Crm\UsersModule\Commands\DisableUserCommand::class));
+        $commandsContainer->registerCommand($this->getInstance(\Crm\UsersModule\Commands\RefreshStatsCommand::class));
     }
 
     public function registerWidgets(WidgetManagerInterface $widgetManager)
@@ -299,7 +299,6 @@ class UsersModule extends CrmModule
     {
         $seederManager->addSeeder($this->getInstance(ConfigsSeeder::class));
         $seederManager->addSeeder($this->getInstance(UsersSeeder::class));
-        $seederManager->addSeeder($this->getInstance(StatsSeeder::class));
     }
 
     public function registerCleanupFunction(CallbackManagerInterface $cleanUpManager)
