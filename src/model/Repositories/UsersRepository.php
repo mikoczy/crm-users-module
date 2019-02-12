@@ -94,7 +94,7 @@ class UsersRepository extends Repository
     {
         return $this->statsRepository->loadByKeyAndUpdateCache('users_count', function (){
             return parent::totalCount();
-        }, DateTime::from('-1 day'));
+        }, DateTime::from('-1 hour'));
     }
 
     public function addSignIn($user)
