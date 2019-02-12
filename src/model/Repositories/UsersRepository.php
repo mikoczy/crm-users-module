@@ -92,11 +92,9 @@ class UsersRepository extends Repository
 
     public function totalCount()
     {
-        $stat = $this->statsRepository->loadByKey('users_count');
-        if ($stat) {
-            return $stat->value;
-        }
-        return parent::totalCount();
+        return $this->statsRepository->loadByKeyAndUpdateCache('users_count', function (){
+            return parent::totalCount();
+        }, DateTime::from('-1 day'));
     }
 
     public function addSignIn($user)
