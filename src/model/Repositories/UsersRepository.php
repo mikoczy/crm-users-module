@@ -92,7 +92,7 @@ class UsersRepository extends Repository
 
     public function totalCount()
     {
-        return $this->statsRepository->loadByKeyAndUpdateCache('users_count', function (){
+        return $this->statsRepository->loadByKeyAndUpdateCache('users_count', function () {
             return parent::totalCount();
         }, DateTime::from('-1 hour'));
     }
