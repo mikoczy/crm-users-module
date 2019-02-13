@@ -2,9 +2,9 @@
 
 namespace Crm\UsersModule\Repository;
 
+use Crm\ApplicationModule\Cache\CacheRepository;
 use Crm\ApplicationModule\Repository;
 use Crm\ApplicationModule\Repository\AuditLogRepository;
-use Crm\ApplicationModule\Stats\StatsRepository;
 use Crm\UsersModule\Events\UserDisabledEvent;
 use Crm\UsersModule\Events\UserUpdatedEvent;
 use League\Event\Emitter;
@@ -30,13 +30,13 @@ class UsersRepository extends Repository
 
     private $accessTokensRepository;
 
-    private $statsRepository;
+    private $cacheRepository;
 
     public function __construct(
         Context $database,
         Emitter $emitter,
         AuditLogRepository $auditLogRepository,
-        StatsRepository $statsRepository,
+        CacheRepository $cacheRepository,
         \Tomaj\Hermes\Emitter $hermesEmmiter,
         AddressesRepository $addressesRepository,
         AccessTokensRepository $accessTokensRepository
@@ -48,7 +48,7 @@ class UsersRepository extends Repository
         $this->hermesEmitter = $hermesEmmiter;
         $this->addressesRepository = $addressesRepository;
         $this->accessTokensRepository = $accessTokensRepository;
-        $this->statsRepository = $statsRepository;
+        $this->cacheRepository = $cacheRepository;
     }
 
     /**
@@ -96,7 +96,7 @@ class UsersRepository extends Repository
             return parent::totalCount();
         };
         if ($allowCached) {
-            return $this->statsRepository->loadByKeyAndUpdateCache(
+            return $this->cacheRepository->loadByKeyAndUpdate(
                 'users_count',
                 $callable,
                 \Nette\Utils\DateTime::from('-10 minutes'),
