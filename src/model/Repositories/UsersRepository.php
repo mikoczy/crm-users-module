@@ -2,6 +2,7 @@
 
 namespace Crm\UsersModule\Repository;
 
+use Crm\ApplicationModule\Cache\CacheRepository;
 use Crm\ApplicationModule\Repository;
 use Crm\ApplicationModule\Repository\AuditLogRepository;
 use Crm\UsersModule\Events\UserDisabledEvent;
@@ -29,10 +30,13 @@ class UsersRepository extends Repository
 
     private $accessTokensRepository;
 
+    private $cacheRepository;
+
     public function __construct(
         Context $database,
         Emitter $emitter,
         AuditLogRepository $auditLogRepository,
+        CacheRepository $cacheRepository,
         \Tomaj\Hermes\Emitter $hermesEmmiter,
         AddressesRepository $addressesRepository,
         AccessTokensRepository $accessTokensRepository
@@ -44,6 +48,7 @@ class UsersRepository extends Repository
         $this->hermesEmitter = $hermesEmmiter;
         $this->addressesRepository = $addressesRepository;
         $this->accessTokensRepository = $accessTokensRepository;
+        $this->cacheRepository = $cacheRepository;
     }
 
     /**
@@ -83,6 +88,22 @@ class UsersRepository extends Repository
             'address' => $address,
             'ext_id' => $extId,
         ]);
+    }
+
+    public function totalCount($allowCached = false, $forceCacheUpdate = false)
+    {
+        $callable = function () {
+            return parent::totalCount();
+        };
+        if ($allowCached) {
+            return $this->cacheRepository->loadByKeyAndUpdate(
+                'users_count',
+                $callable,
+                \Nette\Utils\DateTime::from('-10 minutes'),
+                $forceCacheUpdate
+            );
+        }
+        return $callable();
     }
 
     public function addSignIn($user)
