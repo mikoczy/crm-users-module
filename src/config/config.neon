@@ -56,7 +56,6 @@ services:
 	- Crm\UsersModule\Commands\GenerateAccessCommand
 	- Crm\UsersModule\Commands\CheckEmailsCommand
 	- Crm\UsersModule\Commands\DisableUserCommand
-	- Crm\UsersModule\Commands\RefreshStatsCommand
 	- Crm\UsersModule\Components\AddressWidget
 	- Crm\UsersModule\Components\UserLoginAttempts
 	- Crm\UsersModule\Components\UserPasswordChanges

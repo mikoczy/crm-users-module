@@ -28,6 +28,7 @@ use Nette\Application\Routers\Route;
 use Nette\Application\Routers\RouteList;
 use Nette\DI\Container;
 use Nette\Security\User;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class UsersModule extends CrmModule
 {
@@ -35,11 +36,19 @@ class UsersModule extends CrmModule
 
     private $permissions;
 
-    public function __construct(Container $container, Translator $translator, User $user, Permissions $permissions)
-    {
+    private $usersRepository;
+
+    public function __construct(
+        Container $container,
+        Translator $translator,
+        User $user,
+        Permissions $permissions,
+        UsersRepository $usersRepository
+    ) {
         parent::__construct($container, $translator);
         $this->user = $user;
         $this->permissions = $permissions;
+        $this->usersRepository = $usersRepository;
     }
 
     public function registerAuthenticators(AuthenticatorManagerInterface $authenticatorManager)
@@ -156,7 +165,6 @@ class UsersModule extends CrmModule
         $commandsContainer->registerCommand($this->getInstance(\Crm\UsersModule\Commands\UpdateLoginAttemptsCommand::class));
         $commandsContainer->registerCommand($this->getInstance(\Crm\UsersModule\Commands\CheckEmailsCommand::class));
         $commandsContainer->registerCommand($this->getInstance(\Crm\UsersModule\Commands\DisableUserCommand::class));
-        $commandsContainer->registerCommand($this->getInstance(\Crm\UsersModule\Commands\RefreshStatsCommand::class));
     }
 
     public function registerWidgets(WidgetManagerInterface $widgetManager)
@@ -335,5 +343,14 @@ class UsersModule extends CrmModule
         $eventsStorage->register('user_sign_in', Events\UserSignInEvent::class);
         $eventsStorage->register('user_sign_out', Events\UserSignOutEvent::class);
         $eventsStorage->register('user_updated', Events\UserUpdatedEvent::class);
+    }
+
+    public function cache(OutputInterface $output, array $tags = [])
+    {
+        if (in_array('precalc', $tags, true)) {
+            $output->writeln("<info>Refreshing user stats cache</info>");
+
+            $this->usersRepository->totalCount(true, true);
+        }
     }
 }
