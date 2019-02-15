@@ -245,4 +245,12 @@ class UsersRepository extends Repository
             'created_at < ?' => $to,
         ]);
     }
+
+    public function isRole($userId, $role)
+    {
+        return $this->getTable()->where([
+            'id' => $userId,
+            'role' => $role,
+        ])->count('*') > 0;
+    }
 }
