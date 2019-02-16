@@ -13,10 +13,13 @@ class UserSignInEvent extends AbstractEvent
 
     private $source;
 
-    public function __construct($user, $source = self::SOURCE_WEB)
+    private $regenerateToken;
+
+    public function __construct($user, $source = self::SOURCE_WEB, $regenerateToken = true)
     {
         $this->user = $user;
         $this->source = $source;
+        $this->regenerateToken = $regenerateToken;
     }
 
     public function getUser()
@@ -27,5 +30,10 @@ class UserSignInEvent extends AbstractEvent
     public function getSource()
     {
         return $this->source;
+    }
+
+    public function getRegenerateToken()
+    {
+        return $this->regenerateToken;
     }
 }

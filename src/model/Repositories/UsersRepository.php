@@ -2,6 +2,7 @@
 
 namespace Crm\UsersModule\Repository;
 
+use Crm\ApplicationModule\Cache\CacheRepository;
 use Crm\ApplicationModule\Repository;
 use Crm\ApplicationModule\Repository\AuditLogRepository;
 use Crm\UsersModule\Events\UserDisabledEvent;
@@ -29,10 +30,13 @@ class UsersRepository extends Repository
 
     private $accessTokensRepository;
 
+    private $cacheRepository;
+
     public function __construct(
         Context $database,
         Emitter $emitter,
         AuditLogRepository $auditLogRepository,
+        CacheRepository $cacheRepository,
         \Tomaj\Hermes\Emitter $hermesEmmiter,
         AddressesRepository $addressesRepository,
         AccessTokensRepository $accessTokensRepository
@@ -44,6 +48,7 @@ class UsersRepository extends Repository
         $this->hermesEmitter = $hermesEmmiter;
         $this->addressesRepository = $addressesRepository;
         $this->accessTokensRepository = $accessTokensRepository;
+        $this->cacheRepository = $cacheRepository;
     }
 
     /**
@@ -85,6 +90,22 @@ class UsersRepository extends Repository
         ]);
     }
 
+    public function totalCount($allowCached = false, $forceCacheUpdate = false)
+    {
+        $callable = function () {
+            return parent::totalCount();
+        };
+        if ($allowCached) {
+            return $this->cacheRepository->loadByKeyAndUpdate(
+                'users_count',
+                $callable,
+                \Nette\Utils\DateTime::from('-10 minutes'),
+                $forceCacheUpdate
+            );
+        }
+        return $callable();
+    }
+
     public function addSignIn($user)
     {
         return $this->getTable()->where(['id' => $user->id])->update([
@@ -101,7 +122,7 @@ class UsersRepository extends Repository
      */
     public function all($text = '')
     {
-        $table = $this->getTable()->where(['deleted_at' => null])->order('users.created_at DESC');
+        $table = $this->getTable()->where(['deleted_at' => null])->order('users.id DESC');
 
         if (!empty($text)) {
             foreach (explode(" ", $text) as $word) {

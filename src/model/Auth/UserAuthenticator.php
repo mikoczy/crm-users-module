@@ -44,6 +44,7 @@ class UserAuthenticator implements IAuthenticator
      */
     public function authenticate(array $credentials)
     {
+
         // Dirty hack so we can use in both User->Authenticator->authenticate() and \Nette\Security\User->login() methods
         // arrays with named keys instead of anonymous arrays.
         // Eg. $userAuthenticator->authenticate(['username' => $username, 'alwaysLogin' => true]); instead of
@@ -54,12 +55,16 @@ class UserAuthenticator implements IAuthenticator
 
         $user = false;
         $source = null;
+        $regenerateToken = null;
         $exception = null;
         $authenticators = $this->authenticatorManager->getAuthenticators();
         /** @var AuthenticatorInterface $authenticator */
         foreach ($authenticators as $authenticator) {
             try {
                 $u = $authenticator->setCredentials($credentials)->authenticate();
+
+                $regenerateToken = $authenticator->shouldRegenerateToken();
+
                 if ($u !== null && $u !== false) {
                     $user = $u;
                     $source = $authenticator->getSource();
@@ -82,7 +87,7 @@ class UserAuthenticator implements IAuthenticator
         if ($user === false) {
             throw new AuthenticationException('', UserAuthenticator::IDENTITY_NOT_FOUND);
         }
-        $this->emitter->emit(new UserSignInEvent($user, $source));
+        $this->emitter->emit(new UserSignInEvent($user, $source, $regenerateToken ?? true));
 
         $arr = $user->toArray();
         unset($arr[self::COLUMN_PASSWORD_HASH]);
