@@ -6,6 +6,7 @@ use Crm\ApplicationModule\Access\AccessManager;
 use Crm\ApplicationModule\Request as CrmRequest;
 use Crm\UsersModule\Repository\AccessTokensRepository;
 use Crm\UsersModule\Repository\UsersRepository;
+use Nette\Http\IRequest;
 use Nette\Http\Request;
 use Nette\Http\Response;
 
@@ -85,6 +86,11 @@ class AccessToken
 
         $response->deleteCookie($this->cookieName, '/', CrmRequest::getDomain());
         $response->deleteCookie('n_version', '/', CrmRequest::getDomain());
+    }
+
+    public function getToken(IRequest $request)
+    {
+        return $request->getCookie($this->cookieName);
     }
 
     public function lastVersion()
