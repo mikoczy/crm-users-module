@@ -99,8 +99,9 @@ class AddressFormFactory
             ->setAttribute('placeholder', 'users.frontend.address.city.placeholder');
         $form->addSelect('country_id', 'users.frontend.address.country.label', $this->countriesRepository->getAllPairs());
 
-        $form->addText('company_name', 'users.frontend.address.company_name.label')
-            ->setAttribute('placeholder', 'users.frontend.address.company_name.placeholder');
+        $form->addTextArea('company_name', 'users.frontend.address.company_name.label')
+            ->setAttribute('placeholder', 'users.frontend.address.company_name.placeholder')
+            ->setHtmlAttribute('maxlength', 255);
         $companyId = $form->addText('company_id', 'users.frontend.address.company_id.label')
             ->setAttribute('placeholder', 'users.frontend.address.company_id.placeholder');
         $companyTaxId = $form->addText('company_tax_id', 'users.frontend.address.company_tax_id.label')
