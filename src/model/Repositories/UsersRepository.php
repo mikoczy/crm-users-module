@@ -134,16 +134,17 @@ class UsersRepository extends Repository
                             "%{$word}%",
                             "%{$word}%",
                             "%{$word}%",
-                            $this->addressesRepository->getTable()->select('distinct(user_id)')->where(
-                                'address LIKE ? OR number LIKE ? OR city LIKE ? OR first_name LIKE ? OR last_name LIKE ?',
-                                [
+                            $this->addressesRepository->all()->select('distinct(user_id)')
+                                ->where(
+                                    'address LIKE ? OR number LIKE ? OR city LIKE ? OR first_name LIKE ? OR last_name LIKE ?',
+                                    [
                                     "%{$word}%",
                                     "%{$word}%",
                                     "%{$word}%",
                                     "%{$word}%",
                                     "%{$word}%",
-                                ]
-                            )
+                                    ]
+                                )
                         ]
                     )
                     ->group('users.id');

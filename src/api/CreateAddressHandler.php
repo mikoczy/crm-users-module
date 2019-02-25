@@ -7,7 +7,7 @@ use Crm\ApiModule\Api\JsonResponse;
 use Crm\ApiModule\Authorization\ApiAuthorizationInterface;
 use Crm\ApiModule\Params\InputParam;
 use Crm\ApiModule\Params\ParamsProcessor;
-use Crm\PrintModule\Repository\AddressChangeRequestsRepository;
+use Crm\UsersModule\Repository\AddressChangeRequestsRepository;
 use Crm\UsersModule\Auth\UserManager;
 use Crm\UsersModule\Events\NewAddressEvent;
 use Crm\UsersModule\Repository\AddressesRepository;

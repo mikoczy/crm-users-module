@@ -40,10 +40,10 @@ class UserLastAccessHandler extends AbstractListener
     {
         $source = 'web';
         $detector = new MobileDetect(null, $userAgent);
-        if ($detector->isMobile()) {
-            $source .= '_mobile';
-        } elseif ($detector->isTablet()) {
+        if ($detector->isTablet()) {
             $source .= '_tablet';
+        } elseif ($detector->isMobile()) {
+            $source .= '_mobile';
         }
         return $source;
     }
