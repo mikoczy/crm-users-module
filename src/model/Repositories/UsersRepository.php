@@ -99,7 +99,7 @@ class UsersRepository extends Repository
             return $this->cacheRepository->loadByKeyAndUpdate(
                 'users_count',
                 $callable,
-                \Nette\Utils\DateTime::from('-10 minutes'),
+                \Nette\Utils\DateTime::from(CacheRepository::DEFAULT_REFRESH_TIME),
                 $forceCacheUpdate
             );
         }
