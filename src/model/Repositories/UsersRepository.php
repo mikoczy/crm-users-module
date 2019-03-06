@@ -96,10 +96,10 @@ class UsersRepository extends Repository
             return parent::totalCount();
         };
         if ($allowCached) {
-            return $this->cacheRepository->loadByKeyAndUpdate(
+            return $this->cacheRepository->loadAndUpdate(
                 'users_count',
                 $callable,
-                \Nette\Utils\DateTime::from(CacheRepository::DEFAULT_REFRESH_TIME),
+                \Nette\Utils\DateTime::from(CacheRepository::REFRESH_TIME_5_MINUTES),
                 $forceCacheUpdate
             );
         }
