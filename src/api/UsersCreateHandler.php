@@ -67,10 +67,6 @@ class UsersCreateHandler extends ApiHandler
             $params['source'] = $_GET['source'];
         }
 
-        if (!isset($params['source']) && $authorization->getAuthorizedData()['token']->token == 'e38e4a070d8a3e8cec0c2bde6912209d') {
-            $params['source'] = 'dennikn_mobile_app';
-        }
-
         $email = $params['email'];
         if (!$email) {
             $response = new JsonResponse(['status' => 'error', 'message' => 'Invalid email', 'code' => 'invalid_email']);
