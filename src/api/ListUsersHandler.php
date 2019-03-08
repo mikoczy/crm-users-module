@@ -89,7 +89,7 @@ class ListUsersHandler extends ApiHandler
 
         $result = [
             'status' => 'ok',
-            'page' => $params['page'],
+            'page' => intval($params['page']),
             'totalPages' => $totalPages,
             'totalCount' => $count,
             'users' => $resultArr,
