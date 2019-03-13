@@ -7,7 +7,7 @@ use Crm\ApplicationModule\Criteria\CriteriaInterface;
 use Crm\SegmentModule\Params\DateTimeParam;
 use Crm\SegmentModule\Params\ParamsBag;
 
-class AccessSourceCriteria implements CriteriaInterface
+class SourceAccessCriteria implements CriteriaInterface
 {
     private $userSourceAccessesRepository;
 
