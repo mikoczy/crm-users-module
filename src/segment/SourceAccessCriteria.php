@@ -72,7 +72,7 @@ class SourceAccessCriteria implements CriteriaInterface
             $titles[] = 'tablet having' . $params->datetime('web_tablet')->title('last_accessed_at');
         }
 
-        return ' web access source is  ' . implode(' and ', $titles);
+        return ' source access via ' . implode(' and ', $titles);
     }
 
     public function fields(): array
