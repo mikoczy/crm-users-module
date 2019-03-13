@@ -280,6 +280,7 @@ class UsersModule extends CrmModule
         $criteriaStorage->register('users', 'active', $this->getInstance(\Crm\UsersModule\Segment\ActiveCriteria::class));
         $criteriaStorage->register('users', 'deleted', $this->getInstance(\Crm\UsersModule\Segment\DeletedCriteria::class));
         $criteriaStorage->register('users', 'source', $this->getInstance(\Crm\UsersModule\Segment\SourceCriteria::class));
+        $criteriaStorage->register('users', 'access_source', $this->getInstance(\Crm\UsersModule\Segment\AccessSourceCriteria::class));
         $criteriaStorage->register('users', 'email', $this->getInstance(\Crm\UsersModule\Segment\EmailCriteria::class));
         $criteriaStorage->register('users', 'created', $this->getInstance(\Crm\UsersModule\Segment\CreatedCriteria::class));
 
