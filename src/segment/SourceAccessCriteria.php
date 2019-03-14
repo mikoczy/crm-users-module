@@ -18,12 +18,12 @@ class SourceAccessCriteria implements CriteriaInterface
 
     public function label(): string
     {
-        return "Access source";
+        return 'Source access';
     }
 
     public function category(): string
     {
-        return "Users";
+        return 'Users';
     }
 
     public function params(): array
