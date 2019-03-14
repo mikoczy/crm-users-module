@@ -18,7 +18,7 @@ class SourceAccessCriteria implements CriteriaInterface
 
     public function label(): string
     {
-        return 'Source access';
+        return 'Source of web access';
     }
 
     public function category(): string
