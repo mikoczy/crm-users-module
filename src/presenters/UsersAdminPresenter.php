@@ -174,6 +174,17 @@ class UsersAdminPresenter extends AdminPresenter
 
         $loginCount = isset($this->params['login_count']) ? $this->params['login_count'] : 25;
         $deviceCount = isset($this->params['device_count']) ? $this->params['device_count'] : 1;
+        $sortBy = isset($this->params['sort_by']) ? $this->params['sort_by'] : 'device_count';
+
+        $getParams = [
+            'login_count' => $loginCount,
+            'device_count' => $deviceCount,
+            'start_time' => $startTime->format('Y-m-d'),
+            'end_time' => $endTime->format('Y-m-d'),
+        ];
+
+        $this->template->sortByTokenCountLink = $this->link('UsersAdmin:Abusive', array_merge($getParams, ['sort_by' => 'token_count']));
+        $this->template->sortByDeviceCountLink = $this->link('UsersAdmin:Abusive', array_merge($getParams, ['sort_by' => 'device_count']));
 
         $this->template->startTime = $startTime->format('Y-m-d');
         $this->template->endTime = $endTime->format('Y-m-d');
@@ -181,7 +192,8 @@ class UsersAdminPresenter extends AdminPresenter
         $this->template->loginCountRanges = [10,25,50,100];
         $this->template->deviceCount = $deviceCount;
         $this->template->deviceCountRanges = [1,5,10,25,50];
-        $users = $this->usersRepository->getAbusiveUsers($startTime, $endTime, $loginCount, $deviceCount)->fetchAll();
+
+        $users = $this->usersRepository->getAbusiveUsers($startTime, $endTime, $loginCount, $deviceCount, $sortBy)->fetchAll();
         $this->template->abusers = $users;
     }
 
