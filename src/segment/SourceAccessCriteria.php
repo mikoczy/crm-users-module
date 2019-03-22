@@ -41,17 +41,20 @@ class SourceAccessCriteria implements CriteriaInterface
         $where = [];
         if ($params->has('web_mobile')) {
             $dateWhere = $params->datetime('web_mobile')->escapedConditions('last_accessed_at');
-            $where[] = "($dateWhere[0] AND source='web_mobile')";
+            $date = implode(" AND ", $dateWhere);
+            $where[] = "($date AND source='web_mobile')";
             $havingCount++;
         }
         if ($params->has('web_desktop')) {
             $dateWhere = $params->datetime('web_desktop')->escapedConditions('last_accessed_at');
-            $where[] = "($dateWhere[0] AND source='web')";
+            $date = implode(" AND ", $dateWhere);
+            $where[] = "($date AND source='web')";
             $havingCount++;
         }
         if ($params->has('web_tablet')) {
             $dateWhere = $params->datetime('web_tablet')->escapedConditions('last_accessed_at');
-            $where[] = "($dateWhere[0] AND source='web_tablet')";
+            $date = implode(" AND ", $dateWhere);
+            $where[] = "($date AND source='web_tablet')";
             $havingCount++;
         }
 
