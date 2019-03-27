@@ -4,6 +4,7 @@ namespace Crm\UsersModule\Email;
 
 class EmailValidator
 {
+    /** @var ValidatorInterface[] */
     private $validators = [];
 
     private $lastValidator = null;
@@ -12,7 +13,7 @@ class EmailValidator
     {
         $this->lastValidator = null;
         foreach ($this->validators as $validator) {
-            if (!$validator->isvalid($email)) {
+            if (!$validator->isValid($email)) {
                 $this->lastValidator = $validator;
                 return false;
             }

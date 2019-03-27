@@ -38,12 +38,15 @@ class UserLastAccessHandler extends AbstractListener
 
     private function getSource($source, $userAgent)
     {
-        $source = 'web';
-        $detector = new MobileDetect(null, $userAgent);
-        if ($detector->isTablet()) {
-            $source .= '_tablet';
-        } elseif ($detector->isMobile()) {
-            $source .= '_mobile';
+        if (empty($source) || $source === UserSignInEvent::SOURCE_WEB) {
+            $source = UserSignInEvent::SOURCE_WEB;
+            $detector = new MobileDetect(null, $userAgent);
+            if ($detector->isTablet()) {
+                $source .= '_tablet';
+            } elseif ($detector->isMobile()) {
+                $source .= '_mobile';
+            }
+            return $source;
         }
         return $source;
     }

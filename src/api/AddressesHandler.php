@@ -28,8 +28,8 @@ class AddressesHandler extends ApiHandler
     public function params()
     {
         return [
+            new InputParam(InputParam::TYPE_GET, 'email', InputParam::REQUIRED),
             new InputParam(InputParam::TYPE_GET, 'type', InputParam::OPTIONAL),
-            new InputParam(InputParam::TYPE_GET, 'email', InputParam::OPTIONAL),
         ];
     }
 

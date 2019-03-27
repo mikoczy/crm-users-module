@@ -96,10 +96,10 @@ class UsersRepository extends Repository
             return parent::totalCount();
         };
         if ($allowCached) {
-            return $this->cacheRepository->loadByKeyAndUpdate(
+            return $this->cacheRepository->loadAndUpdate(
                 'users_count',
                 $callable,
-                \Nette\Utils\DateTime::from('-10 minutes'),
+                \Nette\Utils\DateTime::from(CacheRepository::REFRESH_TIME_5_MINUTES),
                 $forceCacheUpdate
             );
         }
@@ -215,13 +215,17 @@ class UsersRepository extends Repository
         return $this->getTable()->where(['password' => '']);
     }
 
-    public function getAbusiveUsers(DateTime $start, DateTime $end, $tokenCount = 10, $deviceCount = 1)
+    public function getAbusiveUsers(DateTime $start, DateTime $end, $tokenCount = 10, $deviceCount = 1, $sortBy = 'device_count')
     {
+        if (!in_array($sortBy, ['device_count', 'token_count'], true)) {
+            $sortBy = 'device_count';
+        }
+
         return $this->getTable()->select('users.*, COUNT(:access_tokens.id) AS token_count, COUNT(DISTINCT :access_tokens.user_agent) AS device_count')
             ->where([':access_tokens.last_used_at >= ?' => $start, ':access_tokens.last_used_at < ?' => $end])
             ->group('users.id')
             ->having('token_count >= ? AND device_count >= ?', $tokenCount, $deviceCount)
-            ->order('device_count DESC');
+            ->order("$sortBy DESC");
     }
 
     public function getNoConfirmed(DateTime $toTime)
