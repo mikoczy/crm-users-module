@@ -57,7 +57,8 @@ class ListUsersHandler extends ApiHandler
             return $response;
         }
 
-        $query = $this->usersRepository->getTable()
+        $query = $this->usersRepository->all()
+            ->where('active = ?', true)
             ->select('id, email')
             ->order('id ASC');
 
