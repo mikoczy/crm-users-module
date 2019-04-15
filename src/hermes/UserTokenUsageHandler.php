@@ -39,7 +39,9 @@ class UserTokenUsageHandler implements HandlerInterface
         $token = $this->accessTokensRepository->loadToken($payload['token']);
 
         if (!$token) {
-            throw new UserTokenUsageException("token {$token} doesn't exist");
+            // Not throwing exception since this spam logs too much
+            //throw new UserTokenUsageException("token {$token} doesn't exist");
+            return true;
         }
         $accessDate = new DateTime();
         $this->accessTokensRepository->update($token, ['last_used_at' => $accessDate]);
