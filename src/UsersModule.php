@@ -29,6 +29,7 @@ use Nette\Application\Routers\RouteList;
 use Nette\DI\Container;
 use Nette\Security\User;
 use Symfony\Component\Console\Output\OutputInterface;
+use Tomaj\Hermes\Dispatcher;
 
 class UsersModule extends CrmModule
 {
@@ -58,6 +59,15 @@ class UsersModule extends CrmModule
             500
         );
     }
+
+    public function registerHermesHandlers(Dispatcher $dispatcher)
+    {
+        $dispatcher->registerHandler(
+            'user-token-usage',
+            $this->getInstance(\Crm\UsersModule\Hermes\UserTokenUsageHandler::class)
+        );
+    }
+
 
     public function registerAdminMenuItems(MenuContainerInterface $menuContainer)
     {
