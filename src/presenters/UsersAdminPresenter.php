@@ -210,6 +210,18 @@ class UsersAdminPresenter extends AdminPresenter
     {
     }
 
+    public function handleLogOut($userId)
+    {
+        $user = $this->usersRepository->find($userId);
+        if (!$user) {
+            throw new Nette\Application\BadRequestException();
+        }
+
+        $this->userManager->logoutUser($userId);
+        $this->presenter->flashMessage('Užívatel bol odhlásený na všetkých zariadeniach');
+        $this->redirect('show', $userId);
+    }
+
     public function createComponentUserForm()
     {
         $id = null;

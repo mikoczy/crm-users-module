@@ -181,6 +181,16 @@ class UserManager
         return true;
     }
 
+    /**
+     * @param $userId
+     *
+     * @return bool if user was log out at least on one device
+     */
+    public function logoutUser($userId): bool
+    {
+        return $this->accessTokensRepository->removeAllUserTokens($userId) > 0;
+    }
+
     public function suspiciousUser($email)
     {
         $user = $this->usersRepository->findBy('email', $email);
