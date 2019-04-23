@@ -11,59 +11,6 @@ menu:
 	cheaters: Podvodníci
 	admin_rights: Admin práva
 	actions_log: Záznamy akcí
-forms:
-	invoice:
-		label:
-			company_name: Název firmy
-			address: Adresa
-			number: Číslo
-			city: Město
-			zip: PSČ
-			ico: IČO
-			dic: DIČ
-			icdph: IČDPH
-			invoice_country_id: Země
-			send: Uložit
-			save: Uložit údaje
-		placeholder:
-			company_name: název firmy na faktuře
-			address: fakturační adresa
-			number: napište číslo domu
-			city: napište město
-			zip: napište PSČ
-			ico: "pokud nemáte, zadejte 0"
-			dic: "pokud nemáte, zadejte 0"
-			icdph: "pokud nemáte, zadejte 0"
-		required:
-			company_name: Název firmy musí být vyplněn
-			address: Adresa firmy musí být vyplněna
-			number: Číslo domu musí být vyplněno
-			city: Město musí být vyplněno
-			zip: PSČ musí být vyplněno
-			ico: IČO musí být vyplněno
-			dic: DIČ musí být vyplněno
-			icdph: IČDPH musí být vyplněno
-		options:
-			foreign_country: "Pro informace o doručení do zahraničí nás prosím kontaktujte na %contactEmail%"
-	printAddress:
-		label:
-			name: Jméno
-			last_name: Příjmení
-			phone_number: Tel. číslo
-			address: Ulice
-			number: Číslo domu
-			zip: PSČ
-			city: Město
-			country_id: Země
-			save: Uložit údaje
-		required:
-			name: Musíte vyplnit Vaše jméno
-			last_name: Musíte vyplnit Vaše příjmení
-			address: Musíte zadat ulici
-			number: Musíte zadat číslo domu
-			zip: Musíte zadať PSČ
-			city: Musíte zadat město
-			country_id: Musíte vybrat zeme
 
 frontend:
 	sign_in:
