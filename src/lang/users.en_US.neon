@@ -11,59 +11,6 @@ menu:
 	cheaters: Cheaters
 	admin_rights: Admin rights
 	actions_log: Actions log
-forms:
-	invoice:
-		label:
-			company_name: Company name
-			address: Address
-			number: Number
-			city: City
-			zip: ZIP
-			ico: Businness ID
-			dic: Tax ID
-			icdph: VAT number
-			invoice_country_id: Country
-			send: Save
-			save: Save
-		placeholder:
-			company_name: company name as writte on invoices
-			address: billing addresse
-			number: house number
-			city: fill your city
-			zip: fill your zip
-			ico: "if you don't have one enter 0"
-			dic: "if you don't have one enter 0"
-			icdph: "if you don't have one enter 0"
-		required:
-			company_name: Company name is required
-			address: Company address is required
-			number: House number is required
-			city: City is required
-			zip: ZIP is required
-			ico: Business ID is required
-			dic: Tax ID  is required
-			icdph: VAT number is required
-		options:
-			foreign_country: "For delivery to foreign countries please contact us through %contactEmail%"
-	printAddress:
-		label:
-			name: First name
-			last_name: Last name
-			phone_number: Phone number
-			address: Street
-			number: House number
-			zip: ZIP
-			city: City
-			country_id: Country
-			save: Save
-		required:
-			name: First name is required
-			last_name: Last name is required
-			address: Address is required
-			number: House number is required
-			zip: ZIP is required
-			city: City is required
-			country_id: You have to select country
 
 frontend:
 	sign_in:

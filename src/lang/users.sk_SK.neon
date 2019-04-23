@@ -11,59 +11,6 @@ menu:
 	cheaters: Podvádzači
 	admin_rights: Admin práva
 	actions_log: Záznamy akcií
-forms:
-	invoice:
-		label:
-			company_name: Názov firmy
-			address: Adresa
-			number: Číslo
-			city: Mesto
-			zip: PSČ
-			ico: IČO
-			dic: DIČ
-			icdph: IČDPH
-			invoice_country_id: Krajina
-			send: Uložiť
-			save: Uložiť údaje
-		placeholder:
-			company_name: názov firmy na faktúre
-			address: fakturačná adresa
-			number: napíšte číslo domu
-			city: napíšte mesto
-			zip: napíšte PSČ
-			ico: ak nemáte zadajte 0
-			dic: ak nemáte zadajte 0
-			icdph: ak nemáte zadajte 0
-		required:
-			company_name: Názov firmy musí byť vyplnený
-			address: Adresa firmy musí byť vyplnená
-			number: Číslo domu musí byť vyplnené
-			city: Mesto musí byť vyplnené
-			zip: PSČ musí byť vyplnené
-			ico: IČO musí byť vyplnené
-			dic: DIČ musí byť vyplnené
-			icdph: IČDPH musí byť vyplnené
-		options:
-			foreign_country: "Pre informácie o doručení do zahraničia nás, prosím, kontaktujte na %contactEmail%"
-	printAddress:
-		label:
-			name: Meno
-			last_name: Priezvisko
-			phone_number: Tel. číslo
-			address: Ulica
-			number: Číslo domu
-			zip: PSČ
-			city: Mesto
-			country_id: Krajina
-			save: Uložiť údaje
-		required:
-			name: Musíte vyplniť Vaše meno
-			last_name: Musíte vyplniť Vaše priezvisko
-			address: Musíte zadať ulicu
-			number: Musíte zadať číslo domu
-			zip: Musíte zadať PSČ
-			city: Musíte zadať mesto
-			country_id: Musíte zvoliť krajinu
 
 frontend:
 	sign_in:
