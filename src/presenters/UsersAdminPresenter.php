@@ -218,7 +218,7 @@ class UsersAdminPresenter extends AdminPresenter
         }
 
         $this->userManager->logoutUser($userId);
-        $this->presenter->flashMessage('Užívatel bol odhlásený na všetkých zariadeniach');
+        $this->presenter->flashMessage($this->translator->translate('users.admin.logout_user.all_devices'));
         $this->redirect('show', $userId);
     }
 

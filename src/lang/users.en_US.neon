@@ -278,6 +278,9 @@ admin:
 	delete_user:
 		deleted: User was deleted.
 
+	logout_user:
+		all_devices: 'The user has been logged out on all devices'
+
 	user_note_form:
 		note_updated: Note was changed
 		note:

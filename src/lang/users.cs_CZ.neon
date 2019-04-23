@@ -236,6 +236,9 @@ admin:
 		note:
 			placeholder: Sem můžete napsat poznámku
 
+	logout_user:
+		all_devices: 'Uživatel byl odhlášen na všech zařízeních'
+
 authenticator:
 	identity_not_found: Nesprávné jméno.
 	invalid_credentials: Heslo je nesprávné.

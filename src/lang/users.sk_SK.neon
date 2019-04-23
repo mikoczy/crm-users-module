@@ -278,6 +278,9 @@ admin:
 	delete_user:
 		deleted: Používateľ bol zmazaný.
 
+	logout_user:
+		all_devices: 'Užívatel bol odhlásený na všetkých zariadeniach'
+
 	user_note_form:
 		note_updated: Poznámka bola zmenená
 		note:
