@@ -188,6 +188,9 @@ class UserManager
      */
     public function logoutUser($userId): bool
     {
+        if (!$userId) {
+            return false;
+        }
         return $this->accessTokensRepository->removeAllUserTokens($userId) > 0;
     }
 
