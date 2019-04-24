@@ -182,25 +182,18 @@ class UserManager
     }
 
     /**
-     * @param $userId
+     * Log out user on all devices
+     * @param IRow $user
      *
-     * @return bool if user was log out at least on one device
+     * @return bool if user was logged out on at least one device
      */
-    public function logoutUser($userId): bool
+    public function logoutUser(IRow $user): bool
     {
-        if (!$userId) {
-            return false;
-        }
-        return $this->accessTokensRepository->removeAllUserTokens($userId) > 0;
+        return $this->accessTokensRepository->removeAllUserTokens($user->id) > 0;
     }
 
-    public function suspiciousUser($email)
+    public function suspiciousUser(IRow $user)
     {
-        $user = $this->usersRepository->findBy('email', $email);
-        if (!$user) {
-            return false;
-        }
-
         $oldPassword = $user->password;
 
         $password = $this->passwordGenerator->generatePassword();

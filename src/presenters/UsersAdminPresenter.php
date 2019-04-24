@@ -217,7 +217,7 @@ class UsersAdminPresenter extends AdminPresenter
             throw new Nette\Application\BadRequestException();
         }
 
-        $this->userManager->logoutUser($userId);
+        $this->userManager->logoutUser($user);
         $this->presenter->flashMessage($this->translator->translate('users.admin.logout_user.all_devices'));
         $this->redirect('show', $userId);
     }
@@ -364,7 +364,7 @@ class UsersAdminPresenter extends AdminPresenter
             throw new Nette\Application\BadRequestException();
         }
 
-        $this->userManager->suspiciousUser($user->email);
+        $this->userManager->suspiciousUser($user);
         $this->flashMessage("OK"); // todo preklady
         $this->redirect('show', $user->id);
     }
