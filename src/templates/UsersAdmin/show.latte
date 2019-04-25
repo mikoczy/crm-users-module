@@ -56,7 +56,8 @@
     <div class="panel {if $lastSuspicious}panel-danger{else}panel-default{/if}">
       <div class="panel-heading">User actions</div>
       <div class="panel-body">
-        <a n:href="Suspicious! $user->id" class="btn btn-default" onclick="return confirm('Are you sure?')">Suspicious account</a>
+        <a n:href="LogOut! $user->id" class="btn btn-danger" style="margin-bottom: 4px">Logout on all devices</a>
+        <a n:href="Suspicious! $user->id" class="btn btn-default" style="margin-bottom: 4px" onclick="return confirm('Are you sure?')">Suspicious account</a>
         {if $lastSuspicious}
           <p class="text-muted"><br>last market at: {$lastSuspicious->created_at}</p>
         {/if}
