@@ -6,7 +6,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <a n:href="default"><i class="fa fa-angle-left"></i> späť na zoznam</a>
+    <a n:href="default"><i class="fa fa-angle-left"></i> {_users.admin.show.back to list}</a>
     <div class="page-header">
       <h1>
         <small>[{$user->id}]</small>
@@ -14,7 +14,7 @@
         <span>{$user|userLabel|noescape}{if $user->supporter} - <span class="btn btn-success btn">podporovatel</span> {/if} {if $user->public_name} - {$user->public_name} {/if}</span>
 		<span n:if="$user->role === \Crm\UsersModule\Repository\UsersRepository::ROLE_ADMIN" class="label label-warning">admin</span>
 
-      	<a n:href="edit $user->id" class="btn btn-primary btn-lg pull-right"><i class="fa fa-edit"></i>  Upraviť používateľa</a>
+      	<a n:href="edit $user->id" class="btn btn-primary btn-lg pull-right"><i class="fa fa-edit"></i> {_users.admin.show.edit}</a>
       </h1>
     </div>
   </div>
@@ -33,33 +33,33 @@
 <div class="row">
   <div class="col-md-3">
     <div class="panel panel-default">
-      <div class="panel-heading">Skupiny</div>
+      <div class="panel-heading">{_users.admin.show.groups}</div>
       <div class="panel-body">
         {control userGroupsForm}
       </div>
     </div>
 
     <div class="panel panel-default">
-      <div class="panel-heading">Poznámka</div>
+      <div class="panel-heading">{_users.admin.show.note}</div>
       <div class="panel-body">
         {control userNoteForm}
       </div>
     </div>
 
     <div n:if="$user->role == \Crm\UsersModule\Repository\UsersRepository::ROLE_ADMIN && $canEditRoles" class="panel panel-danger">
-      <div class="panel-heading">Admin skupiny (práva)</div>
+      <div class="panel-heading">{_users.admin.show.admin_groups}</div>
       <div class="panel-body">
         {control adminUserGroupsForm}
       </div>
     </div>
 
     <div class="panel {if $lastSuspicious}panel-danger{else}panel-default{/if}">
-      <div class="panel-heading">User actions</div>
+      <div class="panel-heading">{_users.admin.show.user_actions}</div>
       <div class="panel-body">
-        <a n:href="LogOut! $user->id" class="btn btn-danger" style="margin-bottom: 4px">Logout on all devices</a>
-        <a n:href="Suspicious! $user->id" class="btn btn-default" style="margin-bottom: 4px" onclick="return confirm('Are you sure?')">Suspicious account</a>
+        <a n:href="LogOut! $user->id" class="btn btn-danger" style="margin-bottom: 4px">{_users.admin.show.log_out_devices}</a>
+        <a n:href="Suspicious! $user->id" class="btn btn-default" style="margin-bottom: 4px" onclick="return confirm('Are you sure?')">{_users.admin.show.suspicious}</a>
         {if $lastSuspicious}
-          <p class="text-muted"><br>last market at: {$lastSuspicious->created_at}</p>
+          <p class="text-muted"><br>{_users.admin.show.last_market_at}: {$lastSuspicious->created_at}</p>
         {/if}
       </div>
     </div>
@@ -70,37 +70,37 @@
 
   <div class="col-md-4">
     <div class="panel panel-default">
-      <div class="panel-heading">Základne info</div>
+      <div class="panel-heading">{_users.admin.show.basic_info}</div>
       <ul class="list-group">
         <li class="list-group-item">
-          <b>Email:</b> {$user->email}
+          <b>{_users.admin.show.email}:</b> {$user->email}
           {if $user->confirmed_at}
             <small class="text-muted">({$user->confirmed_at|userDate} <i class="fa fa-check"></i> )</small>
           {else}
-            <small class="text-danger">(NEPOTVRDENÝ <i class="fa fa-times"></i>)</small>
+            <small class="text-danger">({_users.admin.show.unconfirmed} <i class="fa fa-times"></i>)</small>
           {/if}
 
           <a href="mailto:{$user->email}" class="btn btn-default btn-xs pull-right"><i class="fa fa-envelope"></i></a>
         </li>
         <li class="list-group-item">
-          <b>Vytvorený:</b>
+          <b>{_users.admin.show.created_at}:</b>
           <span class="text-muted">
             {$user->created_at|userDate}
-            <small n:if="$user->created_at != $user->modified_at">(upravený {$user->modified_at|userDate})</small>
+            <small n:if="$user->created_at != $user->modified_at">({_users.admin.show.modified_at} {$user->modified_at|userDate})</small>
           </span>
         </li>
         <li class="list-group-item">
-          <b>Aktívny:</b> {$user->active|activelabel|noescape}
+          <b>{_users.admin.show.active}:</b> {$user->active|activelabel|noescape}
           {if $user->active}
-            <a n:href="ChangeActivation! $user->id" class="btn btn-warning btn-xs"><i class="fa fa-ban"></i> Deaktivuj</a>
+            <a n:href="ChangeActivation! $user->id" class="btn btn-warning btn-xs"><i class="fa fa-ban"></i> {_users.admin.show.deactivate}</a>
           {else}
-            <a n:href="ChangeActivation! $user->id" class="btn btn-success btn-xs"><i class="fa fa-check-circle"></i> Aktivuj</a>
+            <a n:href="ChangeActivation! $user->id" class="btn btn-success btn-xs"><i class="fa fa-check-circle"></i> {_users.admin.show.activate}</a>
           {/if}
         </li>
-        <li n:if="$user->ext_id" class="list-group-item"><b>External ID:</b> {$user->ext_id}</li>
-        <li class="list-group-item"><b>Source:</b> {$user->source}</li>
-        <li n:if="$user->sales_funnel_id" class="list-group-item"><b>Funnel:</b> <a n:href=":SalesFunnel:SalesFunnelsAdmin:show $user->sales_funnel_id">{$user->sales_funnel->name}</a></li>
-        <li n:if="$user->referer" class="list-group-item"><b>Referer:</b> <small class="text-muted"><a href="{$user->referer}" target="_blank">{$user->referer|truncate:70}</a></small></li>
+        <li n:if="$user->ext_id" class="list-group-item"><b>{_users.admin.show.external_id}:</b> {$user->ext_id}</li>
+        <li class="list-group-item"><b>{_users.admin.show.source}:</b> {$user->source}</li>
+        <li n:if="$user->sales_funnel_id" class="list-group-item"><b>{_users.admin.show.funnel}:</b> <a n:href=":SalesFunnel:SalesFunnelsAdmin:show $user->sales_funnel_id">{$user->sales_funnel->name}</a></li>
+        <li n:if="$user->referer" class="list-group-item"><b>{_users.admin.show.referer}:</b> <small class="text-muted"><a href="{$user->referer}" target="_blank">{$user->referer|truncate:70}</a></small></li>
       </ul>
     </div>
 
@@ -108,9 +108,8 @@
   </div>
 
   <div class="col-md-3">
-
     {if count($printAddresses) == 0}
-      <p class="well text-muted text-center">Žiadna adresa pre doručovanie</p>
+      <p class="well text-muted text-center">{_users.admin.show.no_print_address}</p>
     {/if}
 
     <div n:foreach="$printAddresses as $printAddress" class="panel panel-default">
@@ -126,15 +125,15 @@
 
     <div n:if="$invoiceAddress" class="panel panel-warning">
       <div class="panel-heading">
-        Fakturačná adresa <small class="text-muted">#{$invoiceAddress->id}</small>
+        {_users.admin.show.invoice_address} <small class="text-muted">#{$invoiceAddress->id}</small>
         <a n:href="AddressAdmin:edit $invoiceAddress->id" class="pull-right btn-default btn-xs"><i class="fa fa-edit"></i></a>
       </div>
       <div class="panel-body">
         {$invoiceAddress->company_name|breaklines}<br>
-        <b>IČO:</b> {$invoiceAddress->company_id}<br>
-        <b>DIČ:</b> {$invoiceAddress->company_tax_id}<br>
-        <b>IČDPH:</b> {$invoiceAddress->company_vat_id}<br>
-        <b>Adresa:</b>
+        <b>{_users.admin.show.company_id}:</b> {$invoiceAddress->company_id}<br>
+        <b>{_users.admin.show.company_tax_id}::</b> {$invoiceAddress->company_tax_id}<br>
+        <b>{_users.admin.show.company_vat_id}::</b> {$invoiceAddress->company_vat_id}<br>
+        <b>{_users.admin.show.address}::</b>
         {$invoiceAddress->address|breaklines|noescape} {$invoiceAddress->number}
         <br>
         {$invoiceAddress->zip} {$invoiceAddress->city}<br>
@@ -142,12 +141,12 @@
           {$invoiceAddress->country->name}
         {/if}
         <br>
-        <span n:if="$user->disable_auto_invoice" class="label label-danger">Vypnuté automatické generovanie faktúry</span>
+        <span n:if="$user->disable_auto_invoice" class="label label-danger">{_users.admin.show.disabled_auto_invoice}</span>
       </div>
     </div>
 
     <p class="text-center">
-      <a n:href="AddressAdmin:new userId => $user->id" class="btn btn-xs btn-default"><i class="fa fa-plus"></i> Pridaj adresu</a>
+      <a n:href="AddressAdmin:new userId => $user->id" class="btn btn-xs btn-default"><i class="fa fa-plus"></i> {_users.admin.show.add_address}</a>
     </p>
 
   </div>
@@ -157,19 +156,19 @@
     {control simpleWidget 'admin.user.detail.box', $user->id}
 
     <div class="panel panel-default">
-      <div class="panel-heading">Posledné prihlásenie</div>
+      <div class="panel-heading">{_users.admin.show.last_login}</div>
       <div class="panel-body">
         {if $user->last_sign_in_at}
           <b>{$user->last_sign_in_at|userDate}</b> / <code>{$user->last_sign_in_ip}</code>
         {else}
-          <p class="bg-warning">Zatiaľ nebol prihlásený</p>
+          <p class="bg-warning">{_users.admin.show.no_login}</p>
         {/if}
       </div>
     </div>
     <div n:if="!$user->deleted_at" class="panel panel-default">
-      <div class="panel-heading">Osobné údaje</div>
+      <div class="panel-heading">{_users.admin.show.personal_info}</div>
       <div class="panel-body">
-        <a n:href="deleteUser! $user->id" class="btn btn-warning" onclick="return confirm('Anonymizovanie používateľského konta je nezvratná akcia, po ktorej sa používateľ nebude môcť znovu prihlásiť a všetky osobné dáta budú zmazané. Naozaj pokračovať?')"><i class="fa fa-trash"></i> Anonymizovať používateľa</a>
+        <a n:href="deleteUser! $user->id" class="btn btn-warning" onclick="return confirm({_users.admin.show.anonymize_alert})"><i class="fa fa-trash"></i> {_users.admin.show.anonymize}</a>
       </div>
     </div>
   </div>

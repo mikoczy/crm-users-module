@@ -7,15 +7,16 @@ use Crm\UsersModule\Auth\Repository\AdminGroupsRepository;
 use Crm\UsersModule\Repository\UsersRepository;
 use Nette\Application\BadRequestException;
 use Nette\Application\UI\Form;
+use Nette\Localization\ITranslator;
 use Nette\Utils\DateTime;
 
 class AdminUserGroupFormFactory
 {
-    /** @var UsersRepository */
     protected $usersRepository;
 
-    /** @var  AdminGroupsRepository */
     protected $adminGroupsRepository;
+
+    protected $translator;
 
     public $onAddedUserToGroup;
 
@@ -25,10 +26,12 @@ class AdminUserGroupFormFactory
 
     public function __construct(
         UsersRepository $usersRepository,
-        AdminGroupsRepository $adminGroupsRepository
+        AdminGroupsRepository $adminGroupsRepository,
+        ITranslator $translator
     ) {
         $this->usersRepository = $usersRepository;
         $this->adminGroupsRepository = $adminGroupsRepository;
+        $this->translator = $translator;
     }
 
     /**
@@ -48,6 +51,7 @@ class AdminUserGroupFormFactory
         $form = new Form;
 
         $form->setRenderer(new BootstrapSmallInlineFormRenderer());
+        $form->setTranslator($this->translator);
         $form->addProtection();
 
         $userGroups = $user->related('admin_user_groups');
@@ -81,13 +85,13 @@ class AdminUserGroupFormFactory
 
         if (count($groupsArray) > 0) {
             $form->addSelect('group_id', '', $groupsArray)
-                ->setPrompt('Vyberte skupinu');
+                ->setPrompt('users.form.admin_user_group.group_id.prompt');
 
-            $form->addSubmit('send', 'Ulož')
+            $form->addSubmit('send', 'users.form.admin_user_group.send')
                 ->setAttribute('class', 'btn btn-primary')
                 ->getControlPrototype()
                 ->setName('button')
-                ->setHtml('<i class="fa fa-save"></i> Pridaj');
+                ->setHtml('<i class="fa fa-save"></i> ' . $this->translator->translate('users.form.admin_user_group.send'));
         }
 
         $form->addHidden('user_id', $userId);
@@ -101,18 +105,18 @@ class AdminUserGroupFormFactory
     public function formSucceeded($form, $values)
     {
         if (!$this->authorize->__invoke()) {
-            $form->addError('Na editáciu admin skupín nemáte dostatočné práva');
+            $form->addError('users.form.admin_user_group.error.insufficient_rights');
             return;
         }
 
         $group = $this->adminGroupsRepository->find($values['group_id']);
         if (!$group) {
-            $form['group_id']->addError('Neexistujuca skupina');
+            $form['group_id']->addError('users.form.admin_user_group.error.no_group');
             return;
         }
         $user = $this->usersRepository->find($values['user_id']);
         if (!$user) {
-            $form['user_id']->addError('Neexistujuci pouzivatel');
+            $form['user_id']->addError('users.form.admin_user_group.error.no_user');
             return;
         }
 

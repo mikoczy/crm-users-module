@@ -180,6 +180,56 @@ admin:
 		submit: Ulož
 		user_created:  Uživatel byl vytvořen.
 		user_updated: Uživatel byl aktualizován.
+
+	login_attempts:
+		title: Pokusy o přihlášení
+		total: celkově
+		filtered: vyfiltrované
+		email: E-mail
+		status: Stav přihlášení
+		source: Zdroj
+		attempt_time: Čas pokusu
+		user_agent: Prohlížeč
+		message: Zpráva
+		no_records: 'Nebyly nalezeny žádné záznamy, které by odpovídaly filtru'
+		today: Dnes
+
+	show:
+		back_to_list: zpět na seznam
+		edit: Upravit uživatele
+		groups: Skupiny
+		note: Poznámka
+		admin_groups: "Admin skupiny (práva)"
+		user_actions: Akce nad uživatelem
+		log_out_devices: Odhlásit na všech zařízeních
+		suspicious: Podezřelé konto
+		last_market_at: Naposledy kontaktován
+		basic_info: Základní info
+		email: E-mail
+		unconfirmed: Nepotvrzený
+		created_at: Vytvořený
+		modified_at: Upravený
+		active: Aktivní
+		deactivate: Deaktivuj
+		activate: Aktivuj
+		external_id: Externí ID
+		source: Zdroj
+		funnel: Funnel při registraci
+		referer: Referer při registraci
+		no_print_address: Žádná adresa pro doručování
+		invoice_address: Fakturační adresa
+		add_address: Přidej adresu
+		disabled_auto_invoice: Vypnuté automatické generování faktury
+		last_login: Poslední přihlášení
+		no_login: Zatím nebyl přihlášen
+		personal_info: Osobní údaje
+		anonymize_alert: "Anonymizace uživatelského účtu je nevratná akce, po níž se uživatel nebude moci znovu přihlásit a všechny osobní data budou smazány. Opravdu pokračovat?"
+		anonymize: Anonymizace uživatele
+		company_id: IČO
+		company_tax_id: DIČ
+		company_vat_id: IČDPH
+		address: Adresa
+
 	user_note_form:
 		note_updated: Poznámka byla změněna
 		note:
@@ -208,3 +258,32 @@ api:
 	users_login_handler:
 		identity_not_found: "Zadaný e-mail se neshoduje s našimi záznamy. Přihlaste se, prosím, stejně jako na webu Deníku N."
 		invalid_credentials: "Zadané heslo se neshoduje s našimi záznamy. Přihlaste se, prosím, stejně jako na webu Deníku N."
+
+form:
+	admin_user_group:
+		group_id:
+			prompt: Vyberte skupinu
+		send: Přidej
+		error:
+			insufficient_rights: Na úpravu admin skupin nemáte dostatečná práva
+			no_group: Vybraná skupina neexistuje
+			no_user: Vybraný uživatel neexistuje
+
+component:
+	user_login_attempts:
+		title: Poslední přihlášení
+		today: Dnes
+		no_record_heading: Žádný záznam
+		no_record: "Vypadá to tak, že tento uživatel se zatím nepokoušel do systému přihlásit."
+		total_stats: Celkové statistiky
+		ip_count: Počet IP
+		browser_count: Počet prohlížečů
+		web_logins: Přihlášení přes web
+		mobile_app_logins: "Mobilní přihlášení (aplikace)"
+		last_access_by_source: Poslední přístup podle zdroje
+		status: Stav
+		attempted_at: Čas přihlášení
+		source: Zdroj
+		message: Popis
+		ip_address: IP
+		user_agent: Prohlížeč / Referer

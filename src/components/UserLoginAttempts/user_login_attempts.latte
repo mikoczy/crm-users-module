@@ -1,41 +1,41 @@
 {if $totalSignInAttempts == 0}
   <div class="bs-callout bs-callout-info">
-    <h4>Žiaden záznam</h4>
-    <p class="lead">Vyzerá to tak, že tento používateľ sa zatiaľ nepokúšal do systému prihlásiť.</p>
+    <h4>{_users.component.user_login_attempts.no_record_heading}</h4>
+    <p class="lead">users.component.user_login_attempts.no_record</p>
   </div>
 {else}
 
   <div class="row" style="margin-top:30px">
     <div class="col-md-3">
       <div class="panel panel-default">
-        <div class="panel-heading">Celkové štatistiky</div>
+        <div class="panel-heading">{_users.component.user_login_attempts.total_stats}</div>
         <ul class="list-group">
-          <li class="list-group-item">Počet IP: <span class="badge">{$totalUserIps}</span></li>
-          <li class="list-group-item">Počet prehliadačov: <span class="badge">{$totalUserAgents}</span></li>
+          <li class="list-group-item">{_users.component.user_login_attempts.ip_count}: <span class="badge">{$totalUserIps}</span></li>
+          <li class="list-group-item">{_users.component.user_login_attempts.browser_count}: <span class="badge">{$totalUserAgents}</span></li>
         </ul>
       </div>
     </div>
     <div class="col-md-3">
       <div class="panel panel-default">
-        <div class="panel-heading">Prilhásenia cez web</div>
+        <div class="panel-heading">{_users.component.user_login_attempts.web_logins}</div>
         <ul class="list-group">
-          <li class="list-group-item">Počet IP: <span class="badge">{$webUserIps}</span></li>
-          <li class="list-group-item">Počet prehliadačov: <span class="badge">{$webUserAgents}</span></li>
+          <li class="list-group-item">{_users.component.user_login_attempts.ip_count}: <span class="badge">{$webUserIps}</span></li>
+          <li class="list-group-item">{_users.component.user_login_attempts.browser_count}: <span class="badge">{$webUserAgents}</span></li>
         </ul>
       </div>
     </div>
     <div class="col-md-3">
       <div class="panel panel-default">
-        <div class="panel-heading">Mobilné prihlásenia (aplikácie)</div>
+        <div class="panel-heading">{_users.component.user_login_attempts.mobile_app_logins}</div>
         <ul class="list-group">
-          <li class="list-group-item">Počet IP: <span class="badge">{$mobileUserIps}</span></li>
-          <li class="list-group-item">Počet prehliadačov: <span class="badge">{$mobileUserAgents}</span></li>
+          <li class="list-group-item">{_users.component.user_login_attempts.ip_count}: <span class="badge">{$mobileUserIps}</span></li>
+          <li class="list-group-item">{_users.component.user_login_attempts.browser_count}: <span class="badge">{$mobileUserAgents}</span></li>
         </ul>
       </div>
     </div>
     <div class="col-md-3">
       <div class="panel panel-default">
-        <div class="panel-heading">Posledný prístup podľa zdroja</div>
+        <div class="panel-heading">{_users.component.user_login_attempts.last_access_by_source}</div>
         <ul class="list-group">
           <li n:foreach="$userSourceAccesses as $userSourceAccess" class="list-group-item">
             <span class="badge">{$userSourceAccess->source}</span> {$userSourceAccess->last_accessed_at}
@@ -49,12 +49,14 @@
     <div class="col-md-12">
       <table class="table table-striped table-hover">
         <thead>
-          <th>Stav</th>
-          <th>Čas príhlasenia</th>
-          <th>Zdroj</th>
-          <th>Popis</th>
-          <th>IP</th>
-          <th>Prehliadač / Referer</th>
+          <tr>
+            <th>{_users.component.user_login_attempts.status}</th>
+            <th>{_users.component.user_login_attempts.attempted_at}</th>
+            <th>{_users.component.user_login_attempts.source}</th>
+            <th>{_users.component.user_login_attempts.message}</th>
+            <th>{_users.component.user_login_attempts.ip_address}</th>
+            <th>{_users.component.user_login_attempts.user_agent}</th>
+          </tr>
         </thead>
         <tbody>
           <tr n:foreach="$lastSignInAttempts as $attempt">

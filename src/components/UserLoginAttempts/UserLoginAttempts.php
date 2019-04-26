@@ -6,6 +6,7 @@ use Crm\ApiModule\Repository\UserSourceAccessesRepository;
 use Crm\ApplicationModule\Widget\WidgetInterface;
 use Crm\UsersModule\Repository\LoginAttemptsRepository;
 use Nette\Application\UI\Control;
+use Nette\Localization\ITranslator;
 use Nette\Utils\DateTime;
 
 class UserLoginAttempts extends Control implements WidgetInterface
@@ -16,18 +17,22 @@ class UserLoginAttempts extends Control implements WidgetInterface
 
     private $userSourceAccessesRepository;
 
+    private $translator;
+
     public function __construct(
         LoginAttemptsRepository $loginAttemptsRepository,
-        UserSourceAccessesRepository $userSourceAccessesRepository
+        UserSourceAccessesRepository $userSourceAccessesRepository,
+        ITranslator $translator
     ) {
         parent::__construct();
         $this->loginAttemptsRepository = $loginAttemptsRepository;
         $this->userSourceAccessesRepository = $userSourceAccessesRepository;
+        $this->translator = $translator;
     }
 
     public function header($id = '')
     {
-        $header = 'Posledné prihlásenia';
+        $header = $this->translator->translate('users.component.user_login_attempts.title');
         if ($id) {
             $header .= ' <small>(' . $this->totalCount($id) . ')</small>';
         }
@@ -37,7 +42,7 @@ class UserLoginAttempts extends Control implements WidgetInterface
             'status' => $this->loginAttemptsRepository->okStatuses(),
         ])->count('*');
         if ($today) {
-            $header .= ' <span class="label label-warning">Dnes</span>';
+            $header .= ' <span class="label label-warning">' . $this->translator->translate('users.component.user_login_attempts.today') . '</span>';
         }
 
         return $header;

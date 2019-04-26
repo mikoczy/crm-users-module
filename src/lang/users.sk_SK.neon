@@ -160,6 +160,42 @@ admin:
 		admin: admin
 		no_results: 'Nenašli sa žiadne záznamy, ktoré by zodpovedali filtru'
 
+	show:
+		back_to_list: späť na zoznam
+		edit: Upraviť používateľa
+		groups: Skupiny
+		note: Poznámka
+		admin_groups: "Admin skupiny (práva)"
+		user_actions: Akcie nad používateľom
+		log_out_devices: Odhlásiť na všetkých zariadeniach
+		suspicious: Podozrivé konto
+		last_market_at: Naposledy kontaktovaný
+		basic_info: Základné info
+		email: E-mail
+		unconfirmed: Nepotvrdený
+		created_at: Vytvorený
+		modified_at: upravený
+		active: Aktívny
+		deactivate: Deaktivuj
+		activate: Aktivuj
+		external_id: Externé ID
+		source: Zdroj
+		funnel: Funnel pri registrácií
+		referer: Referer pri registrácií
+		no_print_address: Žiadna adresa pre doručovanie
+		invoice_address: Fakturačná adresa
+		add_address: Pridaj adresu
+		disabled_auto_invoice: Vypnuté automatické generovanie faktúry
+		last_login: Posledné prihlásenie
+		no_login: Zatiaľ nebol prihlásený
+		personal_info: Osobné údaje
+		anonymize_alert: "Anonymizácia používateľského konta je nezvratná akcia, po ktorej sa používateľ nebude môcť znovu prihlásiť a všetky osobné dáta budú zmazané. Naozaj pokračovať?"
+		anonymize: Anonymizácia používateľa
+		company_id: IČO
+		company_tax_id: DIČ
+		company_vat_id: IČDPH
+		address: Adresa
+
 	edit:
 		edit_user: Úprava používateľa
 		back_to_detail: späť na záznam
@@ -273,7 +309,6 @@ admin:
 		attempt_time: Čas pokusu
 		user_agent: Prehliadač
 		message: Správa
-		no_records: 'Nenašli sa žiadne záznamy, ktoré by zodpovedali filtru'
 
 	login_attempts_form:
 		email:
@@ -372,3 +407,32 @@ api:
 	users_login_handler:
 		identity_not_found: "Zadaný e-mail sa nezhoduje s našimi záznamami. Prihláste sa, prosím, tak, ako na webe Denníka N."
 		invalid_credentials: "Zadané heslo sa nezhoduje s našimi záznamami. Prihláste sa, prosím, tak, ako na webe Denníka N."
+
+form:
+	admin_user_group:
+		group_id:
+			prompt: Vyberte skupinu
+		send: Pridaj
+		error:
+			insufficient_rights: Na úpravu admin skupín nemáte dostatočné práva
+			no_group: Vybraná skupina neexistuje
+			no_user: Vybraný používateľ neexistuje
+
+component:
+	user_login_attempts:
+		title: Posledné prihlásenia
+		today: Dnes
+		no_record_heading: Žiaden záznam
+		no_record: "Vyzerá to tak, že tento používateľ sa zatiaľ nepokúšal do systému prihlásiť."
+		total_stats: Celkové štatistiky
+		ip_count: Počet IP
+		browser_count: Počet prehliadačov
+		web_logins: Prihlásenia cez web
+		mobile_app_logins: "Mobilné prihlásenia (aplikácie)"
+		last_access_by_source: Posledný prístup podľa zdroja
+		status: Stav
+		attempted_at: Čas príhlasenia
+		source: Zdroj
+		message: Popis
+		ip_address: IP
+		user_agent: Prehliadač / Referer

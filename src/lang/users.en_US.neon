@@ -160,6 +160,42 @@ admin:
 		admin: Admin
 		no_results: 'No records found. Please alter your filter'
 
+	show:
+		back_to_list: back to list
+		edit: Edit user
+		groups: Groups
+		note: Note
+		admin_groups: "Admin groups (access rights)"
+		user_actions: User actions
+		log_out_devices: Log out on all devices
+		suspicious: Suspicious account
+		last_market_at: Last market at
+		basic_info: Basic info
+		email: E-mail
+		unconfirmed: Unconfirmed
+		created_at: Created at
+		modified_at: Updated at
+		active: Active
+		deactivate: Deactivate
+		activate: Activate
+		external_id: External ID
+		source: Source
+		funnel: Registration funnel
+		referer: Registration referer
+		no_print_address: No delivery address
+		invoice_address: Invoice address
+		add_address: Add address
+		disabled_auto_invoice: Automatic invoice generation is disabled
+		last_login: Last login
+		no_login: No login record yet
+		personal_info: Personal info
+		anonymize_alert: "Anonymization of user account is irreversible. User won't be able to log in again and all personal data will be erased. Do you really want to proceed?"
+		anonymize: Anonymize user
+		company_id: Company ID
+		company_tax_id: Tax ID
+		company_vat_id: VAT ID
+		address: Address
+
 	edit:
 		edit_user: Edit user
 		back_to_detail: back to detail
@@ -372,3 +408,32 @@ api:
 	users_login_handler:
 		identity_not_found: "Email you entered doesn't match our records. Please log in as you would on Dennik N website."
 		invalid_credentials: "Password you entered doesn't match our records. Please log in as you would on Dennik N website."
+
+form:
+	admin_user_group:
+		group_id:
+			prompt: Select group
+		send: Add
+		error:
+			insufficient_rights: Insufficient rights for group manipulation
+			no_group: Selected group doesn't exist
+			no_user: Selected user doesn't exist
+
+component:
+	user_login_attempts:
+		title: Last login attempts
+		today: Today
+		no_record_heading: No record
+		no_record: "It seems that this user haven't logged into the system yet."
+		total_stats: Total stats
+		ip_count: Number of IPs
+		browser_count: Number of browsers
+		web_logins: Web logins
+		mobile_app_logins: Mobile app logins
+		last_access_by_source: Last access by source
+		status: Status
+		attempted_at: Attempted at
+		source: Source
+		message: Message
+		ip_address: IP
+		user_agent: Browser / Referer
