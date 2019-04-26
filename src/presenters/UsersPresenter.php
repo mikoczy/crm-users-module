@@ -105,7 +105,7 @@ class UsersPresenter extends FrontendPresenter
     {
         $form = $this->changePasswordFormFactory->create($this->getUser());
         $this->changePasswordFormFactory->onSuccess = function () {
-            $this->flashMessage('Heslo bolo úspešne zmenené');
+            $this->flashMessage($this->translator->translate('users.frontend.change_password.success'));
             $this->redirect($this->homeRoute);
         };
         return $form;
@@ -172,7 +172,7 @@ class UsersPresenter extends FrontendPresenter
 
         $this->userDeleteFormFactory->onSuccess = function () {
             $this->getUser()->logout(true);
-            $this->flashMessage('Vaše konto bolo zmazané.');
+            $this->flashMessage($this->translator->translate('users.frontend.settings.account_delete.success'));
             $this->redirect(':Users:Sign:In');
         };
 

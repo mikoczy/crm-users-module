@@ -47,6 +47,7 @@ frontend:
 		errors:
 			could_not_authenticate: Nepodařilo se ověřit Vaše přihlášení.
 			invalid_credentials: Nesprávné heslo.
+		success: Vaše heslo bylo úspěšně změněno.
 	address:
 		type:
 			label: Typ adresy
@@ -134,6 +135,7 @@ frontend:
 			invalid_password: Nesprávné heslo
 			cannot_delete: Uživatele nelze smazat. Kontaktuje prosím zákaznickou podporu.
 			confirm: Smazání uživatelského účtu je nevratná akce. Pokračovat?
+			success: Vaše konto bylo smazáno.
 
 admin:
 	user_form:

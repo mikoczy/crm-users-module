@@ -35,25 +35,26 @@ class ChangePasswordFormFactory
         $this->user = $user;
 
         $form->setRenderer(new BootstrapRenderer());
+        $form->setTranslator($this->translator);
         $form->addProtection();
 
-        $form->addPassword('actual_password', $this->translator->translate('users.frontend.change_password.actual_password.label'))
+        $form->addPassword('actual_password', 'users.frontend.change_password.actual_password.label')
             ->setAttribute('autofocus')
-            ->setRequired($this->translator->translate('users.frontend.change_password.actual_password.required'))
-            ->setAttribute('placeholder', $this->translator->translate('users.frontend.change_password.actual_password.placeholder'));
+            ->setRequired('users.frontend.change_password.actual_password.required')
+            ->setAttribute('placeholder', 'users.frontend.change_password.actual_password.placeholder');
 
-        $form->addPassword('new_password', $this->translator->translate('users.frontend.change_password.new_password.label'))
-            ->setRequired($this->translator->translate('users.frontend.change_password.new_password.required'))
-            ->setAttribute('placeholder', $this->translator->translate('users.frontend.change_password.new_password.placeholder'))
-            ->addRule(Form::MIN_LENGTH, $this->translator->translate('users.frontend.change_password.new_password.minlength'), 6);
+        $form->addPassword('new_password', 'users.frontend.change_password.new_password.label')
+            ->setRequired('users.frontend.change_password.new_password.required')
+            ->setAttribute('placeholder', 'users.frontend.change_password.new_password.placeholder')
+            ->addRule(Form::MIN_LENGTH, 'users.frontend.change_password.new_password.minlength', 6);
 
-        $form->addPassword('new_password_confirm', $this->translator->translate('users.frontend.change_password.new_password_confirm.label'))
-            ->setRequired($this->translator->translate('users.frontend.change_password.new_password_confirm.required'))
-            ->addRule(Form::EQUAL, $this->translator->translate('users.frontend.change_password.new_password_confirm.not_matching'), $form['new_password'])
-            ->setAttribute('placeholder', $this->translator->translate('users.frontend.change_password.new_password_confirm.placeholder'))
-            ->setOption('description', $this->translator->translate('users.frontend.change_password.new_password_confirm.description'));
+        $form->addPassword('new_password_confirm', 'users.frontend.change_password.new_password_confirm.label')
+            ->setRequired('users.frontend.change_password.new_password_confirm.required')
+            ->addRule(Form::EQUAL, 'users.frontend.change_password.new_password_confirm.not_matching', $form['new_password'])
+            ->setAttribute('placeholder', 'users.frontend.change_password.new_password_confirm.placeholder')
+            ->setOption('description', 'users.frontend.change_password.new_password_confirm.description');
 
-        $form->addSubmit('send', $this->translator->translate('users.frontend.change_password.submit'));
+        $form->addSubmit('send', 'users.frontend.change_password.submit');
 
         $form->onSuccess[] = [$this, 'formSucceeded'];
         return $form;
@@ -62,7 +63,7 @@ class ChangePasswordFormFactory
     public function formSucceeded($form, $values)
     {
         if (!$this->user->isLoggedIn()) {
-            $form['actual_password']->addError($this->translator->translate('users.frontend.change_password.errors.could_not_authenticate'));
+            $form['actual_password']->addError('users.frontend.change_password.errors.could_not_authenticate');
             return false;
         }
 
@@ -73,7 +74,7 @@ class ChangePasswordFormFactory
         );
 
         if (!$result) {
-            $form['actual_password']->addError($this->translator->translate('users.frontend.change_password.errors.invalid_credentials'));
+            $form['actual_password']->addError('users.frontend.change_password.errors.invalid_credentials');
         } else {
             // send email
             $this->onSuccess->__invoke();

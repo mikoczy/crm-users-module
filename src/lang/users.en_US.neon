@@ -47,6 +47,7 @@ frontend:
 		errors:
 			could_not_authenticate: We coudn't verify your credentials.
 			invalid_credentials: Invalid password.
+		success: Password was successfully changed.
 	address:
 		type:
 			label: Address type
@@ -134,6 +135,7 @@ frontend:
 			invalid_password: Invalid password
 			cannot_delete: Account cannot be deleted automatically. Please contact customer support.
 			confirm: Deleting the account is irreversible. Are you sure you want to proceed?
+			success: Your account was deleted.
 
 admin:
 	actions:
